@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index');
-Route::post('/add' , 'AddController@show');
+Route::post('/add' , 'SocietyController@add');
 
 // Route::get('/lala', 'PagesController@goto');

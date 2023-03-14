@@ -56,7 +56,7 @@
 								<input type="text" class="form-control"  name="fisc" placeholder="999 999 999">
 							</div>
 							<div class="col-lg-5 offset-1">
-								<input type="file" class="form-control form-control-file "  name="fisc" id="">
+								<input type="file" class="form-control form-control-file "  name="fisc-image" id="">
 							</div>
 						</div>
 					</div>
