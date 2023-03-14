@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AddController extends Controller{
-
-    public function show(Request $request){
+class SocietyController extends Controller
+{
+    public function store(Request $request){
         $request->validate([
             'name' => ['required' , 'max:250'],
             'localisation' => ['required'],
@@ -42,5 +42,4 @@ class AddController extends Controller{
         $data['numero'] = trim($request->input('numero'));
         return $data;
     }
-
 }
