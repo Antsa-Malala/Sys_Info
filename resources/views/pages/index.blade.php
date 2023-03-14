@@ -14,7 +14,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" class="form-control" name="name">
+							<input type="text" class="form-control" value="A" name="name">
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -23,7 +23,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" class="form-control" name="localisation">
+							<input type="text" class="form-control" value="B" name="localisation">
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -53,7 +53,7 @@
 						<div class="col-lg-9 d-flex">
 							@csrf
 							<div class="col-lg-3">
-								<input type="text" class="form-control"  name="fisc" placeholder="999 999 999">
+								<input type="text" class="form-control"  value="999" name="fisc" placeholder="999 999 999">
 							</div>
 							<div class="col-lg-5 offset-1">
 								<input type="file" class="form-control form-control-file "  name="fisc-image" id="">
@@ -66,7 +66,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" name="pdg" class="form-control">
+							<input type="text" name="pdg" class="form-control" value="F">
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -75,7 +75,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" name="siege" class="form-control">
+							<input type="text" name="siege" class="form-control" value="O">
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -84,7 +84,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" name="quoi" class="form-control">
+							<input type="text" name="quoi" class="form-control" value="P">
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -93,7 +93,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="date" name="creation" class="form-control">
+							<input type="date" name="creation" class="form-control" />
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -120,7 +120,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" placeholder="Numéro" name="numero" class="form-control">
+							<input type="text" placeholder="Numéro" name="numero" value="ZER" class="form-control">
 						</div>
 
 					</div>
@@ -130,7 +130,7 @@
 						</div>
 						<div class="col-lg-6">	
 							@csrf
-							<input type="text" placeholder="Télécopie" name="telecopie" class="form-control">
+							<input type="text" placeholder="Télécopie" name="telecopie" value="ERT" class="form-control">
 						</div>
 						
 					</div>

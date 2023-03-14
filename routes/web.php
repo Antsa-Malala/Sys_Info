@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\PagesController;
+use App\Http\Controllers\SocietyControler;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index');
-Route::post('/add' , 'SocietyController@add');
+Route::post('/add' , 'SocietyController@store');
 
 // Route::get('/lala', 'PagesController@goto');
