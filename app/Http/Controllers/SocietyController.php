@@ -56,4 +56,11 @@ class SocietyController extends Controller
         $data['telephone'] = trim($request->input('numero'));
         return $data;
     }
+
+    public function seeProfile(){
+        $id = 1;
+        $society = Society::find($id);
+        // Azoko ilay société
+        $locations = Location::where('idsociety' , $id); 
+    }
 }

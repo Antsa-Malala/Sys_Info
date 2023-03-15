@@ -11,7 +11,7 @@
     <div class="super">
         <div class="formulaire">
             <h1 class="title">Welcome to IKOPPEN IT</h1>
-            <form action="login.php" method="POST">
+            <form action="/login" method="POST">
                 <div class="input">
                     <input type="text" name="username" placeholder="Username">
                 </div>
@@ -21,11 +21,11 @@
                 <div class="input">
                     <input type="submit" value="Ok" class="btn dark">
                 </div>
-                <h3 class="account">Don't have account <a href="#">Sign up</a></h3>
+                <h3 class="account"><a href="/inscription">Ajouter une société</a></h3>
             </form>
         </div>
         <div class="bg-gradient">
-            <img src="../système d'information/assets/img/logo-white.png" alt="">
+            <img src="{{URL::asset('/assets/img/logo-white.png')}}" alt="">
         </div>
     </div>
 </body>
