@@ -13,11 +13,13 @@ class Location extends Model
     protected $primaryKey = "idlocation";
     public $timestamps = false;
 
-    public function __construct($data){
+    public function __construct($idsociety = '' , $localisation = '', $primaire = false ){
         parent::__construct();
-        $this->setIdSociety($data['idsociety']);
-        $this->setLocalisation($data['localisation']);
-        $this->setPrimaire($data['primaire']);
+        if( !empty($idsociety) && !empty($localisation) ){
+            $this->setIdSociety($idsociety);
+            $this->setLocalisation($localisation);
+            $this->setPrimaire($primaire);
+        }
     }
 
     public function setIdSociety($id){

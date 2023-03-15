@@ -8,28 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Society extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
-            'nom' , 'creation' , 'fondateur' , 'nif' , 'logo' , 
+            'idsociety' , 'nom' , 'creation' , 'fondateur' , 'nif' , 'logo' , 
             'date_exercice' , 'status' , 'telecopie', 'telephone', 'desciption' , 'nifpath'
     ];
     protected $table = "society";
     protected $primaryKey = "idsociety";
     public $incrementing = true;
-    public $timestamps=false;
 
-    public function __construct( $data ){
+    public function __construct( $data = null  ){
         parent::__construct();
-        $this->setNom( $data['name'] );
-        $this->setCreation( $data['creation'] );
-        $this->setFiscImage( $data['nif-image'] );
-        $this->setFisc( $data['nif'] );
-        $this->setStatus( $data['status'] );
-        $this->setFondateur( $data['fondateur'] );
-        $this->setLogo( $data['logo'] );
-        $this->setDateExercice( $data['date_exercice'] );
-        $this->setTelecopie( $data['telecopie'] );
-        $this->setTelephonie( $data['telephone'] );
-        $this->setDescription( $data['description'] );    
+        if($data != null){
+            $this->setNom( $data['name'] );
+            $this->setCreation( $data['creation'] );
+            $this->setFiscImage( $data['nif-image'] );
+            $this->setFisc( $data['nif'] );
+            $this->setStatus( $data['status'] );
+            $this->setFondateur( $data['fondateur'] );
+            $this->setLogo( $data['logo'] );
+            $this->setDateExercice( $data['date_exercice'] );
+            $this->setTelecopie( $data['telecopie'] );
+            $this->setTelephonie( $data['telephone'] );
+            $this->setDescription( $data['description'] );
+        }
     }
 
     public function setNom($nom){

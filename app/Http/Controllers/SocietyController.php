@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Society;
+use App\Models\Location;
 class SocietyController extends Controller
 {
     public function store(Request $request){
@@ -23,11 +24,15 @@ class SocietyController extends Controller
         $society = new Society($data);
 
         if( $society->save() ){
-            $s = $society::latest()->first();
+            $s = Society::orderBy('idsociety' , 'desc')->first();
             $data['title'] = 'Usine '.$data['name'];
-            $data['idsociety'] = $s->id;
-            var_dump($data);
-            // return redirect('/');
+            $data['idsociety'] = $s->idsociety;
+            $location = new Location($s->idsociety , $data['localisation'] , true); 
+            $location2 = new Location($idsociety = $s->idsociety , $localisation = $data['siege'] );
+
+            if( $location->save() && $location2->save() ){
+                return redirect('/')->with($data);
+            }
         }
     }
 

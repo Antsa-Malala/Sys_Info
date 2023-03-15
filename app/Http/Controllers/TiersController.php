@@ -2,29 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+use App\Models\Tier;
 
 class TiersController extends Controller
 {
-    // Inona no atao ato
-    // Mila manao crud ato
-    public function index(){
-        return 1;
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): Response
+    {
+        // // Makany any amin'ny liste
     }
 
-    public function delete(string $id){
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): Response
+    {
+        // Makany any amin'ny add
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        // Eto no manantso modele amin'izay
+        $tier = new Tier( trim($request->input('idcompte')) , trim($request->input('nom')) , trim($request->input('libelle')));
+        if( $tier->save() ){
+            return redirect('/tiers');
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id): Response
+    {
+        //
+        $tier = Tier::find($id);
         return 2;
     }
 
-    public function update( string $id , Request $request ){
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id): Response
+    {
+        //
+        $tier = Tier::find($id);
         return 3;
     }
 
-    public function create( Request $request ){
-        return 4;
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id): RedirectResponse
+    {
+        //
+        $row = Tier::find($id);
+        $row->modify( trim($request->input('idcompte')) , trim($request->input('nom')) , trim($request->input('libelle')) );
+        if( $row->save() ){
+            return redirect('/tiers');
+        }
     }
 
-    public function get(string $id){
-        return 5;
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id): RedirectResponse
+    {
+        $tier = Tier::find($id);
+        if( $tier->delete() ){
+            return redirect('/tiers');
+        }
     }
 }

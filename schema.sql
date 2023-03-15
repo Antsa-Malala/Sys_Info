@@ -60,5 +60,5 @@ create table tiers(
 
 create table journaux(
 	code varchar(10) not null primary key,
-	libelle varchar(150),
+	libelle varchar(150)
 );

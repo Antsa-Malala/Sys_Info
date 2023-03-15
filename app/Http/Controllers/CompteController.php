@@ -6,6 +6,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use App\Models\Compte;
+
 class CompteController extends Controller
 {
     /**
@@ -30,6 +32,10 @@ class CompteController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
+        $compte = new Compte( trim($request->input('numero')) , trim($request->input('libelle')) );
+        if( $compte->save() ){
+            return redirect('/comptes');
+        }
     }
 
     /**
@@ -38,6 +44,7 @@ class CompteController extends Controller
     public function show(string $id): Response
     {
         //
+        $compte = Compte::find($id);
     }
 
     /**
@@ -54,6 +61,11 @@ class CompteController extends Controller
     public function update(Request $request, string $id): RedirectResponse
     {
         //
+        $row = Compte::find($id);
+        $row->modify( trim($request->input('numero')) , trim($request->input('libelle')) );
+        if( $row->save() ){
+            return redirect('/comptes');
+        }
     }
 
     /**
@@ -62,5 +74,9 @@ class CompteController extends Controller
     public function destroy(string $id): RedirectResponse
     {
         //
+        $row = Compte::find($id);
+        if( $row->delete() ){
+            return redirect('/comptes');
+        }
     }
 }
