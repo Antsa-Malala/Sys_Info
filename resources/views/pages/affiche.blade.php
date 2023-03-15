@@ -88,6 +88,26 @@
 							</div>
 						</div>
 					</div>
+					<div class="row locations">
+						<div class="row">
+							<div class="col-lg-3">
+								Siège principale :
+							</div>
+							<div class="col-lg-5">
+								{{ $locations[0]->getLocalisation() }}		
+							</div>
+						</div>
+						<div class="row">
+							<div class="autre col-lg-3">
+								Autres Sièges :
+							</div>
+							<div class="col-lg-6">
+								@for ($i = 1 ; $i < count($locations) ; $i++)
+									Locations n° {{ $i }} : <u> {{ $locations }} </u>
+								@endfor
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

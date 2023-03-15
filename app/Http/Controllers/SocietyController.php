@@ -63,7 +63,6 @@ class SocietyController extends Controller
         $data['locations'] = Location::where('idsociety' , $id);
         return view('pages.affiche')->with($data); 
     }
-
     public function home() {
         return view('pages.home');
     }
