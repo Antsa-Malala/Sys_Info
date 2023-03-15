@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="{{ URL::asset('assets/css/home.css')}}">
     <title>Home</title>
 </head>
 <body>
@@ -25,8 +25,8 @@
         <a href="javascript:void(0)" id="clear-btn">Clear</a>
         </form>
     </div> -->
-    <!-- <div class="home">
-        <img src="./assets/img/stressed-person-using-computer-at-desk.svg" alt="">
-    </div> -->
+    <div class="home">
+        <img src="{{ URL::asset('assets/img/stressed-person-using-computer-at-desk.svg') }}" alt="">
+    </div>
 </body>
 </html>

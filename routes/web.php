@@ -15,13 +15,6 @@ use App\Http\Controllers\SocietyControler;
 
 Route::get('/', 'PagesController@index');
 Route::post('/add' , 'SocietyController@store');
-<<<<<<< HEAD
-
 Route::post('/login' , 'UserController@login');
-=======
-Route::post('/login' , 'UserControler@login');
 Route::get('/home', 'SocietyController@home');
-
-
->>>>>>> 33e7f8c36a4471e1d8548430d83908791b415f7b
 // Route::get('/lala', 'PagesController@goto');
