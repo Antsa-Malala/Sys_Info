@@ -11,11 +11,13 @@
     <div class="super">
         <div class="formulaire">
             <h1 class="title">Welcome to IKOPPEN IT</h1>
-            <form action="/login" method="POST">
+            <form action="login" method="POST">
                 <div class="input">
+                    @csrf
                     <input type="text" name="username" placeholder="Username">
                 </div>
                 <div class="input">
+                    @csrf
                     <input type="password" name="password" placeholder="Password">
                 </div>
                 <div class="input">

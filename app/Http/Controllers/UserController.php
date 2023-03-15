@@ -15,7 +15,7 @@ class UserController extends Controller
         // Mila manao page an'izay lien bobaka be zay le
         // ALaina ilay lien an'ilay izy de alefa eto
 
-        return redirect('');
+        return view('pages.home');
     }
 
     public function login(Request $request){

@@ -59,8 +59,8 @@ class SocietyController extends Controller
 
     public function seeProfile(){
         $id = 1;
-        $society = Society::find($id);
-        // Azoko ilay société
-        $locations = Location::where('idsociety' , $id); 
+        $data['society'] = Society::find($id);
+        $data['locations'] = Location::where('idsociety' , $id);
+        return view('pages.affiche')->with($data); 
     }
 }
