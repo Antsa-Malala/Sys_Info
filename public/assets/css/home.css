@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+}
+
+.title {
+    
+}
+
+.option {
+    display: flex;
+    margin-left: 300px;
+    margin-right: auto;
+}
+
+.option div {
+    margin-left: 50px;
+    margin-right: 50px;
+}

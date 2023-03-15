@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'Abril';
+    src: url('../font/Cormorant_Garamond/CormorantGaramond-Light.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+  
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Abril', sans-serif;
+    font-size: 15px;
+}
+
+.super {
+    display: flex;
+}
+
+/* Background Gradient pour le fonds de la page */
+.bg-gradient {
+    height: 100vh;
+    width: 100%;
+    background-color: #FBAB7E;
+    background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+}
+
+/* Logo de la société */
+img {
+    margin-top: 40%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.497);
+}
+
+/* Formulaire de connexion */
+.formulaire {
+    padding-top: 200px;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Rendre les inputs au centre */
+.input {
+    justify-content: center;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Style des inputs du formulaire */
+.input input {
+    padding: 20px 0px 10px 0px;
+    width: 350px;
+    border: none;
+    border-bottom: solid 1px #ccc;
+    outline: none;
+    /* border-radius: 5px; */
+}
+
+/* Style du titre */
+.title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.btn {
+    margin-top: 50px;
+    border: solid 1px #ccc !important;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    padding: 10px 0px 10px 0px !important;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dark {
+    border-color: #e7e7e7;
+    color: rgb(255, 255, 255);
+}
+
+.account {
+    margin-top: 20px;
+    margin-left: 145px;
+    font-size: 14px;
+}
+
+.account a {
+    color: #000000;
+}
