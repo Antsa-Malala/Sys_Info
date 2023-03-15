@@ -63,4 +63,8 @@ class SocietyController extends Controller
         // Azoko ilay société
         $locations = Location::where('idsociety' , $id); 
     }
+
+    public function home() {
+        return view('pages.home');
+    }
 }
