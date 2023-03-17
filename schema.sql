@@ -1,3 +1,6 @@
+drop database gestion;
+create database gestion;
+\c gestion;
 create table society(
 		idSociety serial primary key,
 		nom varchar(250),
@@ -46,19 +49,47 @@ create table exchange_rate(
 );
 
 create table plan(
-	numeroCompte varchar(10) not null primary key,
-	libelle varchar(100)
+	idPlan serial primary key,
+	compte varchar(5) unique,
+	libelle varchar(45)
 );
 
 create table tiers(
-	idTiers serial primary key, 
-	idCompte varchar(10) not null,
-	Numero varchar(100) not null ,
-	libelle varchar(200) not null,
-	foreign key( idCompte ) references plan(numeroCompte)
+	-- Ireto ny compte 41
+	idTiers serial primary key,
+	Numero varchar(25) not null unique,
+	libelle varchar(45) not null
 );
 
 create table journaux(
-	code varchar(10) not null primary key,
-	libelle varchar(150)
+	idCode serial primary key,
+	code varchar(10) not null unique,
+	libelle varchar(45)
+);
+
+create table exercice(
+	idExercice serial primary key,
+	years INTEGER
+);
+
+create table ecriture(
+	idEcriture serial primary key,
+	dateEcriture timestamp,
+	idExercice int not  null,
+	foreign key( idExercice ) references exercice(idExercice)
+);
+
+create table operation (
+	idOperation serial primary key,
+	idEcriture int not null,
+	-- dateOperation date not null,
+	NumPiece varchar(20) not null,
+	compte varchar(5) not null,
+	tiers varchar(100),
+	libelle varchar(35) not null,
+	debit decimal default 0,
+	credit decimal default 0,
+	foreign key(compte) references plan(compte),
+	foreign key(tiers) references tiers(Numero),
+	foreign key(idEcriture) references ecriture(idEcriture)
 );
