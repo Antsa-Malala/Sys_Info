@@ -8,6 +8,10 @@ use App\Models\Society;
 use App\Models\Location;
 class SocietyController extends Controller
 {
+    public function create(){
+        $data['title'] = 'create Society';
+        return view('pages.index' , $data);
+    }
     public function store(Request $request){
         $request->validate([
             'name' => ['required' , 'max:250'],
@@ -29,7 +33,6 @@ class SocietyController extends Controller
             $data['idsociety'] = $s->idsociety;
             $location = new Location($s->idsociety , $data['localisation'] , true); 
             $location2 = new Location($idsociety = $s->idsociety , $localisation = $data['siege'] );
-
             if( $location->save() && $location2->save() ){
                 return redirect('/')->with($data);
             }

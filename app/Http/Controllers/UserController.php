@@ -11,10 +11,6 @@ class UserController extends Controller
     }
 
     public function home(){
-        // Makany amin'ny lien bobaka be
-        // Mila manao page an'izay lien bobaka be zay le
-        // ALaina ilay lien an'ilay izy de alefa eto
-
         return view('pages.home');
     }
 
