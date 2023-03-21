@@ -27,6 +27,11 @@ class SocietyController extends Controller
         $data = $this->getAdditional($request , $data);
         $society = new Society($data);
 
+        // Inserena ny exercice amin'izao
+        // Izany no atao ato
+
+        // $exerice = new Exercice();
+
         if( $society->save() ){
             $s = Society::orderBy('idsociety' , 'desc')->first();
             $data['title'] = 'Usine '.$data['name'];

@@ -2,43 +2,40 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+ class User extends Model{
+    protected $table = 'users';
+    
+    public static function getAll()
+    {
+        $user = DB::select('SELECT * FROM users');
 
-class User extends Authenticatable
-{
-    use HasApiTokens, HasFactory, Notifiable;
+        return $user;
+    }
+    public static function getById($id) {
+        $result = DB::select("SELECT * FROM users WHERE idUser = ?", [$id]);
+        if (!empty($result)) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    public static function insert($idSociety, $username, $password) {
+        $result = DB::insert("INSERT INTO users VALUES(default, ?, ?, ?)", [$idSociety, $username, $password]);
+    }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public static function remove($id)
+    {
+        $result = DB::delete("DELETE FROM users WHERE idUser = ?", [$id]);
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public static function modif($id, $idSociety, $username, $password)
+    {
+        $result = DB::update("UPDATE users SET idSociety = ?, username = ?, password = ? WHERE idUser = ?", [$idSociety, $username, $password, $id]);
+    }
+
+    
 }
+?>

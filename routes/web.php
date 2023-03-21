@@ -14,6 +14,16 @@ use App\Http\Controllers\SocietyControler;
 */
 
 Route::get('/', 'PagesController@index');
+
+Route::get('/test' , 'OperationController@create' )->name('operation');
+Route::post('/testAdd' , 'OperationController@store' );
+Route::get('/testE' , function (){
+	$data['title'] = 'Live formulary';
+	return view('pages.addEcriture')->with($data);
+});
+
+Route::post('/testEP', 'EcritureController@store');
+
 Route::post('/add' , 'SocietyController@store');
 Route::get('/society/create' , 'SocietyController@create');
 Route::post('/login' , 'UserController@login');
