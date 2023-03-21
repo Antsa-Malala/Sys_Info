@@ -26,21 +26,29 @@ class SocietyController extends Controller
         $data = $this->getRequired($request , $data);
         $data = $this->getAdditional($request , $data);
         $society = new Society($data);
-
+        $d = 'uploads';
         // Inserena ny exercice amin'izao
         // Izany no atao ato
 
         // $exerice = new Exercice();
-
-        if( $society->save() ){
-            $s = Society::orderBy('idsociety' , 'desc')->first();
-            $data['title'] = 'Usine '.$data['name'];
-            $data['idsociety'] = $s->idsociety;
-            $location = new Location($s->idsociety , $data['localisation'] , true); 
-            $location2 = new Location($idsociety = $s->idsociety , $localisation = $data['siege'] );
-            if( $location->save() && $location2->save() ){
+        try{
+            if( $society->save() ){
+                // ENREGISTRER ANATY BASE ILAY IZY
+                // SAUVENA AMIN'IZAY ILAY SARY Request::hasSessionStore()
+                $s = Society::orderBy('idsociety' , 'desc')->first();
+                $request->file('fisc-image')->move( $d , $s->getFiscImage() );
+                $request->file('logo')->move( $d , $s->getLogo() );
+                $request->file('status')->move( $d , $s->getStatus() );
+                $data['title'] = 'Usine '.$data['name'];
+                $data['idsociety'] = $s->idsociety;
+                $location = Location::insert($s->idsociety , $data['localisation'] , true); 
+                $location2 = Location::insert($idsociety = $s->idsociety , $localisation = $data['siege'] , false);
+                // if( $location->save() && $location2->save() ){
                 return redirect('/')->with($data);
+                // }
             }
+        }catch(Exception $e){
+            DB::rollback();
         }
     }
 
@@ -65,13 +73,15 @@ class SocietyController extends Controller
         return $data;
     }
 
-    public function seeProfile(){
-        $id = 1;
+    public function show(){
+        $id = 2;
         $data['society'] = Society::find($id);
+        $data['title'] = " Society :  " . $data['society']->getNom(); 
         $data['locations'] = Location::where('idsociety' , $id);
-        return view('pages.affiche')->with($data); 
+        return view('pages.society.profile')->with($data); 
     }
     public function home() {
-        return view('pages.home');
+        $data['title'] = 'Home Page';
+        return view('pages.home')->with($data);
     }
 }

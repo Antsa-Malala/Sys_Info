@@ -1,32 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ URL::asset('assets/css/home.css')}}">
-    <title>Home</title>
-</head>
-<body>
-    <header>
-        <h1 class="title">Koppen IT</h1>
-        <div class="option">
-            <div><a href="#">Plan</a></div>
-            <div><a href="#">Code Journaux</a></div>
-            <div><a href="#">Journal</a></div>
-        </div>
-    </header>
-    <!-- <div class="search">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-        <form action="">
-        <input type="search" required>
-        <i class="fa fa-search"></i>
-        <a href="javascript:void(0)" id="clear-btn">Clear</a>
-        </form>
-    </div> -->
-    <div class="home">
-        <img src="{{ URL::asset('assets/img/stressed-person-using-computer-at-desk.svg') }}" alt="">
+@extends('layouts.app')
+@section('content')
+<body style="background: url('{{  URL::asset('assets/img/stressed-person-using-computer-at-desk.svg')  }}'); ";>
+    <div class="container-fluid"> 
+        <div class="container a d-flex align-items-center justify-content-center text-center">
+            <div class="ap">
+                <div class="text-center text-dark h3 shadow-lg p-4 caec" style="background: hsla(0, 0%, 100%, 0.95);backdrop-filter: blur(30px);">
+                    <div class="h5 font-italic">
+                        Bienvenue !
+                        Visitez vos plans comptables
+                        
+                    </div>
+                    <br>
+                    <div class="mt-2">
+                        <a href="plan-list" class="btn btn-dark">
+                            Voir Mes plans comptables {{-- Asiana lien ana Mijery Plan Comptable --}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{-- <img src="{{ URL::asset('assets/img/stressed-person-using-computer-at-desk.svg') }}" class="img-fluid" alt=""> --}}
+        </div>
     </div>
 </body>
-</html>
+@endsection

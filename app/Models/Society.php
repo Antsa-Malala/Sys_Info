@@ -11,7 +11,7 @@ class Society extends Model{
             'idsociety' , 'nom' , 'creation' , 'fondateur' , 'nif' , 'logo' , 
             'date_exercice' , 'status' , 'telecopie', 'telephone', 'desciption' , 'nifpath'
     ];
-    protected $table = "society";
+    // protected $table = "society";
     protected $primaryKey = "idsociety";
     public $incrementing = true;
 
@@ -32,7 +32,6 @@ class Society extends Model{
         }
     }
 
-    
     public static function getAll(){
         $society = DB::select('SELECT * FROM society');
         return $society;
@@ -45,8 +44,6 @@ class Society extends Model{
             return null;
         }
     }
-
-
 
     public static function insert($nom,$creation,$fondateur,$nif,$logo,$date_exercice,$status,$telecopie,$telephone) {
         $result = DB::insert("INSERT INTO society VALUES(default,?,?,?,?,?,?,?,?,?)", [$nom,$creation,$fondateur,$nif,$logo,$date_exercice,$status,$telecopie,$telephone]);
@@ -96,11 +93,61 @@ class Society extends Model{
         return $this->status;
     }
 
+    public function getDescription(){
+        return $this->description;
+    }
+    public function setDescription($d){
+        $this->description = $d;
+    }
+
     public function setFondateur($nom){
         $this->fondateur = $nom;
     }
     public function getFondateur(){
         return $this->fondateur;
+    }
+
+    public function setTelecopie($nom){
+        $this->telecopie = $nom;
+    }
+    public function getTelecopie(){
+        return $this->telecopie;
+    }
+    
+    public function setTelephonie($nom){
+        $this->telephone = $nom;
+    }
+    public function getTelephonie(){
+        return $this->telephone;
+    }
+
+    public function setDateExercice($nom){
+        $this->date_exercice = $nom;
+    }
+    public function getDateExercice(){
+        return $this->date_exercice;
+    }
+
+    // public function setStatus($nom){
+    //     $this->status = $nom;
+    // }
+    // public function getStatus(){
+    //     return $this->status;
+    // }
+
+    public function setLogo($nom){
+        $this->logo = $nom;
+    }
+    public function getLogo(){
+        return str_replace("\s" , "%20" , $this->logo);
+    }
+
+    public function getAge(){
+        // $no = date('Y-m-d');
+        $dif = new \DateTime($this->getCreation());
+        $d = new \DateTime();
+        $da = $d->diff($dif);
+        return $da->y; 
     }
 }
 ?>
