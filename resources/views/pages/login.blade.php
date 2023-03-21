@@ -23,7 +23,7 @@
                 <div class="input">
                     <input type="submit" value="Ok" class="btn dark">
                 </div>
-                <h3 class="account"><a href="/inscription">Ajouter une société</a></h3>
+                <h3 class="account"><a href="/society-insertion">Ajouter une société</a></h3>
             </form>
         </div>
         <div class="bg-gradient">

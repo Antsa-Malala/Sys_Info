@@ -11,7 +11,8 @@ class UserController extends Controller
     }
 
     public function home(){
-        return view('pages.home');
+        $data['title'] = 'Welcome';
+        return view('pages.home')->with($data);
     }
 
     public function login(Request $request){

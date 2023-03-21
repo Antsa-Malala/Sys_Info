@@ -35,21 +35,15 @@ class Operation extends Model
         $debs_length = count($debit);
         $cred_length = count($credit);
         for( $i = 0 ; $i < $debs_length ; $i++ ){
-            if( empty($debit[$i]) ){
+            if( strlen($debit[$i]) == 0 || ( strlen( $debit[$i] ) > 0 && $debit[$i] < 0 )  ){
                 throw new InvalidNumberException("Désolé veuillez remplir le débit avec un nombre valide ( hint >= 0 ) : ".$debit[$i]);
             }
-            // if( empty($debit[$i]) || $debit[$i] != NULL || $debit[$i] < 0 ){
-            //     throw new InvalidNumberException("Désolé veuillez remplir le débit avec un nombre valide ( hint >= 0 ) : ".$debit[$i]);
-            // }
             $debs += $debit[$i];
         }
         for( $i = 0 ; $i < $cred_length ; $i++ ){
-            if( empty($credit[$i]) ){
+            if( strlen($credit[$i]) == 0 || ( strlen( $credit[$i] ) > 0 && $credit[$i] < 0 )  ){
                 throw new InvalidNumberException("Désolé veuillez remplir le débit avec un nombre valide ( hint >= 0 ) : ".$credit[$i]);
             }
-            // if( empty($credit[$i]) || $credit[$i] != NULL || $credit[$i] < 0 ){
-            //     throw new InvalidNumberException("Désolé veuillez remplir le crédit avec un nombre valide ( hint >= 0 ) : ".$credit[$i]);
-            // }
             $creds += $credit[$i];
         }
         return (($debs - $creds) == 0);

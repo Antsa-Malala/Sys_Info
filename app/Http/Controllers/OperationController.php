@@ -11,6 +11,9 @@ use App\Exceptions\InvalidNumberException;
 class OperationController extends Controller{
     
     public function create(){
+        if( !session()->has('ecriture') ){
+            return redirect('/testE');
+        }
         $ecriture = session()->get('ecriture'); // get The ecriture of just insered
         $data['title'] = 'Live formulary'; // give a title for the page
         $data['ecriture'] = $ecriture; // give the ecriture to the array of data
