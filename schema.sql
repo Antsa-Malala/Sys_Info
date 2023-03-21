@@ -75,7 +75,8 @@ create table exercice(
 create table ecriture(
 	idEcriture serial primary key,
 	dateEcriture timestamp,
-	idExercice int not  null,
+	libelle varchar(45),
+	idExercice int not null,
 	foreign key( idExercice ) references exercice(idExercice)
 );
 

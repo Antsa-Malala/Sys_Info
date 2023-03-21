@@ -2,43 +2,40 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+ class Location extends Model{
+    protected $table = 'location';
+    
+    public static function getAll()
+    {
+        $location = DB::select('SELECT * FROM location');
 
-class Location extends Model
-{
-    use HasFactory;
-    protected $fillable = ['idsociety' , 'localisation' , 'primaire'];
-    protected $table = "location";
-    protected $primaryKey = "idlocation";
-    public $timestamps = false;
-
-    public function __construct($idsociety = '' , $localisation = '', $primaire = false ){
-        parent::__construct();
-        if( !empty($idsociety) && !empty($localisation) ){
-            $this->setIdSociety($idsociety);
-            $this->setLocalisation($localisation);
-            $this->setPrimaire($primaire);
+        return $location;
+    }
+    public static function getById($id) {
+        $result = DB::select("SELECT * FROM location WHERE idlocation = ?", [$id]);
+        if (!empty($result)) {
+            return $result[0];
+        } else {
+            return null;
         }
     }
 
-    public function setIdSociety($id){
-        $this->idsociety = $id;
-    }
-    public function getIdSociety(){
-        return $this->idsociety;
-    }
-    public function setLocalisation($id){
-        $this->localisation = $id;
-    }
-    public function getLocalisation(){
-        return $this->localisation;
-    }
-    public function setPrimaire($id){
-        $this->primaire = $id;
-    }
-    public function getPrimaire(){
-        return $this->primaire;
+    public static function insert($idSociety,$localisation,$primaire) {
+        $result = DB::insert("INSERT INTO location VALUES(default, ?, ?, ?)", [$idSociety,$localisation,$primaire]);
     }
 
+    public static function remove($id)
+    {
+        $result = DB::delete("DELETE FROM location WHERE idlocation = ?", [$id]);
+    }
+
+    public static function modif($id, $idSociety,$localisation,$primaire)
+    {
+        $result = DB::update("UPDATE location SET idSociety = ?, localisation = ?, primaire = ? WHERE idlocation = ?", [$idSociety,$localisation,$primaire, $id]);
+    }
+
+    
 }
+?>
