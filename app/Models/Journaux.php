@@ -20,6 +20,14 @@ use Illuminate\Database\Eloquent\Model;
             return null;
         }
     }
+
+    public static function getById($id){
+        $result = DB::select("SELECT * FROM journaux WHERE idcode = ?", [$id]);
+        if (!empty($result)) {
+            return $result[0];
+        } 
+        throw new \Exception("Code non répértorié");
+    }
     public static function getBylibelle($libelle) {
         $result = DB::select("SELECT * FROM journaux WHERE libelle = ?", [$libelle]);
         if (!empty($result)) {
@@ -30,13 +38,21 @@ use Illuminate\Database\Eloquent\Model;
     }
 
     public static function insert($code,$libelle) {
-        $result = DB::insert("INSERT INTO journaux VALUES(?,?)", [$code,$libelle]);
+        if( empty($code) ) throw new \Exception("Le code ne peut etre vide");
+        if( empty($libelle) ) throw new \Exception("Le libelle ne peut etre vide");
+        // if( strlen($code) > 2 ) throw new \Exception("Le code ne peut contenie");
+        $result = DB::insert("INSERT INTO journaux VALUES(default , ?,?)", [$code,$libelle]);
     }
 
     public static function removecode($code)
     {
         $result = DB::delete("DELETE FROM journaux WHERE code = ?", [$code]);
     }
+
+    public static function remove($id){
+        $result = DB::delete("DELETE FROM journaux WHERE idcode = ?", [$id]);
+    }
+
     public static function removelibelle($libelle)
     {
         $result = DB::delete("DELETE FROM journaux WHERE libelle = ?", [$libelle]);
@@ -50,6 +66,11 @@ use Illuminate\Database\Eloquent\Model;
     {
         $result = DB::update("UPDATE journaux SET code = ? WHERE libelle = ?", [$code,$libelle]);
     }
+
+    public static function modif($id , $code,$libelle){
+        $result = DB::update("UPDATE journaux SET code = ? ,libelle = ? where idcode = ?", [$code,$libelle , $id]);
+    }
+
     
 }
 ?>

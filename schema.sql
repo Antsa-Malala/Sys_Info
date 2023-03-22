@@ -94,3 +94,12 @@ create table operation (
 	foreign key(tiers) references tiers(Numero),
 	foreign key(idEcriture) references ecriture(idEcriture)
 );
+
+
+create or replace view devises
+	as
+
+	select * 
+	from exchange_rate as e
+	join devise as d on e.idone = d.iddevise
+	join devise as r on e.idtwo = r.iddevise;

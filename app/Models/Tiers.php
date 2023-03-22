@@ -22,8 +22,14 @@ use Illuminate\Database\Eloquent\Model;
         }
     }
 
-    public static function insert($idCompte, $numero, $libelle) {
-        $result = DB::insert("INSERT INTO tiers VALUES(default, ?, ?, ?)", [$idCompte, $numero, $libelle]);
+    public static function insert( $numero, $libelle) {
+        if( empty($numero) ){
+            throw new \Exception("Le numéro ne doit pas etre vide");
+        }
+        if( empty($libelle) ){
+            throw new \Exception("Le libelle ne doit pas etre vide");
+        }
+        $result = DB::insert("INSERT INTO tiers VALUES(default, ?, ?)", [$numero, $libelle]);
     }
 
     public static function remove($id)
@@ -31,9 +37,14 @@ use Illuminate\Database\Eloquent\Model;
         $result = DB::delete("DELETE FROM tiers WHERE idTiers = ?", [$id]);
     }
 
-    public static function modif($id, $idCompte, $numero, $libelle)
-    {
-        $result = DB::update("UPDATE tiers SET idcompte = ?, numero = ?, libelle = ? WHERE idTiers = ?", [$idCompte, $numero, $libelle, $id]);
+    public static function modif($id, $numero, $libelle){
+        if( empty($numero) ){
+            throw new \Exception("Le numéro ne doit pas etre vide");
+        }
+        if( empty($libelle) ){
+            throw new \Exception("Le libelle ne doit pas etre vide");
+        }
+        $result = DB::update("UPDATE tiers SET  numero = ?, libelle = ? WHERE idTiers = ?", [$numero, $libelle, $id]);
     }
 
     

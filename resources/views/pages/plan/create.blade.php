@@ -5,12 +5,12 @@
         <form action="/plan-insert" method="POST">
             @csrf
             <div class="my-3">
-                <label for="numerocompte">Numero de compte</label>
-                <input type="text" name="compte" id="numerocompte">
+                <label for="numerocompte" class="form-label">Numero de compte</label>
+                <input type="text" name="compte" class="form-control" id="numerocompte">
             </div>
             <div class="my-3">
-                <label for="libelle">Libelle</label>
-                <input type="text" name="libelle" id="libelle">
+                <label for="libelle" class="form-label">Libelle</label>
+                <input type="text" name="libelle" class="form-control" id="libelle">
             </div>
             <div class="mb-3">
                 <input type="submit" value="Inserer" class="btn btn-primary">

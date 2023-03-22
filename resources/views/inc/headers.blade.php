@@ -10,14 +10,17 @@
                   <a class="nav-link active" aria-current="page" href="{{url('plan-list')}}">Plan Comptable</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Compte Tiers</a>
+                  <a class="nav-link" href="{{url('tiers-list')}}">Compte Tiers</a>
                 </li>
+                {{-- <li class="nav-item">
+                  <a class="nav-link" href="{{url('tiers-list')}}">Devise de compte</a>
+                </li> --}}
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Plus
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#"> Consulter le Journal </a></li>
+                    <li><a class="dropdown-item" href="{{ url('journaux-list') }}"> Codes Journaux </a></li>
                     <li><a class="dropdown-item" href="#"> Voir la balance </a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{url('society-profile')}}"> Voir le profil de la société </a></li>

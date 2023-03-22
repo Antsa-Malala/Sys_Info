@@ -5,19 +5,19 @@
 	<div class="container">
 		<div class="container card card-body shadow my-2 py-3">
 			<div class="title">
+				<a href="plan-list" class="btn btn-dark"> Retour </a>
 				<h3 class="text-center text-decoration-underline">
 					Votre Profil :
 				</h3>
 			</div>
 			<div class="row">
-
 				<div class="col-lg-5">
 					<h3 class="text-center text-decoration-underline"> Logo de la société </h3>
 					<img src="{{ URL::asset('uploads/'.$society->getLogo()) }}" class="img-fluid" alt="">
 						<div class="row my-3 text-center">
-							<a href="download/{{ $society->getLogo() }}" class="btn btn-primary">
+							{{-- <a href="download/{{ $society->getLogo() }}" class="btn btn-primary">
 								Telecharger le logo
-							</a>
+							</a --}}>
 						</div>
 				</div>
 				
