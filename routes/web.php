@@ -29,13 +29,13 @@ Route::get('/society/create' , 'SocietyController@create');
 Route::post('/login' , 'UserController@login');
 Route::get('/home', 'SocietyController@home');
 
-
-Route::get('/tiers-list', 'TiersController@getAll');
+// Tiers routes
+Route::get('/tiers-list', 'TiersController@index');
 Route::get('/tiers-By-Id/{id}', 'TiersController@getById');
-Route::post('/tiers-insert', 'TiersController@insert');
-Route::get('/tiers-insertion', 'TiersController@insertion');
-Route::get('/tiers-delete/{id}', 'TiersController@delete');
-Route::get('/tiers-update_tiers/{idtiers}/{numero}/{libelle}', 'TiersController@update_tiers');
+Route::post('/tiers-insert', 'TiersController@store');
+Route::get('/tiers-insertion', 'TiersController@create');
+Route::get('/tiers-delete/{id}', 'TiersController@destroy');
+Route::get('/tiers-update_tiers/{idtiers}', 'TiersController@edit');
 Route::post('/tiers-update', 'TiersController@update');
 
 Route::get('/devise-list', 'DeviseController@getAll');
@@ -92,15 +92,15 @@ Route::get('/plan-delete/{idplan}', 'CompteController@destroy');
 Route::get('/plan-update_plan/{idplan}', 'CompteController@edit');
 Route::post('/plan-update', 'CompteController@update');
 
-
-Route::get('/journaux-list', 'JournauxController@getAll');
-Route::get('/journaux-By-Code/{code}', 'JournauxController@getBycode');
-Route::get('/journaux-By-Libelle/{libelle}', 'JournauxController@getBylibelle');
-Route::post('/journaux-insert', 'JournauxController@insert');
-Route::get('/journaux-insertion', 'JournauxController@insertion');
-Route::get('/journaux-delete/{idjournaux}', 'JournauxController@delete');
-Route::get('/journaux-update_journaux/{idjournaux}/{code}/{libelle}', 'JournauxController@update_journaux');
-Route::post('/journaux-update', 'JournauxController@update');
+// Codes Journaux
+Route::get('/journaux-list', 'JournalController@index');
+Route::get('/journaux-By-Code/{code}', 'JournalController@getBycode');
+Route::get('/journaux-By-Libelle/{libelle}', 'JournalController@getBylibelle');
+Route::post('/journaux-insert', 'JournalController@store');
+Route::get('/journaux-insertion', 'JournalController@create');
+Route::get('/journaux-delete/{idjournaux}', 'JournalController@destroy');
+Route::get('/journaux-update_journaux/{idjournaux}', 'JournalController@edit');
+Route::post('/journaux-update', 'JournalController@update');
 
 Route::get('/operation-list', 'OperationController@getAll');
 Route::get('/operation-By-Id/{id}', 'OperationController@getById');
@@ -126,4 +126,7 @@ Route::get('download/{filename}' , function($filename){
 
 })->where('filename' , '[A-Za-z0-9\-\_\.]+');
 
+Route::get('back' , function(){
+	return back();
+});
 // Route::get('/lala', 'PagesController@goto');
