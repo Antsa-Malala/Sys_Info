@@ -64,5 +64,4 @@ class Ecriture extends Model{
         $data = array('Janvier' , 'Fevrier' , 'Mars' , 'Avril' , 'Mai' , 'Juin' , 'Juillet' , 'Aout' , 'Septembre' , 'Octobre' , 'Novembre' , 'Decembre');
         return $data;
     }
-
 }
