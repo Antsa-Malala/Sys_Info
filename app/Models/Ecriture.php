@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\OutRangeEcriture;
 
-class Ecriture extends Model
-{
+class Ecriture extends Model{
     use HasFactory;
 
     protected $table = 'ecriture';
-    protected $fillable = ['dateecriture' , 'libelle' , 'idexercice'];
+    protected $fillable = ['dateecriture' , 'libelle' , 'idexercice' , 'idcode'];
     protected $primaryKey = 'idecriture';
     public $timestamps = false;
     public $incrementing = true;
 
-    public function __construct( $date = '' , $libelle = '' , $exo = '' ){
-        if( !empty($date) && !empty($libelle) && !empty($exo) ){
+    public function __construct( $date = '' , $libelle = '' , $exo = '' , $code = ''){
+        if( !empty($date) && !empty($libelle) && !empty($exo) && !empty($code)){
             $this->dateecriture = $date;
             $this->libelle = $libelle;
+            $this->idcode = $code;
             $this->setIdExercice($exo);
         }
     }
@@ -57,5 +57,9 @@ class Ecriture extends Model
             throw new OutRangeEcriture("Vous ne pouvez pas entrer une ecriture en dehors de la date d'exercice : ".$this->dateecriture);
         }
         $this->idexercice = $value->idexercice;
+    }
+    public static function getMonth(){
+        $data = array('Janvier' , 'Fevrier' , 'Mars' , 'Avril' , 'Mai' , 'Juin' , 'Juillet' , 'Aout' , 'Septembre' , 'Octobre' , 'Novembre' , 'Decembre');
+        return $data;
     }
 }

@@ -77,7 +77,9 @@ create table ecriture(
 	dateEcriture timestamp,
 	libelle varchar(45),
 	idExercice int not null,
-	foreign key( idExercice ) references exercice(idExercice)
+	idcode int not null,
+	foreign key( idExercice ) references exercice(idExercice),
+	foreign key( idcode ) references journaux(idcode)
 );
 
 create table operation (
@@ -93,6 +95,13 @@ create table operation (
 	foreign key(compte) references plan(compte),
 	foreign key(tiers) references tiers(Numero),
 	foreign key(idEcriture) references ecriture(idEcriture)
+);
+
+create table reference(
+
+	idReference serial primary key,
+	code varchar(10) unique,
+	libelle varchar(45)
 );
 
 

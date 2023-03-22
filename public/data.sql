@@ -13,3 +13,10 @@ insert into journaux values
 	(default , 'OD' , 'OPERATION DIVERSE'),
 	(default , 'VE' , 'VENTE EXPORT'),
 	(default , 'VL' , 'VENTE LOCALE');
+
+
+insert into reference values
+	(default , 'ACH' , 'ACHAT' ),
+	(default , 'FF' , 'Facture' ),
+	(default , 'PTV' , 'Payement TVA' ),
+	(default , 'PC' , 'Piece' );
