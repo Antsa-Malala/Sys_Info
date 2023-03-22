@@ -38,13 +38,13 @@ Route::get('/tiers-delete/{id}', 'TiersController@destroy');
 Route::get('/tiers-update_tiers/{idtiers}', 'TiersController@edit');
 Route::post('/tiers-update', 'TiersController@update');
 
-Route::get('/devise-list', 'DeviseController@getAll');
-Route::get('/devise-By-Id/{id}', 'DeviseController@getById');
-Route::post('/devise-insert', 'DeviseController@insert');
-Route::get('/devise-insertion', 'DeviseController@insertion');
-Route::get('/devise-delete/{id}', 'DeviseController@delete');
-Route::get('/devise-update_devise/{iddevise}/{nom}', 'DeviseController@update_devise');
-Route::post('/devise-update', 'DeviseController@update');
+// Route::get('/devise-list', 'DeviseController@getAll');
+// Route::get('/devise-By-Id/{id}', 'DeviseController@getById');
+// Route::post('/devise-insert', 'DeviseController@insert');
+// Route::get('/devise-insertion', 'DeviseController@insertion');
+// Route::get('/devise-delete/{id}', 'DeviseController@delete');
+// Route::get('/devise-update_devise/{iddevise}/{nom}', 'DeviseController@update_devise');
+// Route::post('/devise-update', 'DeviseController@update');
 
 Route::get('/user-list', 'UserController@getAll');
 Route::get('/user-By-Id/{id}', 'UserController@getById');
