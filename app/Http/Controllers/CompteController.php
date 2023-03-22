@@ -124,7 +124,7 @@ class CompteController extends Controller
         DB::beginTransaction();
         try{
             while( $line = fgetcsv($file) ){
-                // var_dump($line);
+                //var_dump($line);
                 Plan::insert( trim($line[0]) , trim($line[1]) );
             }
             DB::commit();

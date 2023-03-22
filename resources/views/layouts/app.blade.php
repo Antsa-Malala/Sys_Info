@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="{{ URL::asset('bootstrap/bootstrap-5.0.2/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ URL::asset('aos/dist/aos.css') }}">
 	<link rel="stylesheet" href="{{ URL::asset('assets/css/home.css') }}">
+	<script src="{{ URL::asset('assets/js/parsley.min.js') }}"></script>
 	<title>{{ $title }}</title>
 </head>
 <body>
