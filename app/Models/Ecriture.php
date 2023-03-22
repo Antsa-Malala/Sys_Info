@@ -57,7 +57,5 @@ class Ecriture extends Model
             throw new OutRangeEcriture("Vous ne pouvez pas entrer une ecriture en dehors de la date d'exercice : ".$this->dateecriture);
         }
         $this->idexercice = $value->idexercice;
-
     }
-
 }
