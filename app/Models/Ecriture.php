@@ -62,18 +62,6 @@ class Ecriture extends Model{
 
     public static function getMonth(){
         $data = array('Janvier' , 'Fevrier' , 'Mars' , 'Avril' , 'Mai' , 'Juin' , 'Juillet' , 'Aout' , 'Septembre' , 'Octobre' , 'Novembre' , 'Decembre');
-        // $data[] = 'Janvier';
-        // $data[] = 'Fevrier';
-        // $data[] = 'Mars';
-        // $data[] = 'Avril';
-        // $data[] = 'Mai';
-        // $data[] = 'Juin';
-        // $data[] = 'Juillet';
-        // $data[] = 'Aout';
-        // $data[] = 'septembre';
-        // $data[] = 'octobre';
-        // $data[] = 'novembre';
-        // $data[] = 'decembre';
         return $data;
     }
 
