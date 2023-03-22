@@ -43,4 +43,47 @@ class OperationController extends Controller{
         return 0;
     }
 
+    // Import a csv file
+    public function importCSV(Request $request){
+        $csv = $request->file('csv');
+        $extension = $csv->extension();
+        if( strcmp($extension , "csv") != 0 && strcmp($extension, "xls") !=0 ){
+            return back()->withErrors("Veuillez importer un fichier csv");
+        }
+        $file = fopen($csv->getPathName() , 'r');
+        fgetcsv($file);
+        DB::beginTransaction();
+        try{
+            while( $line = fgetcsv($file) ){
+                $compte=trim($line[2]);
+                $debit=trim($line[5]);
+                $credit=trim($line[6]);
+                $date=trim($line[0]);
+
+                print_r($line.'<br>');
+                //max id exercice
+                // $idexercice=Exercice::maxid();
+                //insertion ecriture
+                // Ecriture::insert($date,$idexercice);
+                //id du dernier ecriture 
+                // $idmaxecriture=Ecriture::maxid($date);
+
+                // if(is_numeric($debit)&&is_numeric($credit)&&floatval($debit)>=0&&floatval($credit)>=0&&is_numeric($compte)&&intval($credit)>0)
+                // {
+                //     //insertion operation
+                //     Operation::insert($idmaxecriture,trim($line[1]),$compte,trim($line[3]),trim($line[4]),floatval($debit),floatval($credit));
+                // }
+                // else{
+                //     return back()->withErrors("Valeur invalide dans votre fichier csv");
+                // }
+            }
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollback();
+        }
+        fclose($file);
+        return redirect('operation-list');
+        // var_dump($csv);
+    }
+
 }

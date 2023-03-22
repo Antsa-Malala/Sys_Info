@@ -17,10 +17,7 @@ Route::get('/', 'PagesController@index');
 
 Route::get('/test' , 'OperationController@create' )->name('operation');
 Route::post('/testAdd' , 'OperationController@store' );
-Route::get('/testE' , function (){
-	$data['title'] = 'Live formulary';
-	return view('pages.addEcriture')->with($data);
-});
+Route::get('/testE' , 'EcritureController@create');
 
 Route::post('/testEP', 'EcritureController@store');
 
@@ -93,6 +90,8 @@ Route::get('/plan-update_plan/{idplan}', 'CompteController@edit');
 Route::post('/plan-update', 'CompteController@update');
 
 // Codes Journaux
+Route::get('/journal' , 'EcritureController@index');
+Route::get('/journal/{month}' , 'EcritureController@show');
 Route::get('/journaux-list', 'JournalController@index');
 Route::get('/journaux-By-Code/{code}', 'JournalController@getBycode');
 Route::get('/journaux-By-Libelle/{libelle}', 'JournalController@getBylibelle');
@@ -109,6 +108,7 @@ Route::get('/operation-insertion', 'OperationController@insertion');
 Route::get('/operation-delete/{id}', 'OperationController@delete');
 Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{compte}/{tiers}/{libelle}/{debit}/{credit}', 'OperationController@update_operation');
 Route::post('/operation-update', 'OperationController@update');
+
 
 // download routes
 

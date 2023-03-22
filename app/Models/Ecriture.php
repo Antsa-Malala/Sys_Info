@@ -11,15 +11,16 @@ class Ecriture extends Model
     use HasFactory;
 
     protected $table = 'ecriture';
-    protected $fillable = ['dateecriture' , 'libelle' , 'idexercice'];
+    protected $fillable = ['dateecriture' , 'libelle' , 'idexercice' , 'idcode'];
     protected $primaryKey = 'idecriture';
     public $timestamps = false;
     public $incrementing = true;
 
-    public function __construct( $date = '' , $libelle = '' , $exo = '' ){
-        if( !empty($date) && !empty($libelle) && !empty($exo) ){
+    public function __construct( $date = '' , $libelle = '' , $exo = '' , $code = ''){
+        if( !empty($date) && !empty($libelle) && !empty($exo) && !empty($code)){
             $this->dateecriture = $date;
             $this->libelle = $libelle;
+            $this->idcode = $code;
             $this->setIdExercice($exo);
         }
     }
@@ -58,6 +59,23 @@ class Ecriture extends Model
         }
         $this->idexercice = $value->idexercice;
 
+    }
+
+    public static function getMonth(){
+        $data = array();
+        $data[] = 'Janvier';
+        $data[] = 'Fevrier';
+        $data[] = 'Mars';
+        $data[] = 'Avril';
+        $data[] = 'Mai';
+        $data[] = 'Juin';
+        $data[] = 'Juillet';
+        $data[] = 'Aout';
+        $data[] = 'septembre';
+        $data[] = 'octobre';
+        $data[] = 'novembre';
+        $data[] = 'decembre';
+        return $data;
     }
 
 }

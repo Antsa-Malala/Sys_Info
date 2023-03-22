@@ -12,9 +12,9 @@
                 <li class="nav-item">
                   <a class="nav-link" href="{{url('tiers-list')}}">Compte Tiers</a>
                 </li>
-                {{-- <li class="nav-item">
-                  <a class="nav-link" href="{{url('tiers-list')}}">Devise de compte</a>
-                </li> --}}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{url('journal')}}"> Journal </a>
+                </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Plus
