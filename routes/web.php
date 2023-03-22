@@ -104,7 +104,7 @@ Route::post('/journaux-update', 'JournalController@update');
 
 Route::get('/operation-list', 'OperationController@getAll');
 Route::get('/operation-By-Id/{id}', 'OperationController@getById');
-Route::post('/operation-insert', 'OperationController@insert');
+Route::get('/operation-insert', 'OperationController@create');
 Route::get('/operation-insertion', 'OperationController@insertion');
 Route::get('/operation-delete/{id}', 'OperationController@delete');
 Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{compte}/{tiers}/{libelle}/{debit}/{credit}', 'OperationController@update_operation');
