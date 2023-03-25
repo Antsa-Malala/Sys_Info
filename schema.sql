@@ -156,3 +156,106 @@ INSERT INTO operation (idEcriture, NumPiece, compte, tiers, libelle, debit, cred
     (5, 'BN00012', '51202', 'JIRAMA', 'Retrait bancaire', 0,10000),
     (6, 'OD00015', '51201', 'RANDRIA', 'Retrait achat de mais', 0,20000),
     (6, 'OD00015', '35500', 'RANDRIA', 'Ajout stocks',20000, 0);
+
+
+--CAPITAUX PROPRES
+CREATE OR REPLACE VIEW CAPITAUX_PROPRES as 
+select plan.compte,plan.libelle,sum(solde) as solde
+		from balance
+		join plan on balance.compte=plan.compte
+		where balance.compte like '10%' 
+		or balance.compte like '11%' 
+		or balance.compte like '12%' 
+		group by plan.libelle,plan.compte; 
+
+--PASSIF courants
+CREATE OR REPLACE VIEW PASSIFS_COURANTS as 
+select plan.compte,plan.libelle,sum(solde) as solde
+		from balance
+		join plan on balance.compte=plan.compte
+		where balance.compte like '40%' 
+		or balance.compte like '42%' 
+		or balance.compte like '44%' 
+		group by plan.libelle,plan.compte;
+
+--PASSIFS NON courants
+CREATE OR REPLACE VIEW PASSIFS_NON_COURANTS as 
+select plan.compte,plan.libelle,sum(balance.solde) as solde
+		from balance
+	left join 
+	CAPITAUX_PROPRES 
+	on CAPITAUX_PROPRES.compte=balance.compte 
+	join plan on balance.compte=plan.compte
+	where balance.compte like '1%' 
+	and CAPITAUX_PROPRES.compte is null
+	 group by plan.libelle,plan.compte;
+
+--ACTIFS COURANTS 
+CREATE OR REPLACE VIEW ACTIFS_COURANTS as 
+select plan.compte,plan.libelle,sum(solde) as solde 
+		from balance
+		join plan on balance.compte=plan.compte
+		where balance.compte like '3%' 
+		or balance.compte like '5%'
+		group by plan.libelle,plan.compte
+UNION 
+	select plan.compte,plan.libelle,sum(balance.solde) as solde
+		from balance
+	left join 
+	PASSIFS_COURANTS
+	on PASSIFS_COURANTS.compte=balance.compte 
+	join plan on balance.compte=plan.compte
+	where balance.compte like '4%' 
+	and PASSIFS_COURANTS.compte is null
+	group by plan.libelle,plan.compte;
+
+
+--ACTIFS NON-COURANTS
+CREATE OR REPLACE VIEW ACTIFS_NON_COURANTS as 
+select plan.compte,plan.libelle,sum(solde) as solde
+		from balance
+		join plan on balance.compte=plan.compte
+		where balance.compte like '2%' 
+		group by plan.libelle,plan.compte;
+
+--Solde passifs
+CREATE OR REPLACE VIEW solde_passifs as 
+SELECT (
+  SELECT COALESCE(SUM(solde), 0) FROM capitaux_propres
+) + (
+  SELECT COALESCE(SUM(solde), 0) FROM passifs_courants
+) + (
+  SELECT COALESCE(SUM(solde), 0) FROM passifs_non_courants
+) AS solde;
+
+--Solde actifs
+CREATE OR REPLACE VIEW solde_actifs as 
+SELECT(
+  SELECT COALESCE(SUM(solde), 0) FROM actifs_courants
+) + (
+  SELECT COALESCE(SUM(solde), 0) FROM actifs_non_courants
+) AS solde;
+
+--charges
+CREATE OR REPLACE VIEW CHARGES as 
+select plan.compte,plan.libelle,sum(solde) as solde
+		from balance
+		join plan on balance.compte=plan.compte
+		where balance.compte like '6%' 
+		group by plan.libelle,plan.compte;
+
+--PRODUITS
+CREATE OR REPLACE VIEW PRODUITS as 
+select plan.compte,plan.libelle,sum(solde) as solde
+		from balance
+		join plan on balance.compte=plan.compte
+		where balance.compte like '7%' 
+		group by plan.libelle,plan.compte;
+
+--compte de resultats
+CREATE OR REPLACE VIEW resultats as
+SELECT(
+  SELECT COALESCE(SUM(solde), 0) FROM CHARGES
+) + (
+  SELECT COALESCE(SUM(solde), 0) FROM PRODUITS
+) AS resultats;

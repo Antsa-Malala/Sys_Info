@@ -110,6 +110,8 @@ Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{c
 Route::post('/operation-update', 'OperationController@update');
 
 Route::get('/balance', 'BalanceController@getAll');
+Route::get('/bilan', 'BilanController@getBilan');
+
 // download routes
 
 Route::get('download/{filename}' , function($filename){

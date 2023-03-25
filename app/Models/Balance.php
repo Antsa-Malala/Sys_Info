@@ -13,8 +13,8 @@ class Balance extends Model
     {
         $result = DB::select("
             SELECT *, 
-                CASE WHEN solde > 0 THEN solde ELSE 0 END AS solde_debit, 
-                CASE WHEN solde < 0 THEN solde * -1 ELSE 0 END AS solde_credit 
+                CASE WHEN solde > 0 THEN solde ELSE NULL END AS solde_debit, 
+                CASE WHEN solde < 0 THEN solde * -1 ELSE NULL END AS solde_credit 
             FROM balance
         ");
         if (!empty($result)) {
