@@ -109,7 +109,7 @@ Route::get('/operation-delete/{id}', 'OperationController@delete');
 Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{compte}/{tiers}/{libelle}/{debit}/{credit}', 'OperationController@update_operation');
 Route::post('/operation-update', 'OperationController@update');
 
-
+Route::get('/balance', 'BalanceController@getAll');
 // download routes
 
 Route::get('download/{filename}' , function($filename){

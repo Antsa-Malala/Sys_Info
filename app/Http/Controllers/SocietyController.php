@@ -74,7 +74,7 @@ class SocietyController extends Controller
     }
 
     public function show(){
-        $id = 2;
+        $id = 1;
         $data['society'] = Society::find($id);
         $data['title'] = " Society :  " . $data['society']->getNom(); 
         $data['locations'] = Location::where('idsociety' , $id);
