@@ -12,13 +12,14 @@
 	<script type="text/javascript" src="{{ URL::asset('js/parsley.min.js') }}"></script>
 	<title>{{ $title }}</title>
 </head>
-<body>
+<body class="container">
 	@include('inc.headers')
 	@yield('content')
 	@include('inc.errors')
 	@include('inc.footer')
 	
 	<script type="text/javascript" src="{{ URL::asset('bootstrap/bootstrap-5.0.2/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('js/ajax.js') }}"></script>
 	<script>
   		$('#form').parsley();
 	</script>

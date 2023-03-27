@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+// use 
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -45,4 +47,12 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    // public function report(Throwable $ex){
+    //     if( $ex instanceOf \Illuminate\Database\QueryException ){
+    //         var_dump("Sarobidy");
+    //         // throw new DatabaseException( "Operation Failed : " , $ex->getMessage() );
+    //     }
+    //     parent::report($ex);
+    // }
 }
