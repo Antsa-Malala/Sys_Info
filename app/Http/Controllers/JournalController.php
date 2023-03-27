@@ -100,4 +100,20 @@ class JournalController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
+    public function search(Request $request)
+    {
+        $recherche = $request->input('recherche');
+        $recherche = strtoupper($recherche);
+
+        $journaux = Journaux::where('code', 'LIKE', "$recherche%")
+        ->orWhere('libelle', 'LIKE', "$recherche%")
+        ->get();
+
+        return response()->json($journaux);
+    }
+
+    public function recherche()
+    {
+        return view('pages.codes.recherche');
+    }
 }

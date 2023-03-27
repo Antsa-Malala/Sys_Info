@@ -135,6 +135,20 @@ class CompteController extends Controller
         return redirect('plan-list');
         // var_dump($csv);
     }
+    
+    public function search(Request $request)
+    {
+        $recherche = $request->input('recherche');
+        $recherche = strtoupper($recherche);
 
+        $plan = Plan::where('compte', 'LIKE', "$recherche%")
+        ->orWhere('libelle', 'LIKE', "$recherche%")
+        ->get();
+        return response()->json($plan);
+    }
 
+    public function recherche()
+    {
+        return view('pages.plan.recherche');
+    }
 }
