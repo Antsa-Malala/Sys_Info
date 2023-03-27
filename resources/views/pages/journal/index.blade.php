@@ -9,7 +9,7 @@
 					</h2>
 				</div>
 				<div class="col-lg-6 text-center">
-					<table class="table">
+					<table class="table table-hover">
 						<thead>
 							<th> Code Journal </th>
 							<th> Libelle Journal </th>

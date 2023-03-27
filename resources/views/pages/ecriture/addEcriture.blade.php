@@ -9,11 +9,6 @@
 				</h2>
 			</div>
 			<form action="/testEP" method="post" class="form">
-				{{-- Inona ny ato --}}
-				{{-- Ato no asiana izay tiako --}}
-				{{-- Voalohany ny id --}}
-				{{-- Faharoa ny Libelle --}}
-				{{-- Farany ny date --}}
 				@csrf
 				<div class="mb-3">
 					<label for="" class="form-label">

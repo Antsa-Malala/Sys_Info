@@ -73,3 +73,4 @@ function remove(){
 	all[all.length-1].setAttribute('disabled', true);
 	// document.re
 }
+

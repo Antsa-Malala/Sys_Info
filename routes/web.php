@@ -78,7 +78,7 @@ Route::get('/exchange-update_exchange/{idexchange}/{idone}/{idtwo}/{rate}', 'Exc
 Route::post('/exchange-update', 'ExchangeController@update');
 
 // Plan Comptable Mandeha daholo
-Route::get('/plan-list', 'CompteController@index');
+Route::get('/plan-list', 'CompteController@index')->name('plans');
 Route::get('/plan-By-Numero/{numero}', 'CompteController@getBynumero');
 Route::get('/plan-By-Libelle/{libelle}', 'CompteController@getBylibelle');
 Route::post('/plan-insert', 'CompteController@store');
@@ -108,6 +108,7 @@ Route::get('/operation-insertion', 'OperationController@insertion');
 Route::get('/operation-delete/{id}', 'OperationController@delete');
 Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{compte}/{tiers}/{libelle}/{debit}/{credit}', 'OperationController@update_operation');
 Route::post('/operation-update', 'OperationController@update');
+Route::get('/operation-errors', 'OperationController@errors');
 
 
 // download routes
