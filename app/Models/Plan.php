@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
     
     public static function getAll()
     {
-        $plan = DB::select('SELECT * FROM plan order by compte');
+        $plan = DB::select('SELECT * FROM plan order by compte LIMIT 10');
 
         return $plan;
     }

@@ -2,26 +2,26 @@ drop database gestion;
 create database gestion;
 \c gestion;
 create table society(
-		idSociety serial primary key,
-		nom varchar(250),
-		creation date not null default now(),
-		fondateur varchar(150) not null,
-		-- gestionCommerce varchar(30) not null,
-		nif varchar(10) not null,
-		logo varchar(250) not null,
-		date_exercice date not null,
-		status varchar(250) not null,
-		telecopie varchar(20) not null,
-		telephone varchar(20) not null
-	);
+	idSociety serial primary key,
+	nom varchar(250),
+	creation date not null default now(),
+	fondateur varchar(150) not null,
+	-- gestionCommerce varchar(30) not null,
+	nif varchar(10) not null,
+	logo varchar(250) not null,
+	date_exercice date not null,
+	status varchar(250) not null,
+	telecopie varchar(20) not null,
+	telephone varchar(20) not null
+);
 
-	create table location(
-		idlocation serial primary key,
-		idsociety int not null,
-		localisation varchar(150) not null,
-		primaire boolean default true,
-		foreign key(idsociety) references society(idSociety)
-	);
+create table location(
+	idlocation serial primary key,
+	idsociety int not null,
+	localisation varchar(150) not null,
+	primaire boolean default true,
+	foreign key(idsociety) references society(idSociety)
+);
 
 alter table society add column description text not null;
 alter table society add column nifPath varchar(250) not null;

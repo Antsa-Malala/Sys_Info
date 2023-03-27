@@ -7,14 +7,14 @@
 		</h2>
 		<div class="container my-3 mx-auto w-75">
 			<div class="row card p-3">
-				<form action="/add" method="POST" enctype="multipart/form-data">
+				<form action="/add" method="POST" enctype="multipart/form-data" id="form">
 					<div class="mb-3 form-inline row">
 						<div class="col-lg-3">
 							<label for="" class="form-label"> Nom de la société : </label>
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" class="form-control" value="A" name="name">
+							<input type="text" class="form-control" value="A" name="name" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -23,7 +23,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" class="form-control" value="B" name="localisation">
+							<input type="text" class="form-control" value="B" name="localisation" required>
 						</div>
 					</div>
 					<div class="mb-3 row">
@@ -33,7 +33,7 @@
 						<div class="col-lg-9 d-flex">
 							@csrf
 							{{-- <div class="col-lg-3">
-								<input type="text" class="form-control" onfocus="hide(this)" name="status">
+								<input type="text" class="form-control" onfocus="hide(this)" name="status" required>
 							</div> --}}
 							{{-- <div class="col-2">
 							</div> --}}
@@ -41,7 +41,7 @@
 								{{-- <span class="mx-3">
 									|
 								</span> --}}
-								<input type="file" class="form-control " name="status" id="">
+								<input type="file" class="form-control " name="status" id="" required>
 							</div>
 							{{-- Ampiana sary eto --}}
 						</div>
@@ -53,10 +53,10 @@
 						<div class="col-lg-9 d-flex">
 							@csrf
 							<div class="col-lg-3">
-								<input type="text" class="form-control"  value="999" name="fisc" placeholder="999 999 999">
+								<input type="text" class="form-control"  value="999" name="fisc" placeholder="999 999 999" required data-parsley-type="number" data-parsley-max="10">
 							</div>
 							<div class="col-lg-5 offset-1">
-								<input type="file" class="form-control form-control-file "  name="fisc-image" id="">
+								<input type="file" class="form-control form-control-file "  name="fisc-image" id="" required>
 							</div>
 						</div>
 					</div>
@@ -66,7 +66,7 @@
 						</div>
 						<div class="col-lg-6">
 							@csrf
-							<input type="text" name="pdg" class="form-control" value="F">
+							<input type="text" name="pdg" class="form-control" value="F" required data-parsley-type="text">
 						</div>
 					</div>
 					<div class="mb-3 row">
