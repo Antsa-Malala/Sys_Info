@@ -31,7 +31,7 @@ function submitForm(  ){
 			if( xhr.status == 200 ){
 				// Alefa makany amin'ny page hafa ila izy
 				let link = JSON.parse(xhr.responseText);
-				// window.location.href = link.link;
+				window.location.href = link.link;
 			}else{
 				let error = JSON.parse(e);
 				alert(error.error);

@@ -17,8 +17,19 @@ class Tiers extends Model{
     }
     public static function getById($id) {
         try{
-            $result = DB::select("SELECT * FROM tiers WHERE idtiers = ?", ["'".$id."'"]);
-            return $result;
+            $result = DB::select("SELECT * FROM tiers WHERE idtiers = ?", [$id]);
+            return $result[0];
+        }catch( \Illuminate\Database\QueryException | \Exception $e ){
+            throw new PlanException($e->getMessage());
+        }
+    }
+
+    public static function getByLibelle($id) {
+        $sql = "select * from tiers where libelle like '%s%s%s'";
+        $sql = sprintf($sql , '%' , $id , '%');
+        try{
+            $result = DB::select($sql);
+            return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
             throw new PlanException($e->getMessage());
         }
@@ -28,7 +39,7 @@ class Tiers extends Model{
     public static function getByNumero($id) {
         try{
             $result = DB::select("SELECT * FROM tiers WHERE numero = ? ", ["'".$id."'"]);
-            return $result;
+            return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
             throw new PlanException($e->getMessage());
             // throw new PlanException(sprintf("SELECT * FROM tiers WHERE numero = '%'" , $id));
@@ -64,14 +75,20 @@ class Tiers extends Model{
     public static function exist( $id ){
         try{
             $byId = Tiers::getById(trim($id));
-            return true;
+            // Mahazo compte aho avy eto
+            return $byId->numero;
         }catch( PlanException $e ){
             try{
                 $byNumero = Tiers::getBynumero(trim($id));
-                return true;
+                return $byNumero->numero;
             }catch(PlanException $e){
-                // throw new PlanException("Veuillez entrer un compte tiers existant : ".trim($id));
-                throw $e;
+                try{
+                    $byLibelle = Tiers::getBylibelle( $id );
+                    return $byLibelle->numero;
+                }catch(PlanException $e){
+                    throw new PlanException("Veuillez entrer un compte tiers existant : ".trim($id));
+                }
+                // throw $e;
             }
 
         }

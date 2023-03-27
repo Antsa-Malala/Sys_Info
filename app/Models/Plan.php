@@ -20,16 +20,23 @@ class Plan extends Model{
     }
     public static function getBynumero($numeroCompte) {
         if(empty($numeroCompte)) throw new \Exception("Le numéro de compte est invalide");
-        $result = DB::select("SELECT * FROM plan WHERE compte = ?", [$numeroCompte]);
-        if (!empty($result)) {
+        $a = 0;
+        try{
+            $result = DB::select("SELECT * FROM plan WHERE compte = ? ", [$numeroCompte]);
+            // $a = $result;
+            // ob_start();
+            // var_dump($result);
             return $result[0];
-        } else {
+        }catch( \Illuminate\Database\QueryException | \Exception $e ){
+            // $out = ob_get_clean();
+            // throw new \Exception(sprintf("SELECT * FROM plan WHERE compte = '%s'" , '%' , $numeroCompte , '%'));
             throw new \Exception('Aucun Résultat');
+            // throw new \Exception($out);
         }
     }
     public static function getById($id) {
         try{
-            $result = DB::select("SELECT * FROM plan WHERE idplan = ? ", ["'".$id."'"]);
+            $result = DB::select("SELECT * FROM plan WHERE idplan = ? ", [$id]);
             return $result[0];
         }catch(\Illuminate\Database\QueryException | \Exception $query){
             throw new \Exception('Aucun Résultat');
@@ -37,11 +44,18 @@ class Plan extends Model{
     }
 
     public static function getBylibelle($libelle) {
-        $result = DB::select("SELECT * FROM plan WHERE libelle = ?", [$libelle]);
-        if (!empty($result)) {
+        // $sql = sprintf("SELECT * FROM plan WHERE libelle like '%s%s%s'" , '%' , $libelle , '%');
+        try {
+            $result = DB::select("SELECT * FROM plan WHERE libelle like ?", ['%'.$libelle.'%']);
+            // ob_start();
+            // var_dump($result);
+            // $result = DB::select($sql);
             return $result[0];
-        } else {
-            return null;
+        }catch( \Illuminate\Database\QueryException | \Exception $e ){
+            // $out = ob_get_clean();
+            // throw new \Exception($out);
+            throw new \Exception("Aucun Résultat");
+            // throw new \Exception($e);
         }
     }
 
@@ -100,15 +114,25 @@ class Plan extends Model{
     }
 
     public static function exist( $id ){
+        $a = 0;
         try{
             $byId = Plan::getById($id);
-            return true;
+            $a = $byId;
+            return $byId->compte;
         }catch( \Exception $e ){
             try{
                 $byNumero = Plan::getBynumero($id);
-                return true;
+                $a = $byNumero;
+                return $byNumero->compte;
             }catch(\Exception $e){
-                throw new PlanException("Le compte que vous avez entrée n'existe pas");
+                try{
+                    $byLibelle = Plan::getBylibelle(trim($id));
+                    $a = $byLibelle;
+                    return $byLibelle->compte;
+                }catch(\Exception $e){
+                    // throw new PlanException( $e->getMessage() );
+                    throw new PlanException("Le compte que vous avez entrée n'existe pas :".$id);
+                }
             }
         }
     }

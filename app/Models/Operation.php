@@ -47,7 +47,7 @@ class Operation extends Model{
     public function setCompte( $compte ){
         if( empty( $compte ) ) throw new InvalidDataException("Le compte choisi ne doit pas etre vide : ".$compte);
         try{
-            Plan::exist(trim($compte));
+            $compte = Plan::exist(trim($compte));
             $this->compte = $compte;
         }catch( PlanException $plan ){
             throw $plan;
@@ -110,13 +110,12 @@ class Operation extends Model{
         try{
             if( empty($tiers) ){
                 $this->tiers = $tiers;
-            }else if(Tiers::exist($tiers)){
+            }else if(!empty(Tiers::exist($tiers))){
                 $this->tiers = $tiers;
             }
         }catch( PlanException $plan){
             throw $plan;
         }
-
     }
 
     private function checkNumber($n){

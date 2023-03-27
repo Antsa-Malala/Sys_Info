@@ -47,8 +47,10 @@
 									
 								</div>
 							</td>
-							<td>
-								<select name="compte[]" class="form-select" id="">
+							<td> 
+								{{-- Asiako input avy eto de alaiko ny select eo akaikiny --}}
+								{{-- <input type="text" name="" id=""> --}}
+								<select name="compte[]" class="form-select" >
 									<option value=""> Choissez Un compte </option>
 									@for( $i = 0 ; $i < count($comptes) ; $i++ )
 										<option value="{{ $comptes[$i]->compte }}"> 
@@ -61,7 +63,7 @@
 								<select name="fo-c[]" class="form-select" id="">
 									<option value=""> Choissez Un compte Tiers </option>
 									@for( $i = 0 ; $i < count($tiers) ; $i++ )
-										<option value="{{ $tiers[$i]->idtiers }}"> 
+										<option value="{{ $tiers[$i]->numero }}"> 
 										{{ $tiers[$i]->numero." - ".$tiers[$i]->libelle }} </option>
 									@endfor
 								</select>
@@ -101,5 +103,6 @@
 		</div>
 	</div>
 	<script src="{{ URL::asset('js/app.js') }}"></script>
+	
 	{{-- <script src="{{ URL::asset('js/operation.template.js') }}"></script> --}}
 @endsection
