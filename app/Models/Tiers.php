@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
- class Tiers extends Model{
+use App\Exceptions\PlanException;
+
+class Tiers extends Model{
     protected $table = 'tiers';
     
     public static function getAll()
@@ -14,12 +16,24 @@ use Illuminate\Database\Eloquent\Model;
         return $tiers;
     }
     public static function getById($id) {
-        $result = DB::select("SELECT * FROM tiers WHERE idTiers = ?", [$id]);
-        if (!empty($result)) {
-            return $result[0];
-        } else {
-            return null;
+        try{
+            $result = DB::select("SELECT * FROM tiers WHERE idtiers = ?", ["'".$id."'"]);
+            return $result;
+        }catch( \Illuminate\Database\QueryException | \Exception $e ){
+            throw new PlanException($e->getMessage());
         }
+
+    }
+
+    public static function getByNumero($id) {
+        try{
+            $result = DB::select("SELECT * FROM tiers WHERE numero = ? ", ["'".$id."'"]);
+            return $result;
+        }catch( \Illuminate\Database\QueryException | \Exception $e ){
+            throw new PlanException($e->getMessage());
+            // throw new PlanException(sprintf("SELECT * FROM tiers WHERE numero = '%'" , $id));
+        }
+
     }
 
     public static function insert( $numero, $libelle) {
@@ -45,6 +59,22 @@ use Illuminate\Database\Eloquent\Model;
             throw new \Exception("Le libelle ne doit pas etre vide");
         }
         $result = DB::update("UPDATE tiers SET  numero = ?, libelle = ? WHERE idTiers = ?", [$numero, $libelle, $id]);
+    }
+ 
+    public static function exist( $id ){
+        try{
+            $byId = Tiers::getById(trim($id));
+            return true;
+        }catch( PlanException $e ){
+            try{
+                $byNumero = Tiers::getBynumero(trim($id));
+                return true;
+            }catch(PlanException $e){
+                // throw new PlanException("Veuillez entrer un compte tiers existant : ".trim($id));
+                throw $e;
+            }
+
+        }
     }
 
     

@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
- class Plan extends Model{
+use App\Exceptions\InvalidNumberException;
+use App\Exceptions\DatabaseException;
+use App\Exceptions\PlanException;
+
+class Plan extends Model{
     protected $table = 'plan';
     protected $primaryKey = 'idplan';
     
@@ -20,15 +24,15 @@ use Illuminate\Database\Eloquent\Model;
         if (!empty($result)) {
             return $result[0];
         } else {
-            throw new Exception('Aucun Résultat');
+            throw new \Exception('Aucun Résultat');
         }
     }
     public static function getById($id) {
-        $result = DB::select("SELECT * FROM plan WHERE idplan = ?", [$numeroCompte]);
-        if (!empty($result)) {
+        try{
+            $result = DB::select("SELECT * FROM plan WHERE idplan = ? ", ["'".$id."'"]);
             return $result[0];
-        } else {
-            throw new Exception('Aucun Résultat');
+        }catch(\Illuminate\Database\QueryException | \Exception $query){
+            throw new \Exception('Aucun Résultat');
         }
     }
 
@@ -45,9 +49,13 @@ use Illuminate\Database\Eloquent\Model;
         if( empty($numeroCompte) ) throw new \Exception("Le numero de compte ne peut etre nulle , égale a 0");
         if( strlen($numeroCompte) > 5 ) throw new \Exception("Le numero de compte ne peut contenir que 5 caracteres");
         if( empty($libelle) ) throw new \Exception(" Le libelle ne peut etre null ");
-        $numeroCompte = Plan::fillZero($numeroCompte);
-        // var_dump($numeroCompte);
-        $result = DB::insert("insert into plan values (default , ? , ? )", [$numeroCompte,$libelle]);
+        try{
+            $number = $numeroCompte;
+            $numeroCompte = Plan::fillZero($numeroCompte);
+            $result = DB::insert("insert into plan values (default , ? , ? )", [$numeroCompte,$libelle]);
+        }catch( \Illuminate\Database\QueryException $e ){
+            throw new DatabaseException( " Operation Failed for account ". $number ." -> " . $numeroCompte . ": " , $e->getMessage() );
+        }
     }
 
     private static function fillZero($numero){
@@ -86,8 +94,22 @@ use Illuminate\Database\Eloquent\Model;
         try{
             $numeroCompte = Plan::fillZero($numeroCompte);
             $result = DB::update("UPDATE plan SET compte = ? , libelle = ? where idplan = ? ", [ $numeroCompte,$libelle , $id]);
-        }catch(Exception $e){
+        }catch(\Exception $e){
             throw new Exception($e->getMessage());
+        }
+    }
+
+    public static function exist( $id ){
+        try{
+            $byId = Plan::getById($id);
+            return true;
+        }catch( \Exception $e ){
+            try{
+                $byNumero = Plan::getBynumero($id);
+                return true;
+            }catch(\Exception $e){
+                throw new PlanException("Le compte que vous avez entrée n'existe pas");
+            }
         }
     }
     

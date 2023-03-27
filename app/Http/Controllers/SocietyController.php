@@ -25,13 +25,13 @@ class SocietyController extends Controller
         $data = array();
         $data = $this->getRequired($request , $data);
         $data = $this->getAdditional($request , $data);
-        $society = new Society($data);
         $d = 'uploads';
         // Inserena ny exercice amin'izao
         // Izany no atao ato
 
         // $exerice = new Exercice();
         try{
+            $society = new Society($data);
             if( $society->save() ){
                 // ENREGISTRER ANATY BASE ILAY IZY
                 // SAUVENA AMIN'IZAY ILAY SARY Request::hasSessionStore()
@@ -47,6 +47,8 @@ class SocietyController extends Controller
                 return redirect('/')->with($data);
                 // }
             }
+        // }catch(\InvalidNumberException $e){
+        //     return $e->toResponse($request);
         }catch(Exception $e){
             DB::rollback();
         }
