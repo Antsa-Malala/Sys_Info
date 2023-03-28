@@ -105,8 +105,8 @@ class JournalController extends Controller
         $recherche = $request->input('recherche');
         $recherche = strtoupper($recherche);
 
-        $journaux = Journaux::where('code', 'LIKE', "$recherche%")
-        ->orWhere('libelle', 'LIKE', "$recherche%")
+        $journaux = Journaux::where('code', 'LIKE', "%$recherche%")
+        ->orWhere('libelle', 'LIKE', "%$recherche%")
         ->get();
 
         return response()->json($journaux);

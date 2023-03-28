@@ -105,8 +105,8 @@ class TiersController extends Controller
         $recherche = $request->input('recherche');
         $recherche = strtoupper($recherche);
 
-        $tiers = Tiers::where('numero', 'LIKE', "$recherche%")
-        ->orWhere('libelle', 'LIKE', "$recherche%")
+        $tiers = Tiers::where('numero', 'LIKE', "%$recherche%")
+        ->orWhere('libelle', 'LIKE', "%$recherche%")
         ->get();
 
         return response()->json($tiers);

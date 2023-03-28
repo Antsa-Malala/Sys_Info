@@ -108,8 +108,10 @@ class Plan extends Model{
         try{
             $numeroCompte = Plan::fillZero($numeroCompte);
             $result = DB::update("UPDATE plan SET compte = ? , libelle = ? where idplan = ? ", [ $numeroCompte,$libelle , $id]);
+        }catch(\Illuminate\Database\QueryException $e){
+            throw new DatabaseException( "Operation failed : " , $e->getMessage());
         }catch(\Exception $e){
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
