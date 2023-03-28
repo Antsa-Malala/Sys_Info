@@ -1,3 +1,47 @@
+
+function fetchData( element ){
+    let r = element;
+    let value = r.value;
+    fetch(`/search_journal?recherche=${value}`,{
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response=>response.json())
+    .then(data=>{
+       searchResults.innerHTML = '';
+        if (data.length > 0) {
+            const table = document.createElement('table');
+            table.classList.add('table');
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Libelle</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            const tbody = table.querySelector('tbody');
+
+            data.forEach(journaux => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${journaux.code}</td>
+                    <td>${journaux.libelle}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            searchResults.appendChild(table);
+        }else {
+            const noResults = document.createElement('div');
+            noResults.textContent = 'Aucun resultat.';
+            searchResults.appendChild(noResults);
+        } 
+    });
+}
+// window.addEventListener
 const searchForm = document.querySelector('#formulaire_recherche');
 const searchResults = document.querySelector('#resultats');
 
@@ -17,6 +61,7 @@ searchForm.addEventListener('submit', (e) => {
 
         if (data.length > 0) {
             const table = document.createElement('table');
+            table.classList.add('table');
             table.innerHTML = `
                 <thead>
                     <tr>
@@ -45,3 +90,6 @@ searchForm.addEventListener('submit', (e) => {
         }
     });
 });
+
+// Atao fonction io de averina ho an'ny one key up
+

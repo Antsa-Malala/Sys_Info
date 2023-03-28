@@ -112,8 +112,8 @@ class JournalController extends Controller
         return response()->json($journaux);
     }
 
-    public function recherche()
-    {
-        return view('pages.codes.recherche');
+    public function recherche(){
+        $data['title'] = "Recherche Journale";
+        return view('pages.codes.recherche')->with($data);
     }
 }
