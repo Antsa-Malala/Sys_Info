@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Compte;
 use App\Models\Plan;
+use App\Exceptions\DatabaseException;
+
 class CompteController extends Controller
 {
     /**
@@ -43,7 +45,10 @@ class CompteController extends Controller
         try{
             Plan::insert( $numero , $libelle );
             return redirect('plan-list');
-        }catch(Exception $e){
+        }catch( DatabaseException $database ){
+            return back()->withErrors($database->getMessage())->withInput();
+        }
+        catch(Exception $e){
             return back()->withErrors("Veuillez Verifier les données que vous avez entrés");
         }
         // if( $compte->save() ){
@@ -88,6 +93,8 @@ class CompteController extends Controller
             Plan::updates( $compte , $libelle , $id);
             $data['title'] = "Liste Plan Comptables";
             return redirect('plan-list');
+        }catch( DatabaseException $e ){
+            return back()->withErrors($e->getMessage())->withInput();
         }catch(Exception $e){
             return back()->withErrors('Veuillez verifier les données que vous avez entrées ' . $e->getMessage())->withInput();
         }
@@ -135,6 +142,20 @@ class CompteController extends Controller
         return redirect('plan-list');
         // var_dump($csv);
     }
+    
+    public function search(Request $request)
+    {
+        $recherche = $request->input('recherche');
+        $recherche = strtoupper($recherche);
 
+        $plan = Plan::where('compte', 'LIKE', "%$recherche%")
+        ->orWhere('libelle', 'LIKE', "%$recherche%")
+        ->get();
+        return response()->json($plan);
+    }
 
+    public function recherche()
+    {
+        return view('pages.plan.recherche');
+    }
 }
