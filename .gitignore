@@ -1,5 +1,6 @@
 
-.env
-.env
-exercice
-.env
+*.env
+*.env
+*exercice
+*.env
+vendor
