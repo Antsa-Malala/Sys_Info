@@ -1,9 +1,8 @@
-@extends('layouts.app')
-@section('content')
-<div class="container" style="margin-top: 125px;">
-    <div class="container w-50 shadow p-4" style="border-radius: 10px;">
+<?php $__env->startSection('content'); ?>
+<div class="container">
+    <div class="container">
         <form action="/plan-insert" method="POST" id="form">
-            @csrf
+            <?php echo csrf_field(); ?>
             <div class="my-3">
                 <label for="numerocompte" class="form-label">Numero de compte</label>
                 <input type="text" name="compte" class="form-control my-2" id="numerocompte" 
@@ -19,4 +18,5 @@
         </form>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/sarobidy/Documents/GitHub/Sys_Info/resources/views/pages/plan/create.blade.php ENDPATH**/ ?>
