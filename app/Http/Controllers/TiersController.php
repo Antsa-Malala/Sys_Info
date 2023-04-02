@@ -99,4 +99,21 @@ class TiersController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
+
+    public function search(Request $request)
+    {
+        $recherche = $request->input('recherche');
+        $recherche = strtoupper($recherche);
+
+        $tiers = Tiers::where('numero', 'LIKE', "%$recherche%")
+        ->orWhere('libelle', 'LIKE', "%$recherche%")
+        ->get();
+
+        return response()->json($tiers);
+    }
+
+    public function recherche()
+    {
+        return view('pages.tiers.recherche');
+    }
 }

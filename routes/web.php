@@ -109,6 +109,18 @@ Route::get('/operation-delete/{id}', 'OperationController@delete');
 Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{compte}/{tiers}/{libelle}/{debit}/{credit}', 'OperationController@update_operation');
 Route::post('/operation-update', 'OperationController@update');
 
+Route::get('/balance', 'BalanceController@getAll');
+Route::get('/bilan', 'BilanController@getBilan');
+
+//Recherche
+Route::get('/search_compte', 'CompteController@search');
+Route::get('/recherche_compte', 'CompteController@recherche');
+
+Route::get('/search_journal', 'JournalController@search');
+Route::get('/recherche_journal', 'JournalController@recherche');
+
+Route::get('/search_tiers', 'TiersController@search');
+Route::get('/recherche_tiers', 'TiersController@recherche');
 
 // download routes
 
