@@ -13,7 +13,7 @@ class EcritureController extends Controller{
     public function create(){
         $data['title'] = "Entrer des ecritures";
         $data['journaux'] = Journaux::getAll();
-        return view('pages.ecriture.addEcriture')->with($data);
+        return view('pages.addEcriture')->with($data);
     }
 
     public function index(){
@@ -21,15 +21,16 @@ class EcritureController extends Controller{
         // $data['month'] = Ecriture::getMonth();
         $allCode = Journaux::getAll();
         $data['journaux'] = $allCode;
+
         return view('pages.journal.index')->with($data);
     }
 
     public function show($code){
         $data['title'] = ' Journal du code '.$code;
-      
-        // Alaina daholo ny code Journaux rehetra  $data['code'] = $code;
+        $data['code'] = $code;
 
         // return  
+        // Alaina daholo ny code Journaux rehetra
     }
     
     public function store(Request $request){
@@ -39,7 +40,9 @@ class EcritureController extends Controller{
         // Get date
         $date = $request->input('date');
         $code = $request->input('code');
+        // Get Current Exercice
         $currentExercice = Exercice::getCurrentExercice();
+
         try{
             // var_dump($date);
             $ecriture = new Ecriture( $date , $libelle , $currentExercice , $code );

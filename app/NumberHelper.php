@@ -41,16 +41,4 @@
 		}
 	}
 
-	if( !function_exists('isValidNumber') ){
-		function isValidNumber( $number ){
-			// Inona ny regex ako
-			// Anontaniana hoe inona ilay raha misy caractere de adaboy
-
-			$regex = '/[^1-9,\s,\+,\-]/';
-			$str = strval($number);
-			$matches = preg_match($regex, $str);
-			return ($matches == 0);
-		}
-	}
-
 ?>

@@ -4,11 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Exceptions\InvalidNumberException;
-use App\Exceptions\DatabaseException;
-use App\Exceptions\PlanException;
-
-class Plan extends Model{
+ class Plan extends Model{
     protected $table = 'plan';
     protected $primaryKey = 'idplan';
     
@@ -20,42 +16,28 @@ class Plan extends Model{
     }
     public static function getBynumero($numeroCompte) {
         if(empty($numeroCompte)) throw new \Exception("Le numéro de compte est invalide");
-        $a = 0;
-        try{
-            $result = DB::select("SELECT * FROM plan WHERE compte = ? ", [$numeroCompte]);
-            // $a = $result;
-            // ob_start();
-            // var_dump($result);
+        $result = DB::select("SELECT * FROM plan WHERE compte = ?", [$numeroCompte]);
+        if (!empty($result)) {
             return $result[0];
-        }catch( \Illuminate\Database\QueryException | \Exception $e ){
-            // $out = ob_get_clean();
-            // throw new \Exception(sprintf("SELECT * FROM plan WHERE compte = '%s'" , '%' , $numeroCompte , '%'));
-            throw new \Exception('Aucun Résultat');
-            // throw new \Exception($out);
+        } else {
+            throw new Exception('Aucun Résultat');
         }
     }
     public static function getById($id) {
-        try{
-            $result = DB::select("SELECT * FROM plan WHERE idplan = ? ", [$id]);
+        $result = DB::select("SELECT * FROM plan WHERE idplan = ?", [$numeroCompte]);
+        if (!empty($result)) {
             return $result[0];
-        }catch(\Illuminate\Database\QueryException | \Exception $query){
-            throw new \Exception('Aucun Résultat');
+        } else {
+            throw new Exception('Aucun Résultat');
         }
     }
 
     public static function getBylibelle($libelle) {
-        // $sql = sprintf("SELECT * FROM plan WHERE libelle like '%s%s%s'" , '%' , $libelle , '%');
-        try {
-            $result = DB::select("SELECT * FROM plan WHERE libelle like ?", ['%'.$libelle.'%']);
-            // ob_start();
-            // var_dump($result);
-            // $result = DB::select($sql);
+        $result = DB::select("SELECT * FROM plan WHERE libelle = ?", [$libelle]);
+        if (!empty($result)) {
             return $result[0];
-        }catch( \Illuminate\Database\QueryException | \Exception $e ){
-            // $out = ob_get_clean();
-            // throw new \Exception($out);
-            throw new \Exception("Aucun Résultat");
-            // throw new \Exception($e);
+        } else {
+            return null;
         }
     }
 
@@ -63,13 +45,9 @@ class Plan extends Model{
         if( empty($numeroCompte) ) throw new \Exception("Le numero de compte ne peut etre nulle , égale a 0");
         if( strlen($numeroCompte) > 5 ) throw new \Exception("Le numero de compte ne peut contenir que 5 caracteres");
         if( empty($libelle) ) throw new \Exception(" Le libelle ne peut etre null ");
-        try{
-            $number = $numeroCompte;
-            $numeroCompte = Plan::fillZero($numeroCompte);
-            $result = DB::insert("insert into plan values (default , ? , ? )", [$numeroCompte,$libelle]);
-        }catch( \Illuminate\Database\QueryException $e ){
-            throw new DatabaseException( " Operation Failed for account ". $number ." -> " . $numeroCompte . ": " , $e->getMessage() );
-        }
+        $numeroCompte = Plan::fillZero($numeroCompte);
+        // var_dump($numeroCompte);
+        $result = DB::insert("insert into plan values (default , ? , ? )", [$numeroCompte,$libelle]);
     }
 
     private static function fillZero($numero){
@@ -108,34 +86,8 @@ class Plan extends Model{
         try{
             $numeroCompte = Plan::fillZero($numeroCompte);
             $result = DB::update("UPDATE plan SET compte = ? , libelle = ? where idplan = ? ", [ $numeroCompte,$libelle , $id]);
-        }catch(\Illuminate\Database\QueryException $e){
-            throw new DatabaseException( "Operation failed : " , $e->getMessage());
-        }catch(\Exception $e){
-            throw new \Exception($e->getMessage());
-        }
-    }
-
-    public static function exist( $id ){
-        $a = 0;
-        try{
-            $byId = Plan::getById($id);
-            $a = $byId;
-            return $byId->compte;
-        }catch( \Exception $e ){
-            try{
-                $byNumero = Plan::getBynumero($id);
-                $a = $byNumero;
-                return $byNumero->compte;
-            }catch(\Exception $e){
-                try{
-                    $byLibelle = Plan::getBylibelle(trim($id));
-                    $a = $byLibelle;
-                    return $byLibelle->compte;
-                }catch(\Exception $e){
-                    // throw new PlanException( $e->getMessage() );
-                    throw new PlanException("Le compte que vous avez entrée n'existe pas :".$id);
-                }
-            }
+        }catch(Exception $e){
+            throw new Exception($e->getMessage());
         }
     }
     

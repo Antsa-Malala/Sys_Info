@@ -6,13 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ecriture;
 use App\Models\Operation;
 use App\Models\Journaux;
-use App\Models\Plan;
-use App\Models\Tiers;
 use App\Exceptions\InvalidNumberException;
-use App\Exceptions\PlanException;
-use App\Exceptions\InvalidDataException;
-use App\Exceptions\InvalidEcritureException;
-use Illuminate\Support\Facades\DB;
 
 class OperationController extends Controller{
     
@@ -25,65 +19,29 @@ class OperationController extends Controller{
         $data['ecriture'] = $ecriture; // give the ecriture to the array of data
         $prefix = Journaux::getAll();
         $data['journaux'] = $prefix;
-        $data['comptes'] = Plan::getAll();
-        // Alaina daholo ny compte Tiers rehetra
-        $data['tiers'] = Tiers::getAll();
-
-        return view('pages.operations.addoperation')->with($data);
+        return view('pages.addoperation')->with($data);
     }
 
     public function store(Request $request){
-        $references = $request->input('ref');
-        $currentEcriture = session()->get('ecriture');
-        $date = $request->input('dates');
-        $comptes = $request->input('compte');
-        $tiers = $request->input('fo-c');
-        $libelle = $request->input('libelle');
-        $debits = $request->input('debit');
-        $credits = $request->input('credit');
-        $lib = $currentEcriture->libelle;
-        $ref = $currentEcriture->createReference();
-        $operations = array();
-        for( $i = 0 ; $i < count($references) ; $i++ ){
-            try{
-                $operation = new Operation( $currentEcriture->idecriture , 
-                                            $references[$i] , 
-                                            $comptes[$i] ,$tiers[$i], $libelle[$i],
-                                            $debits[$i] , $credits[$i]);
-                $operation->validate( trim($ref) , trim($lib) );
-                $operation->isValidDate($date[$i] , $currentEcriture->dateecriture);
-                $operations[] = $operation; 
-            }catch( InvalidDataException $data ){
-                return response()->json( array('error'=>$data->getMessage()) , 500 );
-            }catch( PlanException $plan ){
-                return response()->json( array('error'=>$plan->getMessage()) , 500 );
-            }
-        }
+        // Alaina daholo ny value rehetra
+        $compte = $request->input('compte');
+        $prefixs = $request->input('no');
+        $pieces = $request->input('piece');
         try{
-            $isEquilibre = $currentEcriture->isValidEcriture($operations);
-            // Ny manaraka dia ny enregistrement an'ilay operation rehetra any anaty base
-            DB::beginTransaction();
-            try{
-                // Sauvena ilay Operation rehetra
-                for ($i = 0 ; $i < count($operations) ; $i++ ) {
-                    $operations[$i]->save();
-                    DB::commit();
-                }
-                // return redirect('plan-list');
-            }catch(\Exception $e){
-                DB::rollback();
-                return response()->json( array('error'=>$e->getMessage()) , 500 );
-                // return back()->withErrors($e->getMessage());
-            }
-        }catch( InvalidEcritureException $e ){
-            // return back()->withErrors($e->getMessage())->withInput();
-            return response()->json( array('error'=>$e->getMessage()) , 500 );
-            // throw $e;
+            $merges = Operation::merge($prefixs , $pieces);
+            $isValid = Operation::isValid( $request->input('debit') , $request->input('credit') );
+        }catch( InvalidNumberException $invalid ){
+            return back()->withErrors($invalid->getMessage());
         }
-        return response()->json(array('link'=>route('plans')) , 200);
+        // Validation indray izao
+        // Mila anontaniana hoe misy vide ve ilay nombre sa tsia
+        // Raha sendra misy vide de alefa any
+        // checks fotsiny izany
+        // Inona no tokony anontaniako izany
+        // Any anatin'ilay boucle izanny
+        var_dump($isValid);
+        return 0;
     }
-
-
 
     // Import a csv file
     public function importCSV(Request $request){

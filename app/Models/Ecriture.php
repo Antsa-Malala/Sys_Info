@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\OutRangeEcriture;
-use App\Exceptions\InvalidEcritureException;
-use App\Models\Operation;
 
 class Ecriture extends Model{
     use HasFactory;
@@ -63,25 +61,5 @@ class Ecriture extends Model{
     public static function getMonth(){
         $data = array('Janvier' , 'Fevrier' , 'Mars' , 'Avril' , 'Mai' , 'Juin' , 'Juillet' , 'Aout' , 'Septembre' , 'Octobre' , 'Novembre' , 'Decembre');
         return $data;
-    }
-
-    public function createReference(){
-        // Alaina aloha ilay code mifanaraka aminy
-        $journaux = Journaux::getById($this->idcode);
-        $date = date("Y" , strtotime($this->dateecriture));
-        return $journaux->code."".$date;
-    }
-
-    public function isValidEcriture( $operations ){
-        $credit = 0;
-        $debit = 0;
-        for( $i = 0 ; $i < count($operations) ; $i++ ){
-            $debit = $debit + $operations[$i]->debit;
-            $credit = $credit + $operations[$i]->credit;
-        }
-        if( $debit - $credit == 0 ){
-            return true;
-        }
-        throw new InvalidEcritureException( $debit , $credit );
     }
 }

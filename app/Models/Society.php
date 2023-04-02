@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
-use App\Exceptions\InvalidNumberException;
 class Society extends Model{
     protected $table = 'society';
     public $timestamps = false;
@@ -116,12 +115,7 @@ class Society extends Model{
     }
     
     public function setTelephonie($nom){
-        $o = isValidNumber($nom);
-        if( $o ){
-            $this->telephone = $nom;
-        }
-        throw new InvalidNumberException("Please Enter a valid Number");
-        
+        $this->telephone = $nom;
     }
     public function getTelephonie(){
         return $this->telephone;
