@@ -23,7 +23,7 @@
                 @foreach ($plans as $plan)
                 <tr>
                     <td class="text-center">{{ $plan->compte}}</td>
-                    <td class="text-center">{{ $plan->libelle}}</td>
+                    <td class="text-start">{{ $plan->libelle}}</td>
                     <td><a href="{{ url('/plan-delete/'.$plan->idplan) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/delete.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></a></td>
                     <td><a href="{{ url('/plan-update_plan/'.$plan->compte) }}" btn><img style="width: 25px;" src="{{ URL::asset('assets/img/update.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"></a></td>
                 </tr>
