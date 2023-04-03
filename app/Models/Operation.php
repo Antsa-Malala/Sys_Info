@@ -5,16 +5,60 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InvalidNumberException;
+use App\Exceptions\InvalidDataException;
+use App\Exceptions\PlanException;
+use App\Models\Plan;
 
-
-class Operation extends Model
-{
+class Operation extends Model{
     use HasFactory;
+    protected $primaryKey = 'idoperation';
+    protected $table = 'operation';
+    protected $fillable = [
+        'idecriture' , 'numpiece' , 'compte' , 'tiers' , 'libelle' , 'debit' , 'credit'
+    ];
+    public $incrementing = true;
+    public $timestamps = false;
 
-    // Inona daholo no atao rehefa anao opération
-    // Mila manana idEcriture
-    public function __construct(){
+    public function __construct( $idecriture , $ref , $compte , $tiers = '' , $libelle , $debit = 0 , $credit = 0 ){
+        $this->setIdEcriture($idecriture);
+        $this->setReference($ref);
+        $this->setCompte($compte);
+        $this->setLibelle($libelle);
+        $this->setTiers($tiers);
+        $this->setDebit($debit);
+        $this->setCredit($credit);
+    }
 
+
+    public function setReference( $reference ){
+        if( empty($reference) ){
+            throw new InvalidDataException("Le numéro de reference ne peut etre vide");
+        }
+        $this->numpiece = $reference;
+    }
+
+    public function setIdEcriture( $idecriture ){
+        if( empty($idecriture) ){
+            throw new InvalidDataException("L'écriture choisi n'est pas valide : " .$idecriture);   
+        }
+            $this->idecriture = $idecriture;
+    }
+
+    public function setCompte( $compte ){
+        if( empty( $compte ) ) throw new InvalidDataException("Le compte choisi ne doit pas etre vide : ".$compte);
+        try{
+            $compte = Plan::exist(trim($compte));
+            $this->compte = $compte;
+        }catch( PlanException $plan ){
+            throw $plan;
+        }
+    }
+
+    public function setLibelle( $libelle ){
+        if( empty( $libelle ) ){
+            throw new InvalidDataException("Le libelle ne doit pas etre vide");
+        }
+        $this->libelle = $libelle;
     }
 
     public static function merge( $no , $refere ){
@@ -26,27 +70,64 @@ class Operation extends Model
         return $array;
     }
 
-    public static function isValid( $debit , $credit ){
-        // Mila atao manome zero fotsiny izy roa
-        $debs = 0;
-        $creds = 0;
-        var_dump($debit);
-        var_dump($credit);
-        $debs_length = count($debit);
-        $cred_length = count($credit);
-        for( $i = 0 ; $i < $debs_length ; $i++ ){
-            if( strlen($debit[$i]) == 0 || ( strlen( $debit[$i] ) > 0 && $debit[$i] < 0 )  ){
-                throw new InvalidNumberException("Désolé veuillez remplir le débit avec un nombre valide ( hint >= 0 ) : ".$debit[$i]);
-            }
-            $debs += $debit[$i];
+    public function validate( $reference , $libelle ){
+        if( strpos($this->numpiece , $reference) !== false && strpos( $this->libelle , $libelle ) !== false ){
+            return true;
         }
-        for( $i = 0 ; $i < $cred_length ; $i++ ){
-            if( strlen($credit[$i]) == 0 || ( strlen( $credit[$i] ) > 0 && $credit[$i] < 0 )  ){
-                throw new InvalidNumberException("Désolé veuillez remplir le débit avec un nombre valide ( hint >= 0 ) : ".$credit[$i]);
-            }
-            $creds += $credit[$i];
-        }
-        return (($debs - $creds) == 0);
+        throw new InvalidDataException("Vous ne pouvez pas modifier les reference de pieces ou les libelle");
     }
+
+    public function isValidDate( $date1 , $original_date ){
+        $dat1 = date("Y-m-d" , strtotime($date1));
+        $dat2 = date("Y-m-d" , strtotime($original_date));
+        if( $dat1 == $dat2 ){
+            return true;
+        }
+        throw new InvalidDataException("Vous ne pouvez pas modifier la date d'operation");
+    }
+
+    public function setDebit( $debit ){
+        $d = strval($debit);
+        try{
+            $this->checkNumber($d);
+            $this->debit = $debit;
+        }catch( InvalidDataException $e ){
+            throw $e;
+        }
+    }
+
+    public function setCredit( $credit ){
+        $d = strval($credit);
+        try{
+            $this->checkNumber($d);
+            $this->credit = $credit;
+        }catch( InvalidDataException $e ){
+            throw $e;
+        }
+    }
+
+    public function setTiers( $tiers = '' ){
+        try{
+            if( empty($tiers) ){
+                $this->tiers = $tiers;
+            }else if(!empty(Tiers::exist($tiers))){
+                $this->tiers = $tiers;
+            }
+        }catch( PlanException $plan){
+            throw $plan;
+        }
+    }
+
+    private function checkNumber($n){
+        $regex = "/[a-zA-Z]/";
+        $preg = preg_match($regex , $n);
+        if( $preg != 0 ){
+            throw new InvalidDataException(" Vous ne pouvez pas introduire des lettres : ".$n);
+        }else if( $n < 0 ){
+            throw new InvalidDataException(" Vous ne pouvez pas introduire des nombres négatifs : ".$n);
+        }
+        return $n;
+    }
+
 
 }

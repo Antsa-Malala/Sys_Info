@@ -43,6 +43,7 @@
 	@include('inc.footer')
 	
 	<script type="text/javascript" src="{{ URL::asset('bootstrap/bootstrap-5.0.2/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript" src="{{ URL::asset('js/ajax.js') }}"></script>
 	<script>
   		$('#form').parsley();
 	</script>

@@ -6,7 +6,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-
+use App\Exceptions\DatabaseException;
 use App\Models\Compte;
 use App\Models\Plan;
 class CompteController extends Controller
@@ -41,11 +41,15 @@ class CompteController extends Controller
         $numero = trim($request->input('compte'));
         $libelle = trim($request->input('libelle'));
         try{
+            // var_dump("Sarobidy manoary");
             Plan::insert( $numero , $libelle );
             return redirect('plan-list');
-        }catch(Exception $e){
-            return back()->withErrors("Veuillez Verifier les données que vous avez entrés");
+        }catch(DatabaseException $e){
+            return back()->withErrors($e->getMessage());
         }
+        // catch(Exception $e){
+        //     return back()->withErrors("Veuillez Verifier les données que vous avez entrés");
+        // }
         // if( $compte->save() ){
         //     return redirect('/comptes');
         // }
@@ -120,14 +124,16 @@ class CompteController extends Controller
         }
         // echo $csv->getPathName();
         $file = fopen($csv->getPathName() , 'r');
-        fgetcsv($file);
+         fgetcsv($file);
         DB::beginTransaction();
         try{
             while( $line = fgetcsv($file) ){
                 //var_dump($line);
-                Plan::insert( trim($line[0]) , trim($line[1]) );
+                Plan::insert ( trim($line[0]) , trim($line[1]) );
             }
             DB::commit();
+        }catch( DatabaseException $e ){
+            return back()->withErrors($e->getMessage());
         }catch(Exception $e){
             DB::rollback();
         }
