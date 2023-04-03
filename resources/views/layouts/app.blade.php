@@ -12,31 +12,7 @@
 	<script type="text/javascript" src="{{ URL::asset('js/parsley.min.js') }}"></script>
 	<title>{{ $title }}</title>
 </head>
-<style>
-	* {
-	    padding: 0;
-    	margin: 0;
-	}
-
-	html {
-		position: relative;
-		min-height: 100%;
-	}
-
-	body {
-		/* Margin bottom by footer height */
-		margin-bottom: 60px;
-	}
-
-	.footer {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		/* Set the fixed height of the footer here */
-		height: 60px;
-	}
-</style>
-<body>
+<body class="container">
 	@include('inc.headers')
 	@yield('content')
 	@include('inc.errors')

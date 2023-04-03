@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 @section('content')
-<body style="background: url('{{ URL::asset('assets/img/stressed-person-using-computer-at-desk.svg') }}'); ";>
+<body style="background: url('{{  URL::asset('assets/img/stressed-person-using-computer-at-desk.svg')  }}'); ";>
     <div class="container-fluid"> 
         <div class="container a d-flex align-items-center justify-content-center text-center">
             <div class="ap">
