@@ -4,12 +4,12 @@
 <div class="container">
     <div class="title row">
         <div class="title">
-            <h2 class="text-center text-decoration-underline">
+            <h2 class="text-center ">
                 Liste de vos Plans Comptables
             </h2>
         </div>
     </div>
-    <div class="action row my-3">
+    <div class="mt-4">
         <div class="col-lg-3">
             <form action="" class="form">
                 <form id="formulaire_recherche" class="form" action="{{ url('/search_journal') }}" method="GET">
@@ -20,42 +20,37 @@
                 </form>
             </form>
         </div>
-        <div class="buttons col-lg-3">
-            <a href="{{ url('/plan-insertion') }}" class="btn btn-primary">
-                Ajouter
-            </a>
-            <a href="{{ url('/plan-insertion-csv') }}" class="btn btn-primary">
-                Importer Un fichier CSV
-            </a>
-            
-        </div>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-            <th>Numero de compte</th>
-            <th>Libelle</th>
-            </tr>
-        </thead>
-        <tbody class="main-result">
-            @foreach ($plans as $plan)
+        <a href="{{ url('/plan-insertion') }}" class="btn btn-success me-3">Ajouter</a>
+        <a href="{{ url('/plan-insertion-csv') }}" class="btn btn-primary">Importer Un fichier CSV</a>
+        <div class="shadow pt-4 mt-4" style="border-radius: 15px">
+            <table class="table">
                 <tr>
-                    <td>{{ $plan->compte}}</td>
-                    <td>{{ $plan->libelle}}</td>
-                    <td><a class="btn btn-primary px-3" href="{{ url('/plan-update_plan/'.$plan->compte) }}" btn>Modifier</a></td>
-                    <td><a href="{{ url('/plan-delete/'.$plan->idplan) }}" class="btn btn-danger">Supprimer</a></td>
-
+                    <th width="300px" class="text-center">Numero de compte</th>
+                    <th width="500px" class="text-center">Libelle</th>
+                    <th> </th>
+                    <th> </th>
                 </tr>
-            @endforeach
-        </tbody>
-        <tbody class="search-result" id="resultats">
-            {{-- Okey azoko ilay eto de tokony mamerina row ilay izy fa tsy mamerina  --}}
-        </tbody>
-    </table>
-
-    {{-- Ampiana hoe recherche aloha eto ambony --}}
+                @foreach ($plans as $plan)
+                <tr>
+                    <td class="text-center">{{ $plan->compte}}</td>
+                    <td class="text-start">{{ $plan->libelle}}</td>
+                    <td><a href="{{ url('/plan-delete/'.$plan->idplan) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/delete.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></a></td>
+                    <td><a href="{{ url('/plan-update_plan/'.$plan->compte) }}" btn><img style="width: 25px;" src="{{ URL::asset('assets/img/update.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"></a></td>
+                </tr>
+                @endforeach
+            </table>
+        </div>
+        <nav class="d-flex justify-content-center mt-4">
+            <ul class="pagination pagination-lg">
+              <li class="page-item active" aria-current="page">
+                <span class="page-link">1</span>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+        </nav>
+    </div>
     
     
 </div>
-<script src="{{ asset('js/search_journal.js') }}"></script>
 @endsection
