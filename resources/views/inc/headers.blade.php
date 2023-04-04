@@ -21,7 +21,8 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{{ url('journaux-list') }}"> Codes Journaux </a></li>
-                    <li><a class="dropdown-item" href="#"> Voir la balance </a></li>
+                    <li><a class="dropdown-item" href="{{ url('balance') }}"> Voir la balance </a></li>
+                    <li><a class="dropdown-item" href="{{ url('bilan') }}"> Voir le bilan </a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{url('society-profile')}}"> Voir le profil de la société </a></li>
                   </ul>
