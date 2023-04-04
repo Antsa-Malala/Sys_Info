@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="container">
+<div class="container" style="margin-top: 125px;">
+    <div class="container w-50 shadow p-4" style="border-radius: 10px;">
         <div class="title">
-            <h3 class="text-center text-decoration-underline">
+            <h3 class="text-center">
                 Ajouter un Compte Tiers
             </h3>
         </div>
