@@ -1,10 +1,9 @@
 @extends('layouts.app')
 @section('content')
 	<div class="container my-3">
-		
-		<div class="container card card-body col-lg-7">
+		<div class="container shadow card card-body col-lg-7">
 			<div class="title">
-				<h4 class="text-center text-decoration-underline">
+				<h4 class="text-center">
 					Importer votre fichier CSV 
 				</h4>
 			</div>

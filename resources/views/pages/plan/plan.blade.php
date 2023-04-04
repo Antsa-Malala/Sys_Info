@@ -10,14 +10,12 @@
         </div>
     </div>
     <div class="mt-4">
-        <div class="col-lg-3">
-            <form action="" class="form">
-                <form id="formulaire_recherche" class="form" action="{{ url('/search_journal') }}" method="GET">
-                    <div class="mb-3 d-flex">
-                        <input type="text" class="form-control" onkeyup="fetchData(this)" name="recherche" placeholder="Rechercher code journal">
-                        <button type="submit" class="btn btn-primary">Rechercher</button>
-                    </div>
-                </form>
+        <div class="mb-4 mx-auto w-50">
+            <form id="formulaire_recherche" class="form" action="{{ url('/search_journal') }}" method="GET">
+                <div class="mb-3 d-flex">   
+                    <input type="text" class="form-control" onkeyup="fetchData(this)" name="recherche" placeholder="Rechercher code journal">
+                    <button type="submit" class="ms-4 btn btn-primary">Rechercher</button>
+                </div>
             </form>
         </div>
         <a href="{{ url('/plan-insertion') }}" class="btn btn-success me-3">Ajouter</a>

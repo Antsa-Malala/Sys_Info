@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="container">
+<div class="container" style="margin-top: 125px;">
+    <div class="container w-50 shadow p-4" style="border-radius: 10px;">
         <form action="/plan-update" method="POST" id="form">
             @csrf
             <input type="hidden" name="idplan"  value="{{ $compte->idplan }}">
