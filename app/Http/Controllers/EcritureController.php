@@ -17,7 +17,7 @@ class EcritureController extends Controller{
     }
 
     public function index(){
-        $data['title'] = 'Afficher le jornal';
+        $data['title'] = 'Afficher le journal';
         // $data['month'] = Ecriture::getMonth();
         $allCode = Journaux::getAll();
         $data['journaux'] = $allCode;
@@ -26,9 +26,13 @@ class EcritureController extends Controller{
 
     public function show($code){
         $data['title'] = ' Journal du code '.$code;
-      
         // Alaina daholo ny code Journaux rehetra  $data['code'] = $code;
-
+        try{
+            $journaux = Journaux::getByCode($code);
+            // var_dump($journaux);
+        }catch(\Exception $e){
+            throw $e;
+        }
         // return  
     }
     

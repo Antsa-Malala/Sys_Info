@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
- class Journaux extends Model{
+use App\Exceptions\DatabaseException;
+class Journaux extends Model{
     
     protected $table = 'journaux';
     
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
         $journaux = DB::select('SELECT * FROM journaux');
         return $journaux;
     }
-    public static function getBycode($code) {
+    public static function getByCode($code) {
         $result = DB::select("SELECT * FROM journaux WHERE code = ?", [$code]);
         if (!empty($result)) {
             return $result[0];
@@ -32,16 +33,18 @@ use Illuminate\Database\Eloquent\Model;
         $result = DB::select("SELECT * FROM journaux WHERE libelle = ?", [$libelle]);
         if (!empty($result)) {
             return $result[0];
-        } else {
-            return null;
         }
+        throw new \Exception("Journaux non identifié");
     }
 
     public static function insert($code,$libelle) {
         if( empty($code) ) throw new \Exception("Le code ne peut etre vide");
         if( empty($libelle) ) throw new \Exception("Le libelle ne peut etre vide");
-        // if( strlen($code) > 2 ) throw new \Exception("Le code ne peut contenie");
-        $result = DB::insert("INSERT INTO journaux VALUES(default , ?,?)", [$code,$libelle]);
+        try{
+            $result = DB::insert("INSERT INTO journaux VALUES(default , ?,?)", [$code,$libelle]);
+        }catch(\Illuminate\Database\QueryException $e){
+            throw new DatabaseException("Operation echoue pour le journal. " , $e);
+        }
     }
 
     public static function removecode($code)
@@ -69,8 +72,12 @@ use Illuminate\Database\Eloquent\Model;
 
     public static function modif($id , $code,$libelle){
         $result = DB::update("UPDATE journaux SET code = ? ,libelle = ? where idcode = ?", [$code,$libelle , $id]);
-    }
+    }  
 
-    
+    public static function getFullJournal( $code ){
+        $query = "select * from jourC where code like '".$code."'";
+        $journaux = DB::select($query);
+        return $journaux;
+    }
 }
 ?>

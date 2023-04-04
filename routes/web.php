@@ -93,7 +93,7 @@ Route::post('/plan-update', 'CompteController@update');
 Route::get('/journal' , 'EcritureController@index');
 Route::get('/journal/{month}' , 'EcritureController@show');
 Route::get('/journaux-list', 'JournalController@index');
-Route::get('/journaux-By-Code/{code}', 'JournalController@getBycode');
+Route::get('/journaux-By-Code/{code}', 'JournalController@show');
 Route::get('/journaux-By-Libelle/{libelle}', 'JournalController@getBylibelle');
 Route::post('/journaux-insert', 'JournalController@store');
 Route::get('/journaux-insertion', 'JournalController@create');

@@ -49,11 +49,18 @@ class JournalController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): Response
-    {
-        // Get the details of a specific journal code
-        // $jo = CodeJournal::find($id);
-        return 1;
+    public function show(string $id){
+        $data['title'] = ' Journal du code '.$id;
+        try{
+            $journal = Journaux::getByCode($id);
+            $journaux = Journaux::getFullJournal($id);
+            $data['journaux'] = $journaux;
+            $data['journal'] = $journal;
+            return view('pages.journal.journal')->with($data);
+        }catch(\Exception $e){
+            throw $e;
+        }
+        // return 1;
     }
 
     /**

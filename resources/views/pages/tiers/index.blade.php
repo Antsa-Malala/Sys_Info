@@ -23,8 +23,8 @@
         <tr>
             <td>{{ $plan->numero}}</td>
             <td>{{ $plan->libelle}}</td>
-            <td><a href="{{ url('/tiers-delete/'.$plan->idtiers) }}" class="btn btn-danger">Supprimer</a></td>
-            <td><a class="btn btn-primary px-3" href="{{ url('/tiers-update_tiers/'.$plan->idtiers) }}" btn>Modifier</a></td>
+            <td><a href="{{ url('/tiers-delete/'.$plan->idtiers) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/delete.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></a></td>
+            <td><a href="{{ url('/tiers-update_tiers/'.$plan->idtiers) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/update.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Modify"></a></td>
 
         </tr>
         @endforeach
