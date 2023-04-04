@@ -115,6 +115,12 @@ class Plan extends Model{
         }
     }
 
+    public static function getAllOperations( $compte ){
+        $query = "select * from jourC where compte like '".$compte."'";
+        $query = DB::select($query);
+        return $query;
+    }
+
     public static function exist( $id ){
         $a = 0;
         try{

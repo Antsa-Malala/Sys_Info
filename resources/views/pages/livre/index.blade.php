@@ -14,19 +14,25 @@
 			</div>
 			<div class="row my-3 shadow-sm">
 				<table class="table">
-					<thead>
-						<th> Compte Comptable </th>
+					<thead >
+						<th class="text-center"> Compte Comptable </th>
 						<th> Libelle </th>
 					</thead>
 					<tbody>
-						<tr>
-							<td>HAHAHA</td>
-							<td>HAHA</td>
-						</tr>
+						@foreach( $plans as $plan )
+							<tr>
+								<td class="text-center">
+									<a href="{{ url("/books/Show/".$plan->compte) }}" class="links">
+										{{ $plan->compte }} 		
+									</a> 
+								</td>
+								<td> {{ $plan->libelle }} </td>
+							</tr>
+						@endforeach
 					</tbody>
 				</table>
 
-			</div>
+			</div>	
 		</dib>
 	</div>
 
