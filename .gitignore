@@ -4,3 +4,4 @@
 *exercice
 *.env
 vendor
+.env
