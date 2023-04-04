@@ -1,34 +1,45 @@
 @extends('layouts.app')
 @section('content')
-	<div class="container">
+<div class="container">
     <div class="title row">
         <div class="title">
-            <h2 class="text-center text-decoration-underline">
+            <h2 class="text-center">
                 Liste de vos Comptes Tiers
             </h2>
         </div>
     </div>
-    <a href="{{ url('/tiers-insertion') }}" class="btn btn-primary">
-        Ajouter
-    </a>
-    {{-- <a href="{{ url('/') }}" class="btn btn-primary">
-        Importer Un fichier CSV
-    </a> --}}
-    <table class="table">
-        <tr>
-        <th>Numero de compte</th>
-        <th>Libelle</th>
-        </tr>
-        @foreach ($plans as $plan)
-        <tr>
-            <td>{{ $plan->numero}}</td>
-            <td>{{ $plan->libelle}}</td>
-            <td><a href="{{ url('/tiers-delete/'.$plan->idtiers) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/delete.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></a></td>
-            <td><a href="{{ url('/tiers-update_tiers/'.$plan->idtiers) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/update.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Modify"></a></td>
 
-        </tr>
-        @endforeach
-    </table>
+    <div class="mt-4">
+        <a href="{{ url('/plan-insertion') }}" class="btn btn-success me-3">Ajouter</a>
+        <div class="shadow pt-4 mt-4" style="border-radius: 15px">
+            <table class="table">
+                <tr>
+                    <th width="300px" class="text-center">Numero de compte</th>
+                    <th width="500px" class="text-center">Libelle</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+                @foreach ($plans as $plan)
+                <tr>
+                    <td class="text-center" >{{ $plan->numero}}</td>
+                    <td>{{ $plan->libelle}}</td>
+                    <td><a href="{{ url('/tiers-delete/'.$plan->idtiers) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/delete.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"></a></td>
+                    <td><a href="{{ url('/tiers-update_tiers/'.$plan->idtiers) }}"><img style="width: 25px;" src="{{ URL::asset('assets/img/update.svg') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Modify"></a></td>
+    
+                </tr>
+                @endforeach
+            </table>
+        </div>
+        <nav class="d-flex justify-content-center mt-4">
+            <ul class="pagination pagination-lg">
+              <li class="page-item active" aria-current="page">
+                <span class="page-link">1</span>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+        </nav>
+    </div>
     
     
 </div>
