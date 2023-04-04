@@ -9,12 +9,16 @@ use App\Exceptions\PlanException;
 class Tiers extends Model{
     protected $table = 'tiers';
     
-    public static function getAll()
-    {
+    public static function getAll(){
         $tiers = DB::select('SELECT * FROM tiers');
-
         return $tiers;
     }
+
+    public static function getAllLimited( $limit , $page ){
+        $tiers = DB::select('SELECT * FROM tiers order by idtiers asc LIMIT ? offset ?' , [$limit, $page]);
+        return $tiers;
+    }
+
     public static function getById($id) {
         try{
             $result = DB::select("SELECT * FROM tiers WHERE idtiers = ?", [$id]);

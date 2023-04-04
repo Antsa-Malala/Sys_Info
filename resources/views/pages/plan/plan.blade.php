@@ -41,8 +41,12 @@
         <nav class="d-flex justify-content-center mt-4">
             <ul class="pagination pagination-lg">
                 @for( $i = 1 ; $i <= $pages ; $i++ )
-                    <li class="page-item">
-                        <a class="page-link" href="{{ url("plan-list/".$i) }}">{{ $i }}</a>
+                    @if( $i == $current )
+                        <li class="page-item active" aria-current="page">
+                    @else
+                        <li class="page-item">
+                    @endif
+                            <a class="page-link"  href="{{ url("plan-list/".$i) }}">{{ $i }}</a>
                     </li>
                 @endfor
               {{-- <li class="page-item active" aria-current="page">

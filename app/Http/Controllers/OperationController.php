@@ -61,15 +61,12 @@ class OperationController extends Controller{
         }
         try{
             $isEquilibre = $currentEcriture->isValidEcriture($operations);
-            // Ny manaraka dia ny enregistrement an'ilay operation rehetra any anaty base
             DB::beginTransaction();
             try{
-                // Sauvena ilay Operation rehetra
                 for ($i = 0 ; $i < count($operations) ; $i++ ) {
                     $operations[$i]->save();
-                    DB::commit();
                 }
-                // return redirect('plan-list');
+                DB::commit();
             }catch(\Exception $e){
                 DB::rollback();
                 return response()->json( array('error'=>$e->getMessage()) , 500 );

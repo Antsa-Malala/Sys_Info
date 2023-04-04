@@ -27,7 +27,7 @@ Route::post('/login' , 'UserController@login');
 Route::get('/home', 'SocietyController@home');
 
 // Tiers routes
-Route::get('/tiers-list', 'TiersController@index');
+Route::get('/tiers-list/{pages?}', 'TiersController@index');
 Route::get('/tiers-By-Id/{id}', 'TiersController@getById');
 Route::post('/tiers-insert', 'TiersController@store');
 Route::get('/tiers-insertion', 'TiersController@create');
@@ -78,7 +78,7 @@ Route::get('/exchange-update_exchange/{idexchange}/{idone}/{idtwo}/{rate}', 'Exc
 Route::post('/exchange-update', 'ExchangeController@update');
 
 // Plan Comptable Mandeha daholo
-Route::get('/plan-list', 'CompteController@index');
+Route::get('/plan-list/{pages?}', 'CompteController@index');
 Route::get('/plan-By-Numero/{numero}', 'CompteController@getBynumero');
 Route::get('/plan-By-Libelle/{libelle}', 'CompteController@getBylibelle');
 Route::post('/plan-insert', 'CompteController@store');
@@ -90,7 +90,7 @@ Route::get('/plan-update_plan/{idplan}', 'CompteController@edit');
 Route::post('/plan-update', 'CompteController@update');
 
 // Codes Journaux
-Route::get('/journal' , 'EcritureController@index');
+Route::get('/journal' , 'EcritureController@index')->name('plans');
 Route::get('/journal/{month}' , 'EcritureController@show');
 Route::get('/journaux-list', 'JournalController@index');
 Route::get('/journaux-By-Code/{code}', 'JournalController@show');

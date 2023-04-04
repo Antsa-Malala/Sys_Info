@@ -13,10 +13,18 @@ class TiersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(){
+    public function __construct(){
+        $this->limit = 7;
+    }
+    public function index( $page = 1 ){
         // // Makany any amin'ny liste
-        $data['plans'] = Tiers::getAll();
+        $all = Tiers::getAll();
+        $begin = $this->limit*( $page - 1 );
+        $data['plans'] = Tiers::getAllLimited( $this->limit , $begin );
+        $a = ceil( count($all)/$this->limit );
         $data['title'] = "Compte tiers";
+        $data['pages'] = $a;
+        $data['current'] = $page;
         return view('pages.tiers.index')->with($data);
     }
 

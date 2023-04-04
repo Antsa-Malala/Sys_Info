@@ -12,12 +12,15 @@ class Plan extends Model{
     protected $table = 'plan';
     protected $primaryKey = 'idplan';
     
-    public static function getAll()
-    {
-        $plan = DB::select('SELECT * FROM plan order by compte LIMIT 7');
-
+    public static function getAll(){
+        $plan = DB::select('SELECT * FROM plan order by compte');
         return $plan;
     }
+    public static function getAllLimited( $limit , $page ){
+        $plan = DB::select('SELECT * FROM plan order by compte asc LIMIT ? offset ?' , [$limit , $page]);
+        return $plan;
+    }
+
     public static function getBynumero($numeroCompte) {
         if(empty($numeroCompte)) throw new \Exception("Le numéro de compte est invalide");
         $a = 0;

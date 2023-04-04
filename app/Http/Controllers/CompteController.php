@@ -19,17 +19,20 @@ class CompteController extends Controller
     public $limit;
 
     public function __construct(){
-        $this->limit = 10;
+        $this->limit = 7;
     }
 
-    public function index(){
+    public function index( $page = 1 ){
         // return view an'ilay affichage compte tiers
         // Asaina ny view an'ilay izy
-        $data['plans'] = Plan::getAll();
-        $pagination = ceil(count($data['plans'])/$this->limit);
+        $a = Plan::getAll();
+        $beginIndex = $this->limit*( $page - 1 );
+        $data['plans'] = Plan::getAllLimited($this->limit , $beginIndex );
+        $pagination = ceil( count($a)/$this->limit);
         // Azo ilay pagination
         $data['title'] = "Liste des Plans Comptables";
         $data['pages'] = $pagination;
+        $data['current'] = $page;
         return view('pages.plan.plan')->with($data); 
     }
 
