@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('content')
 	<div class="container">
-		<div class="container">
-			<div class="row">
+		<div class="container shadow">
+			<div class="row p-3">
 				<div class="title">
 					<h4 class="text-center text-decoration-underline">
 						Grand Livre du compte : {{ $compte->libelle }}
 					</h4>
 				</div>
 			</div>
-			<div class="row">
-				<table class="table">
+			<div class="row my-3 p-4">
+				<table class="table shadow">
 					<thead>
 						<th> Code Journal </th>
 						<th> Date </th>
