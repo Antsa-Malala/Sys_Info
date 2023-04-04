@@ -11,9 +11,9 @@ class BalanceController extends Controller
     {
         $balance = Balance::getAll();
 
-
-        return view('pages.balance.balance-list', [
-            'balances' => $balance
-        ]);
+        $data['title'] = "Balance";
+        $data['balances']= $balance;
+        return view('pages.balance.balance-list')->with($data);
     }
 }
+

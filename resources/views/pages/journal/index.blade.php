@@ -18,7 +18,7 @@
 							@for($i = 0 ; $i < count($journaux) ; $i++)
 									<tr>
 										<td>
-											<a href="{{ url('journal/'.$journaux[$i]->code) }}" class="text-decoration-none">
+											<a href="{{ url('journaux-By-Code/'.$journaux[$i]->code) }}" class="text-decoration-none">
 												{{ $journaux[$i]->code }}				
 											</a>
 										</td>

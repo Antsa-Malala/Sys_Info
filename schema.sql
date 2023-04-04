@@ -259,3 +259,25 @@ SELECT(
 ) + (
   SELECT COALESCE(SUM(solde), 0) FROM PRODUITS
 ) AS resultats;
+
+
+
+
+create or replace view journauxs 
+	as
+	Select j.* ,
+				e.idEcriture,e.libelle as ecriture, e.dateecriture, e.idexercice,
+				op.idoperation, op.numpiece, op.compte, op.tiers, op.debit, op.credit
+	from journaux as j
+	join ecriture as e
+	on j.idCode = e.idCode
+	join operation as op
+	on e.idEcriture = op.idEcriture;
+
+create or replace view jourC
+	as
+	select j.*,
+		p.idplan , p.libelle as comptes
+	from journauxs as j
+	join plan as p
+	on j.compte = p.compte;

@@ -45,12 +45,11 @@ class CompteController extends Controller
         try{
             Plan::insert( $numero , $libelle );
             return redirect('plan-list');
+        }catch(DatabaseException $e){
+            return back()->withErrors($e->getMessage())->withInput();
         }catch(Exception $e){
             return back()->withErrors("Veuillez Verifier les données que vous avez entrés");
         }
-        // if( $compte->save() ){
-        //     return redirect('/comptes');
-        // }
     }
 
     /**

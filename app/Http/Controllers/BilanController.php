@@ -35,7 +35,8 @@ class BilanController extends Controller
             'ancs' => $actifs_non_courants,
             'sum_ancs' => $sum_actifs_non_courants,
             'solde_actifs'=>$solde_actifs,
-            'solde_passifs'=>$solde_passifs
+            'solde_passifs'=>$solde_passifs,
+            'title'=>"Bilan"
         ]);
     }
 }
