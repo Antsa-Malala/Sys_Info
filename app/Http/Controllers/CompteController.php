@@ -16,11 +16,20 @@ class CompteController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public $limit;
+
+    public function __construct(){
+        $this->limit = 10;
+    }
+
     public function index(){
         // return view an'ilay affichage compte tiers
         // Asaina ny view an'ilay izy
         $data['plans'] = Plan::getAll();
+        $pagination = ceil(count($data['plans'])/$this->limit);
+        // Azo ilay pagination
         $data['title'] = "Liste des Plans Comptables";
+        $data['pages'] = $pagination;
         return view('pages.plan.plan')->with($data); 
     }
 
