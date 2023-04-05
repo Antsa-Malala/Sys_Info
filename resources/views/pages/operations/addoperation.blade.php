@@ -6,9 +6,9 @@
 	{{-- Inona no atao ato --}}
 	{{-- Manao formulaire ampidirana écriture --}}
 	<div class="container">
-		<div class="container my-3 card card-body">
+		<div class="container shadow p-3 my-3 card card-body">
 				<div class="title text-center ">
-					<h2 class="text-decoration-underline">
+					<h2>
 						Ajouter des opérations pour : {{ $ecriture->libelle }}
 					</h2>
 				</div>
@@ -50,7 +50,7 @@
 							<td> 
 								{{-- Asiako input avy eto de alaiko ny select eo akaikiny --}}
 								{{-- <input type="text" name="" id=""> --}}
-								<select name="compte[]" class="form-select" >
+								<select name="compte[]" class="form-select">
 									<option value=""> Choissez Un compte </option>
 									@for( $i = 0 ; $i < count($comptes) ; $i++ )
 										<option value="{{ $comptes[$i]->compte }}"> 

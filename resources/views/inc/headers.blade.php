@@ -7,23 +7,27 @@
           <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Plan
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu ms-4" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ url('plan-list') }}">Comptable</a></li>
             <li><a class="dropdown-item" href="{{ url('tiers-list') }}">Tiers</a></li>
           </ul>
         </li>
-        <li class="nav-item dropdown mx-5">
+        <li class="nav-item dropdown ms-4">
           <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Journal
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu ms-4" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ url('journal') }}">Afficher Journal</a></li>
             <li><a class="dropdown-item" href="{{ url('journaux-list') }}">Codes Journaux</a></li>
             <li><a class="dropdown-item" href="{{ url('balance') }}">Balance</a></li>
             <li><a class="dropdown-item" href="{{ url('bilan') }}"> Voir le bilan </a></li>
+            <li><a class="dropdown-item" href="{{ url('books') }}"> Grand Livre </a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item ms-4">
+          <a class="nav-link text-dark" href="{{ url('testE') }}">Ecriture</a>
+        </li>
+        <li class="nav-item ms-4">
           <a class="nav-link text-dark" href="{{ url('society-profile') }}">Profil</a>
         </li>
       </ul>

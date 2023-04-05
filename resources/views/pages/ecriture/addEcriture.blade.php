@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-	<div class="container">
-		<div class="container">
+	<div class="container" style="margin-top: 125px;">
+		<div class="container w-50 shadow p-4" style="border-radius: 10px;">
 			<div class="title">
-				<h2 class="text-center text-decoration-underline">
+				<h2 class="text-center">
 					Ajouter une écriture
 				</h2>
 			</div>
-			<form action="/testEP" method="post" class="form">
+			<form action="/testEP" method="post" class="form" id="form">
 				@csrf
 				<div class="mb-3">
 					<label for="" class="form-label">
 						Libelle:
 					</label>
-					<input type="text" name="libelle" value="{{ old('libelle')}}" class="form-control" placeholder="ACHAT MARCHANDISE ROJO">
+					<input type="text" name="libelle" value="{{ old('libelle')}}" class="form-control" data-parsley-required="true">
 				</div>
 				<div class="mb-3">
 					{{-- @csrf --}}

@@ -2,7 +2,7 @@
 @section('content')
 	
 	<div class="container">
-		<dib class="container">
+		<div class="container">
 			<div class="row title">
 				<h3 class="title text-center text-decoration-underline">
 					Listes de vos Plan Comptables
@@ -29,7 +29,7 @@
 				</table>
 
 			</div>	
-		</dib>
+		</div>
 	</div>
 
 @endsection
