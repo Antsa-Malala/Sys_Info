@@ -10,7 +10,7 @@
     </div>
 
     <div class="mt-4">
-        <a href="{{ url('/plan-insertion') }}" class="btn btn-success me-3">Ajouter</a>
+        <a href="{{ url('/tiers-insertion') }}" class="btn btn-success me-3">Ajouter</a>
         <div class="shadow pt-4 mt-4" style="border-radius: 15px">
             <table class="table">
                 <tr>

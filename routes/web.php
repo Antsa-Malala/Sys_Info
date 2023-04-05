@@ -103,7 +103,7 @@ Route::post('/journaux-update', 'JournalController@update');
 
 // Grand Livre mila tenenina hoe fonction inona
 // Aleo ny journal no igerer azy
-Route::get('/books', 'BookController@Index');
+Route::get('/books/{page?}', 'BookController@Index');
 Route::get('/books/Show/{compte}', 'BookController@Show');
 // Route::post('/journaux-update', 'JournalController@update');
 

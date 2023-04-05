@@ -21,6 +21,7 @@
 						<th> Reference Piece </th>
 						<th> Plan Comptable </th>
 						<th> Compte Tiers </th>
+						<th> Intitule </th>
 						<th> Libelle </th>
 						<th> Debit </th>
 						<th> Credit </th>
@@ -30,11 +31,12 @@
 						<tr class="tr">
 							<td> {{ $journal->dateecriture }} </td>
 							<td> {{ $journal->numpiece }} </td>
-							<td> {{ $journal->compte }} - {{ $journal->comptes }} </td>
+							<td> {{ $journal->compte }} </td>
 							<td> {{ $journal->tiers }} </td>
+							<td> {{ $journal->comptes }} </td>
 							<td> {{ $journal->ecriture }} </td>
-							<td> {{ $journal->debit }} </td>
-							<td> {{ $journal->credit }} </td>
+							<td class="text-end"> {{ convertToMiles($journal->debit) }} </td>
+							<td class="text-end"> {{ convertToMiles($journal->credit) }} </td>
 						</tr>
 					@endforeach
 					</tbody>

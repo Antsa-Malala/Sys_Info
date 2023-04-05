@@ -91,15 +91,16 @@ class OperationController extends Controller{
         }
         $file = fopen($csv->getPathName() , 'r');
         fgetcsv($file);
-        DB::beginTransaction();
+        $ecriture = session()->get("ecriture");
+        // Azo ny ecriture
+        // Inona no ilain'ny operation iray
+        // DB::beginTransaction();
         try{
             while( $line = fgetcsv($file) ){
                 $compte=trim($line[2]);
-                $debit=trim($line[5]);
-                $credit=trim($line[6]);
-                $date=trim($line[0]);
-
-                print_r($line.'<br>');
+                $tiers=trim($line[3]);
+                $debit=trim($line[6]);
+                $credit=trim($line[7]);
                 //max id exercice
                 // $idexercice=Exercice::maxid();
                 //insertion ecriture
@@ -116,9 +117,9 @@ class OperationController extends Controller{
                 //     return back()->withErrors("Valeur invalide dans votre fichier csv");
                 // }
             }
-            DB::commit();
+            // DB::commit();
         }catch(Exception $e){
-            DB::rollback();
+            // DB::rollback();
         }
         fclose($file);
         return redirect('operation-list');

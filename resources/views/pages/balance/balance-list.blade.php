@@ -28,7 +28,7 @@
             @foreach ($balances as $balance)
             <tr >
               <td>
-                  <a href="{{ url('grand_livre/'.$balance->compte) }}" class="text-decoration-none">
+                  <a href="{{ url('books/Show/'.$balance->compte) }}" class="text-decoration-none">
                     {{ $balance->compte}}</td>
                   </a>
                 <td >{{ $balance->intitule}}</td>
