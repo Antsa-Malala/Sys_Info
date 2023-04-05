@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="container">
+<div class="container" style="margin-top: 125px;">
+    <div class="container w-50 shadow p-4" style="border-radius: 10px;">
         <div class="title">
             <h3 class="text-center text-decoration-underline">
                 Ajouter un Code journaux
@@ -11,7 +11,7 @@
             @csrf
             <div class="my-3">
                 <label class="form-label" for="numerocompte"> Code journaux </label>
-                <input class="form-control my-2" type="text" name="code" id="numerocompte" data-parsley-required="true">
+                <input class="form-control my-2" type="text" name="code" id="numerocompte" data-parsley-maxlength="2" data-parsley-pattern="^[a-zA-Z ]+$" data-parsley-required="true">
             </div>
             <div class="my-3">
                 <label class="form-label" for="libelle">Libelle</label>

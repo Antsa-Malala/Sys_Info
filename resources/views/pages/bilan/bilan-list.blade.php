@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .table-container {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            margin: 20px;
-        }
+<style>
+    .table-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        margin: 20px;
+    }
 
-        table {
-            min-width: 300px;
-            max-width: 100%;
-        }
+    table {
+        min-width: 300px;
+        max-width: 100%;
+    }
 
-        th:first-of-type,
-        th:last-of-type {
+    th:first-of-type,
+    th:last-of-type {
         height: 50px;
-        }
+    }
 
-    </style>
+</style>
 <div class="container">
-<div class="title row">
+    <div class="title row">
         <div class="title">
             <h2 class="text-center text-decoration-underline">
                 Votre bilan
@@ -131,7 +131,8 @@
                     <td>{{ $solde_passifs->solde_debit}}</td>
                     <td>{{ $solde_passifs->solde_credit}}</td>
                 </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
 @endsection
