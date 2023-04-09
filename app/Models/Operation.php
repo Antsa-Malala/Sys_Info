@@ -29,7 +29,6 @@ class Operation extends Model{
         $this->setCredit($credit);
     }
 
-
     public function setReference( $reference ){
         if( empty($reference) ){
             throw new InvalidDataException("Le numéro de reference ne peut etre vide");
@@ -83,24 +82,24 @@ class Operation extends Model{
         if( $dat1 == $dat2 ){
             return true;
         }
-        throw new InvalidDataException("Vous ne pouvez pas modifier la date d'operation");
+        throw new InvalidDataException("Vous ne pouvez pas modifier la date d'operation ".$dat1."====>".$dat2);
     }
 
-    public function setDebit( $debit ){
-        $d = strval($debit);
+    public function setDebit( $debit = 0){
+        $d = $debit;
         try{
-            $this->checkNumber($d);
-            $this->debit = $debit;
+            $i = $this->checkNumber($d);
+            $this->debit = $i;
         }catch( InvalidDataException $e ){
             throw $e;
         }
     }
 
-    public function setCredit( $credit ){
-        $d = strval($credit);
+    public function setCredit( $credit = 0){
+        $d = $credit;
         try{
-            $this->checkNumber($d);
-            $this->credit = $credit;
+            $i = $this->checkNumber($d);
+            $this->credit = $i;
         }catch( InvalidDataException $e ){
             throw $e;
         }
@@ -109,7 +108,8 @@ class Operation extends Model{
     public function setTiers( $tiers = '' ){
         try{
             if( empty($tiers) ){
-                $this->tiers = $tiers;
+                var_dump($tiers);
+                $this->tiers = null;
             }else if(!empty(Tiers::exist($tiers))){
                 $this->tiers = $tiers;
             }
@@ -121,12 +121,15 @@ class Operation extends Model{
     private function checkNumber($n){
         $regex = "/[a-zA-Z]/";
         $preg = preg_match($regex , $n);
+        if($n == ''){
+            return 0;
+        }
         if( $preg != 0 ){
             throw new InvalidDataException(" Vous ne pouvez pas introduire des lettres : ".$n);
         }else if( $n < 0 ){
             throw new InvalidDataException(" Vous ne pouvez pas introduire des nombres négatifs : ".$n);
         }
-        return $n;
+        return castToNumber($n);
     }
 
 

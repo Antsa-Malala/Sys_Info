@@ -88,7 +88,7 @@ create table operation (
 	-- dateOperation date not null,
 	NumPiece varchar(20) not null,
 	compte varchar(5) not null,
-	tiers varchar(100),
+	tiers varchar(100) null,
 	libelle varchar(35) not null,
 	debit decimal default 0,
 	credit decimal default 0,
@@ -281,3 +281,4 @@ create or replace view jourC
 	from journauxs as j
 	join plan as p
 	on j.compte = p.compte;
+

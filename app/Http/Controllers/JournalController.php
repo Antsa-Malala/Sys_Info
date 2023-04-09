@@ -13,9 +13,14 @@ class JournalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(){
+    public function __construct(){
+        $this->limit = 7;    
+    }
+    public function index( $page = 1 ){
         // Get the index for the Journal Account
         $data['title'] = 'Codes Journaux';
+        $page = $this->limit * ($page - 1);
+        
         $data['codes'] = Journaux::getAll();
         return view('pages.codes.index')->with($data); 
     }

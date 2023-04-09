@@ -13,6 +13,10 @@ class Journaux extends Model{
         $journaux = DB::select('SELECT * FROM journaux');
         return $journaux;
     }
+    public static function getAllLimited( $limit , $begin ){
+        $journaux = DB::select('SELECT * FROM journaux LIMIT ? OFFSET ?' , [$limit , $begin]);
+        return $journaux;
+    }
     public static function getByCode($code) {
         $result = DB::select("SELECT * FROM journaux WHERE code = ?", [$code]);
         if (!empty($result)) {

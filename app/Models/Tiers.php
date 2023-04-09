@@ -10,18 +10,21 @@ class Tiers extends Model{
     protected $table = 'tiers';
     
     public static function getAll(){
-        $tiers = DB::select('SELECT * FROM tiers');
+        $connection = DB::connection('pgsql_select');
+        $tiers = $connection->select('SELECT * FROM tiers');
         return $tiers;
     }
 
     public static function getAllLimited( $limit , $page ){
-        $tiers = DB::select('SELECT * FROM tiers order by idtiers asc LIMIT ? offset ?' , [$limit, $page]);
+        $connection = DB::connection('pgsql_select');
+        $tiers = $connection->select('SELECT * FROM tiers order by idtiers asc LIMIT ? offset ?' , [$limit, $page]);
         return $tiers;
     }
 
     public static function getById($id) {
         try{
-            $result = DB::select("SELECT * FROM tiers WHERE idtiers = ?", [$id]);
+            $connection = DB::connection('pgsql_select');
+            $result = $connection->select("SELECT * FROM tiers WHERE idtiers = ?", [$id]);
             return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
             throw new PlanException($e->getMessage());
@@ -32,7 +35,8 @@ class Tiers extends Model{
         $sql = "select * from tiers where libelle like '%s%s%s'";
         $sql = sprintf($sql , '%' , $id , '%');
         try{
-            $result = DB::select($sql);
+            $connection = DB::connection('pgsql_select');
+            $result = $connection->select($sql);
             return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
             throw new PlanException($e->getMessage());
@@ -42,11 +46,12 @@ class Tiers extends Model{
 
     public static function getByNumero($id) {
         try{
-            $result = DB::select("SELECT * FROM tiers WHERE numero = ? ", ["'".$id."'"]);
+            $connection = DB::connection('pgsql_select');
+            $result = $connection->select("SELECT * FROM tiers WHERE numero = ? ", ["'".$id."'"]);
             return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
             throw new PlanException($e->getMessage());
-            // throw new PlanException(sprintf("SELECT * FROM tiers WHERE numero = '%'" , $id));
+            // throw new PlanException(sprintf("SELECT * FROM tiers WHERE numero = '%s'" , $id));
         }
 
     }
@@ -87,10 +92,11 @@ class Tiers extends Model{
                 return $byNumero->numero;
             }catch(PlanException $e){
                 try{
-                    $byLibelle = Tiers::getBylibelle( $id );
+                    $byLibelle = Tiers::getBylibelle( trim($id) );
                     return $byLibelle->numero;
                 }catch(PlanException $e){
-                    throw new PlanException("Veuillez entrer un compte tiers existant : ".trim($id));
+                    throw $e;
+                    // throw new PlanException("Veuillez entrer un compte tiers existant : ".trim($id));
                 }
                 // throw $e;
             }
