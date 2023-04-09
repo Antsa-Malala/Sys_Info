@@ -97,7 +97,7 @@
 				</span> --}}
 				<div class="my-3">
 					<button type="button" onclick="submitForm()"  class="btn btn-primary"> Enregistrer les opérations </button>
-					{{-- <input type="submit" class="btn btn-primary" value="Enregistrer les opérations"> --}}
+					<a href="{{ url('operation-csv') }}" class="btn btn-primary"> Importer un fichier CSV </a>
 				</div>
 			</form>
 		</div>

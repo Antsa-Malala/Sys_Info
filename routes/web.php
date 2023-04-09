@@ -114,6 +114,8 @@ Route::get('/operation-insertion', 'OperationController@insertion');
 Route::get('/operation-delete/{id}', 'OperationController@delete');
 Route::get('/operation-update_operation/{idoperation}/{idecriture}/{numpiece}/{compte}/{tiers}/{libelle}/{debit}/{credit}', 'OperationController@update_operation');
 Route::post('/operation-update', 'OperationController@update');
+Route::get('/operation-csv', 'OperationController@import');
+Route::post('/operation-import-csv', 'OperationController@importCSV');
 
 Route::get('/balance', 'BalanceController@getAll');
 Route::get('/bilan', 'BilanController@getBilan');

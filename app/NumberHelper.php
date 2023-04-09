@@ -53,4 +53,14 @@
 		}
 	}
 
+	if(!function_exists('castToNumber')){
+		function castToNumber( $number ){
+			// Ahoana no anaovana azy
+			// Separena aloha ny . rehetra 
+			$number = str_replace(",","",$number);
+			$number = floatval($number);
+			return $number;
+		}
+	}
+
 ?>

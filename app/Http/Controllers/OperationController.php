@@ -81,6 +81,11 @@ class OperationController extends Controller{
     }
 
 
+    public function import(){
+        $data['title'] = "Importer un fichier csv";
+        return view('pages.operations.importcsv')->with($data);
+    }
+
 
     // Import a csv file
     public function importCSV(Request $request){
@@ -92,37 +97,38 @@ class OperationController extends Controller{
         $file = fopen($csv->getPathName() , 'r');
         fgetcsv($file);
         $ecriture = session()->get("ecriture");
-        // Azo ny ecriture
-        // Inona no ilain'ny operation iray
-        // DB::beginTransaction();
+        $ref = $ecriture->createReference();
+        $lib = $ecriture->libelle;
+        $id = $ecriture->idecriture;
+        DB::beginTransaction();
         try{
             while( $line = fgetcsv($file) ){
-                $compte=trim($line[2]);
-                $tiers=trim($line[3]);
-                $debit=trim($line[6]);
-                $credit=trim($line[7]);
-                //max id exercice
-                // $idexercice=Exercice::maxid();
-                //insertion ecriture
-                // Ecriture::insert($date,$idexercice);
-                //id du dernier ecriture 
-                // $idmaxecriture=Ecriture::maxid($date);
-
-                // if(is_numeric($debit)&&is_numeric($credit)&&floatval($debit)>=0&&floatval($credit)>=0&&is_numeric($compte)&&intval($credit)>0)
-                // {
-                //     //insertion operation
-                //     Operation::insert($idmaxecriture,trim($line[1]),$compte,trim($line[3]),trim($line[4]),floatval($debit),floatval($credit));
-                // }
-                // else{
-                //     return back()->withErrors("Valeur invalide dans votre fichier csv");
-                // }
+                try{
+                    $date = trim($line[0]);
+                    $compte=trim($line[2]);
+                    $tiers=trim($line[3]);
+                    $debit=trim($line[6]);
+                    $credit=trim($line[7]);
+                    $operation = new Operation( $id , $ref , $compte, $tiers, $lib, $debit, $credit);
+                    $operation->validate(trim($ref) , trim($lib));
+                    $operation->isValidDate( $date , $ecriture->dateecriture );
+                    $operation->save();
+                }catch(InvalidDataException | PlanException $e){
+                    throw $e;
+                }catch(\Exception $e){
+                    throw $e;
+                }
             }
-            // DB::commit();
-        }catch(Exception $e){
-            // DB::rollback();
+            DB::commit();
+        }catch(InvalidDataException | PlanException $e){
+            DB::rollback();
+            throw $e;
+            // return back()->withError($e->getMessage());
+        }catch(\Exception $e){
+            throw $e;
         }
         fclose($file);
-        return redirect('operation-list');
+        return redirect('journal');
         // var_dump($csv);
     }
 
