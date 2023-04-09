@@ -88,11 +88,12 @@ Route::post('/plan-insertion-csv-import', 'CompteController@importCSV');
 Route::get('/plan-delete/{idplan}', 'CompteController@destroy');
 Route::get('/plan-update_plan/{idplan}', 'CompteController@edit');
 Route::post('/plan-update', 'CompteController@update');
+Route::get('/TestGet/{pages?}', 'CompteController@TestGet');
 
 // Codes Journaux
-Route::get('/journal' , 'EcritureController@index')->name('plans');
+Route::get('/journal/{pages?}' , 'EcritureController@index')->name('plans');
 Route::get('/journal/{month}' , 'EcritureController@show');
-Route::get('/journaux-list', 'JournalController@index');
+Route::get('/journaux-list/{pages?}', 'JournalController@index');
 Route::get('/journaux-By-Code/{code}', 'JournalController@show');
 Route::get('/journaux-By-Libelle/{libelle}', 'JournalController@getBylibelle');
 Route::post('/journaux-insert', 'JournalController@store');

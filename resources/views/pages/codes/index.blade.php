@@ -29,12 +29,7 @@
             </table>
         </div>
         <nav class="d-flex justify-content-center mt-4">
-            <ul class="pagination pagination-lg">
-              <li class="page-item active" aria-current="page">
-                <span class="page-link">1</span>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <ul class="pagination pagination-lg" id="pagination">
             </ul>
         </nav>
     </div>
@@ -42,4 +37,7 @@
     
 	</div>	
     <script src="{{ asset('js/search_journal.js') }}"></script>
+    <script>
+        makePagination( {{ $current }} , {{ $pages }} , 5 , "{{ url("journaux-list") }}" , "#pagination");
+    </script>
 @endsection

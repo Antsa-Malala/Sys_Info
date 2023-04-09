@@ -17,7 +17,7 @@
 						<div class="row my-3 text-center">
 							{{-- <a href="download/{{ $society->getLogo() }}" class="btn btn-primary">
 								Telecharger le logo
-							</a --}}>
+							</a --}}
 						</div>
 				</div>
 				

@@ -33,16 +33,14 @@
 						</table>
 					</div>
 					<nav class="d-flex justify-content-center mt-4">
-						<ul class="pagination pagination-lg">
-						  <li class="page-item active" aria-current="page">
-							<span class="page-link">1</span>
-						  </li>
-						  <li class="page-item"><a class="page-link" href="#">2</a></li>
-						  <li class="page-item"><a class="page-link" href="#">3</a></li>
-						</ul>
+						<ul class="pagination pagination-lg" id="pagination">
+						  
 					</nav>
 				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		makePagination( {{ $current }} , {{ $pages }} , 5 , "{{ url("journal/") }}" , "#pagination" );
+	</script>
 @endsection
