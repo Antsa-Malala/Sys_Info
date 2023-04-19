@@ -10,17 +10,26 @@ use App\Exceptions\OutRangeEcriture;
 
 class EcritureController extends Controller{
 
+    public function __construct(){
+        $this->limit = 7;
+    }
     public function create(){
         $data['title'] = "Entrer des ecritures";
         $data['journaux'] = Journaux::getAll();
         return view('pages.ecriture.addEcriture')->with($data);
     }
 
-    public function index(){
+    public function index( $index = 1 ){
         $data['title'] = 'Afficher le journal';
         // $data['month'] = Ecriture::getMonth();
+        $a = $index;
         $allCode = Journaux::getAll();
-        $data['journaux'] = $allCode;
+        $index = $this->limit * ($index - 1);
+        $limited = Journaux::getAllLimited( $this->limit , $index );
+        $pages = ceil( count($allCode) / $this->limit );
+        $data['journaux'] = $limited;
+        $data['current'] = $a;
+        $data['pages'] = $pages;
         return view('pages.journal.index')->with($data);
     }
 

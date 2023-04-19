@@ -35,6 +35,19 @@ class CompteController extends Controller
         $data['current'] = $page;
         return view('pages.plan.plan')->with($data); 
     }
+    public function TestGet( $page = 1 ){
+        // return view an'ilay affichage compte tiers
+        // Asaina ny view an'ilay izy
+        $a = Plan::getAll();
+        $beginIndex = $this->limit*( $page - 1 );
+        $data['plans'] = Plan::getAllLimited($this->limit , $beginIndex );
+        $pagination = ceil( count($a)/$this->limit);
+        // Azo ilay pagination
+        $data['title'] = "Liste des Plans Comptables";
+        $data['pages'] = $pagination;
+        $data['current'] = $page;
+        return response()->json($data); 
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -72,19 +85,11 @@ class CompteController extends Controller
         //
         $compte = Compte::find($id);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        // Antsoina ato ilay modele
+    public function edit(string $id){
         $compte = Plan::getBynumero($id);
         $data['compte'] = $compte;
         $data['title'] = "Modifier le compte numéro ".$compte->compte;
         return view('pages.plan.update_plan')->with($data);
-        // Azoko ny $compte de alefa any
-        // var_dump($compte);
     }
 
     /**
@@ -148,22 +153,19 @@ class CompteController extends Controller
         }
         fclose($file);
         return redirect('plan-list');
-        // var_dump($csv);
     }
     
-    public function search(Request $request)
-    {
+    public function search($index = 1 , Request $request){
         $recherche = $request->input('recherche');
         $recherche = strtoupper($recherche);
-
         $plan = Plan::where('compte', 'LIKE', "%$recherche%")
         ->orWhere('libelle', 'LIKE', "%$recherche%")
         ->get();
+        $data["plans"] = $plan;
         return response()->json($plan);
     }
 
-    public function recherche()
-    {
+    public function recherche(){
         return view('pages.plan.recherche');
     }
 }

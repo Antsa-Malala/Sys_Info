@@ -108,7 +108,7 @@ class Operation extends Model{
     public function setTiers( $tiers = '' ){
         try{
             if( empty($tiers) ){
-                var_dump($tiers);
+                // var_dump($tiers);
                 $this->tiers = null;
             }else if(!empty(Tiers::exist($tiers))){
                 $this->tiers = $tiers;

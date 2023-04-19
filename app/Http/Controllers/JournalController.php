@@ -19,9 +19,13 @@ class JournalController extends Controller
     public function index( $page = 1 ){
         // Get the index for the Journal Account
         $data['title'] = 'Codes Journaux';
+        $a = $page;
         $page = $this->limit * ($page - 1);
-        
-        $data['codes'] = Journaux::getAll();
+        $data['codes1'] = Journaux::getAll();
+        $data['codes'] = Journaux::getAllLimited( $this->limit, $page  );
+        $pages = ceil( count($data['codes1']) /  $this->limit );
+        $data['current'] = $a;
+        $data['pages'] = $pages;
         return view('pages.codes.index')->with($data); 
     }
 
