@@ -17,7 +17,7 @@ function createXhr(){
 }
 
 function submitForm(  ){
-	let form = document.querySelector("#ajax-form");
+	let form = document.querySelector("#form");
 	let formdata = new FormData(form);
 	let xhr = createXhr();
 	xhr.onreadystatechange = function(){

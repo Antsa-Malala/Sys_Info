@@ -5,7 +5,7 @@
 			<div class="title">
             	<h2 class="text-center">
                 	Liste de vos Codes journaux
-            	</h2>
+            	</h2>   
         	</div>
 		</div>
     <div class="mt-4">
