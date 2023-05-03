@@ -151,6 +151,6 @@ Route::get('back' , function(){
 	return back();
 });
 
-Route::get( '/add-percentage' , '' );
+Route::get( '/add-percentage' , 'ProductController@index' );
 
 // Route::get('/lala', 'PagesController@goto');
