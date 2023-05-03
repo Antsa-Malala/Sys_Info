@@ -150,4 +150,7 @@ Route::get('download/{filename}' , function($filename){
 Route::get('back' , function(){
 	return back();
 });
+
+Route::get( '/add-percentage' , '' );
+
 // Route::get('/lala', 'PagesController@goto');
