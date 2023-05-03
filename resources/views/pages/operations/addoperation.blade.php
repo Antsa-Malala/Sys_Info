@@ -54,11 +54,11 @@
 								</div>
 								<div class="row mt-2">
 									<div class="col-md-6">
-										<input type="radio" placeholder="Variable" name="nature">
+										<input type="radio" placeholder="Variable" name="nature" class="form-check-input">
 										Incorporel
 									</div>
 									<div class="col-md-6">
-										<input type="radio" placeholder="Fixe" name="nature">
+										<input type="radio" placeholder="Fixe" name="nature" class="form-check-input">
 										Non Incorporel
 									</div>
 								</div>
