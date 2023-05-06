@@ -28,7 +28,7 @@ class Produit extends Model{
         if( empty($volume) ) throw new \Exception("Le volume ne peut etre vide");
         if( empty($prix) ) throw new \Exception("Le prix ne peut etre vide");
         try{
-            $result = DB::update("UPDATE produit SET nomproduit = ?,volume= ?, prix = ? WHERE idproduit = ?", [$nom,$volume,$prix, $idproduit]);
+            $result = DB::modifier("UPDATE produit SET nomproduit = ?,volume= ?, prix = ? WHERE idproduit = ?", [$nom,$volume,$prix, $idproduit]);
         }catch(\Illuminate\Database\QueryException $e){
             throw new DatabaseException("Modification produit echouee");
         }

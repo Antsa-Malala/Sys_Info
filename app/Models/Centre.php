@@ -17,10 +17,10 @@ class Centre extends Model{
         }
     } 
     public static function remove($id){
-        $result = DB::delete("DELETE FROM centre WHERE idcentres = ?", [$id]);
+        $result = DB::delete("DELETE FROM centre WHERE idcentre = ?", [$id]);
     }  
 
-    public static function update($idcentre, $nomcentre)
+    public static function modifier($idcentre, $nomcentre)
     {
         if( empty($nom) ) throw new \Exception("Le nom du centre ne peut etre vide");
         try{
