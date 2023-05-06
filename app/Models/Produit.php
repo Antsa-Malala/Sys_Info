@@ -46,4 +46,8 @@ class Produit extends Model{
             return null;
         }
     }
+    public static function getAllLimited( $limit , $begin ){
+        $produit = DB::select('SELECT * FROM produit LIMIT ? OFFSET ?' , [$limit , $begin]);
+        return $produit;
+    }
 }

@@ -15,7 +15,7 @@
             </div>
             <div class="my-3">
                 <label for="prix" class="form-label">Prix</label>
-                <input type="text" name="prix" class="form-control my-2" id="prix" data-parsley-type="number">
+                <input type="text" name="prix" class="form-control my-2" id="prix" >
             </div>
             <div class="mb-3">
                 <input type="submit" value="Inserer" class="btn btn-primary">

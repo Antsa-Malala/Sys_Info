@@ -156,7 +156,15 @@ Route::get('back' , function(){
 //Produit
 Route::get('/produit_form', 'ProduitController@insert_form');
 Route::post('/produit-insert', 'ProduitController@insert');
+Route::get('/produit-list/{pages?}', 'ProduitController@index');
+Route::get('/produit-delete/{idproduit}', 'ProduitController@remove');
+Route::get('/produit-modifier/{idcentre}', 'ProduitController@modifier');
+Route::post('/produit-update', 'ProduitController@update');
 
 //centre
 Route::get('/centre_form', 'CentreController@insert_form');
 Route::post('/centre-insert', 'CentreController@insert');
+Route::get('/centre-list/{pages?}', 'CentreController@index');
+Route::get('/centre-delete/{idcentre}', 'CentreController@remove');
+Route::get('/centre-modifier/{idcentre}', 'CentreController@modifier');
+Route::post('/centre-update', 'CentreController@update');
