@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Charge;
 use Illuminate\Http\Request;
 use App\Models\Produit;
 class ProduitController extends Controller
@@ -85,5 +86,11 @@ class ProduitController extends Controller
         }catch(\Exception $e){
             return back()->withErrors($e->getMessage());
         }
+    }
+    public function getproduitbycharge($idcharge)
+    {
+        $result=Charge::getproduitbycharge($idcharge);
+        $data['charges'] = $result;
+        return view('pages.charge.produit')->with($data);
     }
 }

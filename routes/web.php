@@ -158,8 +158,11 @@ Route::get('/produit_form', 'ProduitController@insert_form');
 Route::post('/produit-insert', 'ProduitController@insert');
 Route::get('/produit-list/{pages?}', 'ProduitController@index');
 Route::get('/produit-delete/{idproduit}', 'ProduitController@remove');
-Route::get('/produit-modifier/{idcentre}', 'ProduitController@modifier');
+Route::get('/produit-modifier/{idproduit}', 'ProduitController@modifier');
 Route::post('/produit-update', 'ProduitController@update');
+
+//charge
+Route::get('/produit-by-charge/{idcharge}', 'ProduitController@getproduitbycharge');
 
 //centre
 Route::get('/centre_form', 'CentreController@insert_form');
