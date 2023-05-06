@@ -4,7 +4,7 @@
 // Mila alaina aloha ilay izy
 // Avy eo alaina ny id an'ilay izy
 
-function hide( element ){
+function hide( element ) {
 	// Ahoana no anaovana azy hide
 	let parent = element.parentElement;
 	var sibling = parent.nextElementSibling;
@@ -19,7 +19,7 @@ function hide( element ){
 	});
 }
 
-function hideInput( element ){
+function hideInput( element ) {
 	// Ito zao le input type file
 	let parent = element.parentElement;
 	let previous = parent.previousElementSibling;

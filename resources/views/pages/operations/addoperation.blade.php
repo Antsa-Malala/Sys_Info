@@ -12,7 +12,7 @@
 						Ajouter des opérations pour : {{ $ecriture->libelle }}
 					</h2>
 				</div>
-			<form id="ajax-form">
+			<form id="form">
 				{{-- Bouclena amin'ny js amin'izay ito avy eo --}}
 				<table class="table" id="opr">
 					<thead>
@@ -33,23 +33,10 @@
 							<td>
 								<div class="input-group"> 
 									<input type="text" name="ref[]" class="form-control" value="{{ $ecriture->createReference() }}" id="" readonly>
-									{{-- <select name="no[]" id="" class="form-select col-1">
-
-										@for( $i = 0 ; $i < count($journaux) ; $i++)
-											<option value="{{ $journaux[$i]->code }}">
-												{{ $journaux[$i]->code }}
-											</option>
-										@endfor
-									</select> --}}
-									{{-- {{ csrf_field() }} --}}
-									{{-- @csrf --}}
-									{{-- <input type="text" class="form-control" name="piece[]" placeholder="........."> --}}
-									
 								</div>
 							</td>
 							<td> 
 								{{-- Asiako input avy eto de alaiko ny select eo akaikiny --}}
-								{{-- <input type="text" name="" id=""> --}}
 								<select name="compte[]" class="form-select">
 									<option value=""> Choissez Un compte </option>
 									@for( $i = 0 ; $i < count($comptes) ; $i++ )
@@ -57,6 +44,24 @@
 										{{ $comptes[$i]->compte." - ".$comptes[$i]->libelle }} </option>
 									@endfor
 								</select>
+								<div class="row mt-2">
+									<div class="col-md-6">
+										<input type="number" placeholder="Variable" name="variable[]" class="form-control" required>
+									</div>
+									<div class="col-md-6">
+										<input type="number" placeholder="Fixe" name="fixe[]" class="form-control" required>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-md-6">
+										<input type="radio" placeholder="Variable" name="nature" class="form-check-input">
+										Incorporel
+									</div>
+									<div class="col-md-6">
+										<input type="radio" placeholder="Fixe" name="nature" class="form-check-input">
+										Non Incorporel
+									</div>
+								</div>
 							</td>
 							<td>
 								{{-- <input type="text" name="fo-c[]"  id="" class="form-control" placeholder="ex:  ROJO"> --}}
