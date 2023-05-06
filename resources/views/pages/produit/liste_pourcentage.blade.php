@@ -13,7 +13,7 @@
                     <li class="list-group-item">{{ $produits[$i]->centres[$j]->nomcentre }}: 100 %</li>
                     @endfor    
                 </ul>
-                <a href=""><button class="mt-3 btn btn-primary">Ajout/Modifier</button></a>
+                <a href="/update-percentage"><button class="mt-3 btn btn-primary">Ajout/Modifier</button></a>
             </div> 
             @endfor
         </div>
