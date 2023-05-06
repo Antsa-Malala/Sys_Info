@@ -151,3 +151,12 @@ Route::get('back' , function(){
 	return back();
 });
 // Route::get('/lala', 'PagesController@goto');
+
+
+//Produit
+Route::get('/produit_form', 'ProduitController@insert_form');
+Route::post('/produit-insert', 'ProduitController@insert');
+
+//centre
+Route::get('/centre_form', 'CentreController@insert_form');
+Route::post('/centre-insert', 'CentreController@insert');
