@@ -11,4 +11,9 @@ class ProductController extends Controller
         $data['title'] = 'Ajouter Pourcentage';
         return View( 'pages.produit.ajout_pourcentage' )->with($data);
     }
+
+    public function ajout() {
+        $data['title'] = 'Ajouter Produit';
+        return View( 'pages.produit.ajout_produit' )->with($data);
+    }
 }

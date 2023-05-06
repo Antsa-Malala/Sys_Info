@@ -151,6 +151,7 @@ Route::get('back' , function(){
 	return back();
 });
 
+Route::get( '/add-produit' , 'ProductController@ajout' );
 Route::get( '/add-percentage' , 'ProductController@index' );
 
 // Route::get('/lala', 'PagesController@goto');
