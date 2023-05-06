@@ -25,7 +25,7 @@ montant double precision not null default 0,
 foreign key(idProduit) references produit(idProduit),
 foreign key(idNature) references Nature(idNature),
 foreign key(idCentre) references Centre(idCentre),
-foreign key(idCharge) references plan(idplan)
+foreign key(idCharge) references plan(compte)
 );
 
 create table pourcentage_produit{
@@ -44,6 +44,6 @@ create table pourcentage_centre{
     idCentre int,
     pourcentage double precision not null default 0,
     foreign key(idproduit) references produit(idproduit),
-    foreign key idCharge references plan(idplan),
+    foreign key idCharge references plan(compte),
     foreign key idCentre references Centre(idCentre)
 }
