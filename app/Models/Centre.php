@@ -15,5 +15,30 @@ class Centre extends Model{
         }catch(\Illuminate\Database\QueryException $e){
             throw new DatabaseException("Insertion centre echouee");
         }
-    }   
+    } 
+    public static function remove($id){
+        $result = DB::delete("DELETE FROM centre WHERE idcentres = ?", [$id]);
+    }  
+
+    public static function update($idcentre, $nomcentre)
+    {
+        if( empty($nom) ) throw new \Exception("Le nom du centre ne peut etre vide");
+        try{
+            $result = DB::update("UPDATE centre SET nomcentre = ? WHERE idcentre = ?", [$nomcentre, $idcentre]);
+        }catch(\Illuminate\Database\QueryException $e){
+            throw new DatabaseException("Modification centre echouee");
+        }
+    }
+    public static function getAll(){
+        $journaux = DB::select('SELECT * FROM centre');
+        return $journaux;
+    }
+    public static function getById($id) {
+        $result = DB::select("SELECT * FROM centre WHERE idcentre = ?", [$id]);
+        if (!empty($result)) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
 }
