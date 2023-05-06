@@ -15,7 +15,7 @@ class Produit extends Model{
         try{
             $result = DB::insert("INSERT INTO produit(nomProduit,volume,prix) VALUES(?,?,?)", [$nom,$volume,$prix]);
         }catch(\Illuminate\Database\QueryException $e){
-            throw new DatabaseException("Insertion produit echouee");
+            throw new DatabaseException("Insertion produit echouee",$e);
         }
     }
     public static function remove($id){
@@ -30,7 +30,7 @@ class Produit extends Model{
         try{
             $result = DB::update("UPDATE produit SET nomproduit = ?,volume= ?, prix = ? WHERE idproduit = ?", [$nom,$volume,$prix, $idproduit]);
         }catch(\Illuminate\Database\QueryException $e){
-            throw new DatabaseException("Modification produit echouee");
+            throw new DatabaseException("Modification produit echouee",$e);
         }
     }
 

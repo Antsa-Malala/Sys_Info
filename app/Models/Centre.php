@@ -13,7 +13,7 @@ class Centre extends Model{
         try{
             $result = DB::insert("INSERT INTO centre(nomcentre) VALUES(?)", [$nom]);
         }catch(\Illuminate\Database\QueryException $e){
-            throw new DatabaseException("Insertion centre echouee");
+            throw new DatabaseException("Insertion centre echouee",$e);
         }
     } 
     public static function remove($id){
@@ -26,7 +26,7 @@ class Centre extends Model{
         try{
             $result = DB::update("UPDATE centre SET nomcentre = ? WHERE idcentre = ?", [$nomcentre, $idcentre]);
         }catch(\Illuminate\Database\QueryException $e){
-            throw new DatabaseException("Modification centre echouee");
+            throw new DatabaseException("Modification centre echouee",$e);
         }
     }
     public static function getAll(){
