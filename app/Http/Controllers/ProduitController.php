@@ -99,4 +99,10 @@ class ProduitController extends Controller
         $data['produits'] = Produit::getProduitWithPourcentageCentre();
         return view('pages.produit.liste_pourcentage')->with($data);
     }
+    public static function insertpourcentageproduit($idproduit,$idcharge,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::insertpourcentageproduit($idproduit,$idcharge,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
 }
