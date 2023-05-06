@@ -93,4 +93,10 @@ class ProduitController extends Controller
         $data['charges'] = $result;
         return view('pages.charge.produit')->with($data);
     }
+
+    public function liste_pourcentage_produit() {
+        $data['title'] = 'Pourcentage';
+        $data['produits'] = Produit::getProduitWithPourcentageCentre();
+        return view('pages.produit.liste_pourcentage')->with($data);
+    }
 }

@@ -80,4 +80,10 @@ class CentreController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
+
+    public function modifier_pourcentage() {
+        $data['title'] = 'Modifier le pourcentage';
+        $data['centres'] = Centre::getAll();
+        return view('pages.centre.pourcentage_centre')->with($data);
+    }
 }

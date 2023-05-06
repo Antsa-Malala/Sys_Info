@@ -158,6 +158,7 @@ Route::get( '/add-percentage' , 'ProductController@index' );
 
 
 //Produit
+Route::get('/percentage', 'ProduitController@liste_pourcentage_produit');
 Route::get('/produit_form', 'ProduitController@insert_form');
 Route::post('/produit-insert', 'ProduitController@insert');
 Route::get('/produit-list/{pages?}', 'ProduitController@index');
@@ -175,3 +176,4 @@ Route::get('/centre-list/{pages?}', 'CentreController@index');
 Route::get('/centre-delete/{idcentre}', 'CentreController@remove');
 Route::get('/centre-modifier/{idcentre}', 'CentreController@modifier');
 Route::post('/centre-update', 'CentreController@update');
+Route::get('/update-percentage', 'CentreController@modifier_pourcentage');

@@ -11,11 +11,10 @@
 					<div class="row ms-3" id="original">
 						<div class="col-md-5">
 							<select name="produit" id="" class="form-select">
-								<option value="">Produit 1</option>
-								<option value="">Produit 2</option>
-								<option value="">Produit 3</option>
-								<option value="">Produit 4</option>
-								<option value="">Produit 5</option>
+								{{-- Boucler les produits --}}
+								@for( $i = 0 ; $i < count($produits) ; $i++ )
+									<option value="{{ $produits[$i]->idproduit }}">{{ $produits[$i]->nomproduit }}</option>
+								@endfor
 							</select>
 						</div>
 						<div class="col-md-4">
@@ -28,13 +27,13 @@
 						</div>
 					</div>
                 </div>
-                <div class="mb-3 ms-4">
-                    <input type="submit" value="Ajouter de nouveau produit" class="btn btn-primary">
-                </div>
 				<div class="mb-3 ms-4">
-                    <input type="submit" value="Valider" class="btn btn-success">
+					<input type="submit" value="Valider" class="btn btn-success">
                 </div>
             </form>
+			<div class="mb-3 ms-4">
+				<a href="/produit_form"><button class="btn btn-primary">Ajouter de nouveau produit</button></a>
+			</div>
         </div>
     </div>
 	<script src="{{ URL::asset('js/app.js') }}"></script>

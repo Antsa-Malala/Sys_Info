@@ -6,16 +6,16 @@
             @csrf
             <div class="my-3">
                 <label for="nom_produit" class="form-label">Nom</label>
-                <input type="text" name="nom_produit" class="form-control my-2" id="nom_produit" >
+                <input type="text" name="nom_produit" class="form-control my-2" id="nom_produit" required>
             </div>
             <div class="my-3">
                 <label for="volume" class="form-label">Volume</label>
                 <input type="number" name="volume" class="form-control my-2" id="volume" 
-                 data-parsley-type="number" min="1">
+                 data-parsley-type="number" min="1" required>
             </div>
             <div class="my-3">
                 <label for="prix" class="form-label">Prix</label>
-                <input type="text" name="prix" class="form-control my-2" id="prix" >
+                <input type="text" name="prix" class="form-control my-2" id="prix" min="0" required>
             </div>
             <div class="mb-3">
                 <input type="submit" value="Inserer" class="btn btn-primary">

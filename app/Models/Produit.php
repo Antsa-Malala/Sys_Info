@@ -50,4 +50,18 @@ class Produit extends Model{
         $produit = DB::select('SELECT * FROM produit LIMIT ? OFFSET ?' , [$limit , $begin]);
         return $produit;
     }
+
+    public static function getProduitWithPourcentageCentre() {
+        $produit = array();
+        $results = Produit::getAll();
+        for ($i = 0; $i < count($results); $i++) {
+            $centres = Centre::getAll();
+            for ($j = 0; $j < count($centres); $j++) {
+                $centres[$i]->pourcentage = 100;
+            }
+            $results[$i]->centres = $centres;
+        }
+        return $results;
+    }
+
 }
