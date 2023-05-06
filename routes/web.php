@@ -169,6 +169,7 @@ Route::post('/produit-update', 'ProduitController@update');
 //charge
 Route::get('/produit-by-charge/{idcharge}', 'ProduitController@getproduitbycharge');
 Route::get('/insertion-pourcentageproduit/{idproduit}/{idcharge}/{pourcentage}', 'ProduitController@insertpourcentageproduit');
+Route::get('/update-pourcentageproduit/{idproduit}/{idcharge}/{pourcentage}', 'ProduitController@updatepourcentageproduit');
 
 //centre
 Route::get('/centre_form', 'CentreController@insert_form');

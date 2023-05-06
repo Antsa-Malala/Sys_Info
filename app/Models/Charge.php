@@ -46,4 +46,17 @@ class Charge extends Model{
         $produit = DB::select('SELECT COALESCE(100-sum(pourcentage), 100) as somme FROM pourcentage_produit where idcharge=?',[$idcharge]);
         return $produit[0]->somme;
     }
+
+    Public static function updatepourcentageproduit($idproduit,$idcharge,$pourcentage)
+    {
+        if( empty($idproduit) ) throw new \Exception("L'id du produit est non defini");
+        if( empty($idcharge) ) throw new \Exception("L'id de la charge est non defini");
+        if( $pourcentage<0 || $pourcentage>100 ) throw new \Exception("Le pourcentage ne peut etre negatif ni supérieur a 100");
+        try{
+            $idcharge=Charge::fillZero($idcharge);
+            $result = DB::update("UPDATE pourcentage_produit SET pourcentage = ? WHERE idproduit = ? and idcharge= ?", [$pourcentage,$idproduit,$idcharge]);
+        }catch(\Illuminate\Database\QueryException $e){
+            throw new DatabaseException("Modification pourcentage produit echouee",$e);
+        }
+    }
 }

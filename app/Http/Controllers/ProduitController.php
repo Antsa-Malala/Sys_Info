@@ -105,4 +105,10 @@ class ProduitController extends Controller
         Charge::insertpourcentageproduit($idproduit,$idcharge,$pourcentage);
         return redirect('produit-by-charge/'.$idcharge);
     }
+    public static function updatepourcentageproduit($idproduit,$idcharge,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::updatepourcentageproduit($idproduit,$idcharge,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
 }
