@@ -21,14 +21,14 @@ class Produit extends Model{
     public static function remove($id){
         $result = DB::delete("DELETE FROM produit WHERE idproduit = ?", [$id]);
     }
-    public static function update($idproduit,$nom,$volume,$prix)
+    public static function modifier($idproduit,$nom,$volume,$prix)
     {
         if( empty($idproduit) ) throw new \Exception("L'id du produit est indefini'");
         if( empty($nom) ) throw new \Exception("Le nom du produit ne peut etre vide");
         if( empty($volume) ) throw new \Exception("Le volume ne peut etre vide");
         if( empty($prix) ) throw new \Exception("Le prix ne peut etre vide");
         try{
-            $result = DB::modifier("UPDATE produit SET nomproduit = ?,volume= ?, prix = ? WHERE idproduit = ?", [$nom,$volume,$prix, $idproduit]);
+            $result = DB::update("UPDATE produit SET nomproduit = ?,volume= ?, prix = ? WHERE idproduit = ?", [$nom,$volume,$prix, $idproduit]);
         }catch(\Illuminate\Database\QueryException $e){
             throw new DatabaseException("Modification produit echouee");
         }
