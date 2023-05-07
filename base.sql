@@ -47,3 +47,20 @@ create table pourcentage_centre(
     foreign key(idCharge) references plan(compte),
     foreign key(idCentre) references Centre(idCentre)
 );
+
+create view produit_centre as 
+    select 
+    pourcentage_centre.idproduit,
+    produit.nomProduit,
+    produit.prix,
+    produit.volume,
+    pourcentage_centre.idcentre,
+    centre.nomCentre,
+    pourcentage_centre.idcharge,
+    pourcentage_produit.pourcentage as pourcentage_produit,
+    pourcentage_centre.pourcentage as pourcentage_centre
+    from pourcentage_centre 
+    join pourcentage_produit 
+    on pourcentage_centre.idproduit=pourcentage_produit.idproduit and pourcentage_centre.idcharge=pourcentage_produit.idcharge 
+    join centre on centre.idcentre=pourcentage_centre.idcentre
+    join produit on produit.idproduit=pourcentage_centre.idproduit;

@@ -111,4 +111,28 @@ class ProduitController extends Controller
         Charge::updatepourcentageproduit($idproduit,$idcharge,$pourcentage);
         return redirect('produit-by-charge/'.$idcharge);
     }
+    public static function insertpourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::insertpourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
+    public static function updatepourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::updatepourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
+    public function getcentrebyproduit($idcharge,$idproduit)
+    {
+        $result=Charge::getcentrebyproduit($idcharge,$idproduit);
+        $data['charges'] = $result;
+        return view('pages.charge.centre')->with($data);
+    }
+    public function getproduitcentre($idcharge,$idproduit)
+    {
+        $result=Charge::getproduitcentre($idcharge,$idproduit);
+        $data['charges'] = $result;
+        return view('pages.charge.centreproduit')->with($data);
+    }
 }
