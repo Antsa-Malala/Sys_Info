@@ -64,3 +64,10 @@ create view produit_centre as
     on pourcentage_centre.idproduit=pourcentage_produit.idproduit and pourcentage_centre.idcharge=pourcentage_produit.idcharge 
     join centre on centre.idcentre=pourcentage_centre.idcentre
     join produit on produit.idproduit=pourcentage_centre.idproduit;
+
+create view produit_present as 
+select idcharge,produit.*
+    from pourcentage_centre
+    join produit
+    on produit.idproduit=pourcentage_centre.idproduit 
+    group by produit.idproduit,produit.nomproduit,produit.volume,produit.prix,idcharge;

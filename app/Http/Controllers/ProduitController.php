@@ -135,4 +135,11 @@ class ProduitController extends Controller
         $data['charges'] = $result;
         return view('pages.charge.centreproduit')->with($data);
     }
+    public function getproduitpresent($idcharge)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        $result=Produit::getproduitpresent($idcharge);
+        $data['produits'] = $result;
+        return view('pages.produit.produitpresent')->with($data);
+    }
 }

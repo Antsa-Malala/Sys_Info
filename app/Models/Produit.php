@@ -70,4 +70,9 @@ class Produit extends Model{
         return $results;
     }
 
+    public static function getproduitpresent($idcharge)
+    {
+        $produit = DB::select('SELECT * FROM produit_present where idcharge =  ?' , [$idcharge]);
+        return $produit;
+    }
 }

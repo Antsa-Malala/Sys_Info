@@ -165,6 +165,7 @@ Route::get('/produit-list/{pages?}', 'ProduitController@index');
 Route::get('/produit-delete/{idproduit}', 'ProduitController@remove');
 Route::get('/produit-modifier/{idproduit}', 'ProduitController@modifier');
 Route::post('/produit-update', 'ProduitController@update');
+Route::get('/produit-present/{idcharge}', 'ProduitController@getproduitpresent');
 
 //charge
 Route::get('/produit-by-charge/{idcharge}', 'ProduitController@getproduitbycharge');
