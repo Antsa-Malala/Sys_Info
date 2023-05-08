@@ -151,8 +151,8 @@ Route::get('back' , function(){
 	return back();
 });
 
-Route::get( '/add-produit' , 'ProductController@ajout' );
-Route::get( '/add-percentage' , 'ProductController@index' );
+Route::get( '/add-produit' , 'ProduitController@ajout' );
+Route::get( '/add-percentage/{page?}' , 'ProduitController@addPercent' );
 
 // Route::get('/lala', 'PagesController@goto');
 
@@ -160,11 +160,12 @@ Route::get( '/add-percentage' , 'ProductController@index' );
 //Produit
 Route::get('/percentage', 'ProduitController@liste_pourcentage_produit');
 Route::get('/produit_form', 'ProduitController@insert_form');
-Route::post('/produit-insert', 'ProduitController@insert');
+Route::post('/produit-insert', 'ProduitController@Store');
 Route::get('/produit-list/{pages?}', 'ProduitController@index');
 Route::get('/produit-delete/{idproduit}', 'ProduitController@remove');
 Route::get('/produit-modifier/{idproduit}', 'ProduitController@modifier');
 Route::post('/produit-update', 'ProduitController@update');
+Route::post('/produit-modif', 'ProduitController@insertAndUpdate');
 
 //charge
 Route::get('/produit-by-charge/{idcharge}', 'ProduitController@getproduitbycharge');

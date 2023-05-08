@@ -47,3 +47,5 @@ create table pourcentage_centre(
     foreign key(idCharge) references plan(compte),
     foreign key(idCentre) references Centre(idCentre)
 );
+
+insert into 

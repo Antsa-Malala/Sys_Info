@@ -10,19 +10,41 @@ class ProduitController extends Controller
     public function __construct(){
         $this->limit = 7;    
     }
+
+    public function addPercent(){
+        $data['title'] = 'Ajouter Pourcentage';
+        $data['produits'] = Produit::getAll();
+        // Tokony alaina koa ny produit izay manana efa manana prix sy data
+        // Izay ny ho ligne manaraka eto
+        // Produits misy centre
+        return View( 'pages.produit.ajout_pourcentage' )->with($data);
+    }
+
+
+    public function ajout() {
+        $data['title'] = 'Ajouter Produit';
+        return View( 'pages.produit.ajout_produit' )->with($data);
+    }
+
+
     public function insert_form()
     {
         $data['title'] = 'Ajouter un produit';
         return view('pages.produit.insert')->with($data);
     }
-    public function insert(Request $request)
+    public function Store(Request $request)
     {
-
-        $nom = trim($request->input('nom_produit'));
-        $volume = $request->input('volume');
-        $prix = $request->input('prix');
-        Produit::insert($nom,$volume,$prix);
-        return redirect('produit-list');
+        $name = trim($request->input('nom_produit'));
+        $volume = trim($request->input('volume'));
+        $prix = trim($request->input('prix'));
+        try{
+            Produit::insert($name , $volume , $prix);
+            return redirect('produit-list');
+        }catch( DatabaseException $database ){
+            throw $database;
+        }catch( \Exception $e ){
+            throw $e;
+        }
     }
 
     public function importCSV(Request $request){
@@ -60,7 +82,6 @@ class ProduitController extends Controller
         return view('pages.produit.index')->with($data); 
     }
     public function remove(string $idproduit){
-
         try{
             Produit::remove($idproduit);
             return redirect('produit-list');
@@ -99,4 +120,34 @@ class ProduitController extends Controller
         $data['produits'] = Produit::getProduitWithPourcentageCentre();
         return view('pages.produit.liste_pourcentage')->with($data);
     }
+
+    // InsertAndModify
+
+    public function insertAndUpdate( Request $request ){
+        $products = $request->input('produit');
+        $pourcentages = $request->input('pourcentage');
+        $charge = $request->input('charge');
+        $produits = session()->get('Products');
+        $len1 = count($products);
+        $len2 = count($produits);
+        DB::beginTransaction();
+        try{
+            for( $i = 0 ; $i < $len1 ; $i++ ){
+                // Bouclena daholo fotsiny ilay izy
+                if( $i >= $len2 ){
+                    Produit::InsertPourcentage( $charge , $products[$i] , $pourcentages[$i] );
+                }else{
+                    Produit::updatePourcentage( $charge , $products[$i] , $pourcentages[$i] );
+                }
+            }
+            DB::commit();
+        }catch(DatabaseException $e){
+            DB::rollback();
+        }catch(\Exception $e){
+            DB::rollback();
+        }
+
+    }
+
+
 }

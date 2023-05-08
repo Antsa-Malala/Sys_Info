@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+	{{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
 
 	{{-- Inona no atao ato --}}
 	{{-- Manao formulaire ampidirana écriture --}}
@@ -25,7 +25,7 @@
 						<th> Credit </th>
 					</thead>
 					<tbody  id="operations">
-						{{ csrf_field() }}
+						@csrf
 						<tr id="original">
 							<td>
 								<input type="date" class="form-control" name="dates[]" value="{{ $ecriture->dateecriture }}" readonly>
@@ -37,30 +37,33 @@
 							</td>
 							<td> 
 								{{-- Asiako input avy eto de alaiko ny select eo akaikiny --}}
-								<select name="compte[]" class="form-select">
+								<select name="compte[]" onchange="validate(this)" class="form-select">
 									<option value=""> Choissez Un compte </option>
 									@for( $i = 0 ; $i < count($comptes) ; $i++ )
 										<option value="{{ $comptes[$i]->compte }}"> 
 										{{ $comptes[$i]->compte." - ".$comptes[$i]->libelle }} </option>
 									@endfor
 								</select>
-								<div class="row mt-2">
-									<div class="col-md-6">
-										<input type="number" placeholder="Variable" name="variable[]" class="form-control" required>
+								<div class="row d-none">
+									<div class="row mt-2">
+										<div class="col-md-6">
+											<input type="number" placeholder="Variable" name="variable[]" class="form-control" required>
+										</div>
+										<div class="col-md-6">
+											<input type="number" placeholder="Fixe" name="fixe[]" class="form-control" required>
+										</div>
 									</div>
-									<div class="col-md-6">
-										<input type="number" placeholder="Fixe" name="fixe[]" class="form-control" required>
+									<div class="row mt-2">
+										<div class="col-md-6">
+											<input type="radio" placeholder="Variable" name="nature" class="form-check-input">
+											Incorporel
+										</div>
+										<div class="col-md-6">
+											<input type="radio" placeholder="Fixe" name="nature" class="form-check-input">
+											Non Incorporel
+										</div>
 									</div>
-								</div>
-								<div class="row mt-2">
-									<div class="col-md-6">
-										<input type="radio" placeholder="Variable" name="nature" class="form-check-input">
-										Incorporel
-									</div>
-									<div class="col-md-6">
-										<input type="radio" placeholder="Fixe" name="nature" class="form-check-input">
-										Non Incorporel
-									</div>
+									
 								</div>
 							</td>
 							<td>
@@ -108,6 +111,7 @@
 		</div>
 	</div>
 	<script src="{{ URL::asset('js/app.js') }}"></script>
+	<script src="{{ URL::asset('js/Operations.js') }}"></script>
 	
 	{{-- <script src="{{ URL::asset('js/operation.template.js') }}"></script> --}}
 @endsection
