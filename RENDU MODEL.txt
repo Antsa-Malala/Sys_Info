@@ -1,0 +1,23 @@
+RENDU MODEL 
+Produit.php
+ * CRUD produit rehetra
+ *misy getAll sy getAllLimited(ty ho an'ilay pagination)
+ *misy getbyid koa ao raha ilaina
+ *getproduitpresent maka an'izay produit efa manana pourcentage par centre ao ho ana charge anakiray(mandry idcharge)
+
+Charge.php
+ *fillZero mameno an'ilay idcharge ho 5 chiffres (nicopieko fa private lay ray dia tsy te hanova ny codenlah za)
+ *getproduitbycharge maka ny produit rehetra miaraka amin'ny pourcentage ho ana charge anakiray ( mandray idcharge)
+ *insertpourcentageproduit mapiditra pourcentage produit ho ana charge ray (mandray idcharge,idproduit,pourcentage)
+ *getrestebycharge micheck ny reste % azo apidirina ho amina charge iray par rapport @ produit
+ *updatepourcentageproduit miupdate pourcentage produit par charge(mandray ny id an'ilay charge,idproduit, ilay pourcentage vaovao)
+ *insertpourcentagecentre miinsert pourcentage produit par charge(mandray ny id an'ilay charge,idproduit, ilay pourcentage)
+ *getrestebychargebycentre micheck ny reste % azo apidirina ho amina charge iray par rapport @ centre
+ *updatepourcentagecentre miupdate pourcentage centre par produit par charge(mandray ny id an'ilay charge,idproduit, idcentre,ilay pourcentage vaovao)
+ *getcentrebyproduit maka ny pourcentage centre ho ana produit ray ho ana charge ray (mandray idcharge,idproduit)
+ *getproduitcentre maka ny pourcentage par centre fa miaraka amin'ny pourcentage par produit(mandray icharge sy idproduit)
+
+ Centre.php
+ * CRUD centre rehetra
+ *misy getAll sy getAllLimited(ty ho an'ilay pagination)
+ *misy getbyid koa ao raha ilaina
