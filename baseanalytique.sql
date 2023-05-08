@@ -15,7 +15,7 @@ create table coeffproduit(
 idcoeffproduit serial primary key,
 idCompte int,
 idproduit int,
-pourcentage double precision,
+pourcentage double precision,	
 Foreign KEY(idproduit) references produit(idproduit),
 Foreign KEY(idcompte) references plan(idplan),
 );

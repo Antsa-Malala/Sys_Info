@@ -8,6 +8,7 @@ use App\Exceptions\OutRangeEcriture;
 use App\Exceptions\InvalidEcritureException;
 use App\Models\Operation;
 
+
 class Ecriture extends Model{
     use HasFactory;
 

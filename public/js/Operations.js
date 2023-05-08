@@ -60,3 +60,16 @@ function makePagination( currentPage , pages , showBy = 5 , url , container){
 	container.appendChild(li2);
 	
 }
+
+function validate( element ){
+	let e = element.value;
+	let n = element.nextSibling;
+	while (n.nodeType !== 1) { // Skip non-element nodes
+    	n = n.nextSibling;
+  	}
+	if( e[0] == '6' ){
+		n.classList.remove("d-none");
+	}else{
+		n.classList.add('d-none');
+	}
+} 
