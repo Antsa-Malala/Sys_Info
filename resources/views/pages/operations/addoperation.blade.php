@@ -63,6 +63,9 @@
 											Non Incorporel
 										</div>
 									</div>
+									<div class="my-3">
+										<a target="_blank" href="add-percentage/" class="btn btn-primary row__btn"> Voir les produits </a>
+									</div>
 									
 								</div>
 							</td>

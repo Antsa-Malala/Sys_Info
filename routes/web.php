@@ -152,7 +152,7 @@ Route::get('back' , function(){
 });
 
 Route::get( '/add-produit' , 'ProduitController@ajout' );
-Route::get( '/add-percentage/{page?}' , 'ProduitController@addPercent' );
+Route::get( '/add-percentage/{idCharge}' , 'ProduitController@addPercent' );
 
 // Route::get('/lala', 'PagesController@goto');
 

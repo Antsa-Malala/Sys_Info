@@ -14,13 +14,15 @@ function cloneProduct(){
 	if( pourcentage == '' ){
 		return;
 	}
-	data1.value = i.options[i.selectedIndex].text;
+	i.selectedIndex = 0;
+	data1 = i.cloneNode(true);
+	data1.value = select;
 	data2.value = pourcentage;
 	data1.setAttribute( 'name' , _NAME );
 	data2.setAttribute( 'name' , _POURCENTAGE );
 	data1.setAttribute('readonly' , 'true' );
-	data2.setAttribute('readonly' , 'true');
-	data1.classList.add("form-control");
+	// data2.setAttribute('readonly' , 'true');
+	data1.classList.add("form-select");
 	data2.classList.add("form-control");
 	td1.appendChild(data1);
 	td2.appendChild(data2);
