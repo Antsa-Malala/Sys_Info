@@ -108,6 +108,19 @@ class Produit extends Model{
         }
     }
 
+    public static function getproduitcentrebycharge($idcharge)
+    {
+        $pourcentageproduit=array();
+        $produitbycharge=Charge::getproduitbycharge($idcharge);
+        for ($i = 0; $i < count($produitbycharge); $i++) {
+            $product=$produitbycharge[$i];
+            $centre=Charge::getcentrebyproduit($idcharge,$produitbycharge[$i]->idproduit);
+            $product->centre=$centre;
+            array_push($pourcentageproduit,$product);
+        }
+        return $pourcentageproduit;
+    }
+    
     public static function getproduitpresent($idcharge)
     {
         $produit = DB::select('SELECT * FROM produit_present where idcharge =  ?' , [$idcharge]);

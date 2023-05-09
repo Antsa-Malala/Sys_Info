@@ -217,4 +217,11 @@ class ProduitController extends Controller
         $data['produits'] = $result;
         return view('pages.produit.produitpresent')->with($data);
     }
+    
+    public function getproduitcentrebycharge($idcharge)
+    {
+        $pourcentage=Produit::getproduitcentrebycharge($idcharge);
+        $data['pourcentage'] = $pourcentage;
+        return view('pages.produit.produitcentre')->with($data);
+    }
 }
