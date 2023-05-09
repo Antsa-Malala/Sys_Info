@@ -178,6 +178,7 @@ Route::get('/insertion-pourcentagecentre/{idproduit}/{idcharge}/{idcentre}/{pour
 Route::get('/update-pourcentagecentre/{idproduit}/{idcharge}/{idcentre}/{pourcentage}', 'ProduitController@updatepourcentagecentre');
 Route::get('/centre-by-produit/{idcharge}/{idproduit}', 'ProduitController@getcentrebyproduit');
 Route::get('/produit-centre/{idcharge}/{idproduit}', 'ProduitController@getproduitcentre');
+Route::get('/produit-centre-pourcentage/{idcharge}', 'ProduitController@getproduitcentrebycharge');
 
 //centre
 Route::get('/centre_form', 'CentreController@insert_form');
