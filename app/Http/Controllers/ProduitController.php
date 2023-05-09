@@ -136,8 +136,6 @@ class ProduitController extends Controller
         return view('pages.produit.liste_pourcentage')->with($data);
     }
 
-    // InsertAndModify
-
     public function insertAndUpdate( Request $request ){
         $products = $request->input('produit');
         $pourcentages = $request->input('pourcentage');
@@ -177,5 +175,47 @@ class ProduitController extends Controller
         }
     }
 
-
+    public static function insertpourcentageproduit($idproduit,$idcharge,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::insertpourcentageproduit($idproduit,$idcharge,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
+    public static function updatepourcentageproduit($idproduit,$idcharge,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::updatepourcentageproduit($idproduit,$idcharge,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
+    public static function insertpourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::insertpourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
+    public static function updatepourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        Charge::updatepourcentagecentre($idproduit,$idcharge,$idcentre,$pourcentage);
+        return redirect('produit-by-charge/'.$idcharge);
+    }
+    public function getcentrebyproduit($idcharge,$idproduit)
+    {
+        $result=Charge::getcentrebyproduit($idcharge,$idproduit);
+        $data['charges'] = $result;
+        return view('pages.charge.centre')->with($data);
+    }
+    public function getproduitcentre($idcharge,$idproduit)
+    {
+        $result=Charge::getproduitcentre($idcharge,$idproduit);
+        $data['charges'] = $result;
+        return view('pages.charge.centreproduit')->with($data);
+    }
+    public function getproduitpresent($idcharge)
+    {
+        $idcharge=Charge::fillZero($idcharge);
+        $result=Produit::getproduitpresent($idcharge);
+        $data['produits'] = $result;
+        return view('pages.produit.produitpresent')->with($data);
+    }
 }

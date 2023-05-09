@@ -8,6 +8,7 @@ use App\Exceptions\DatabaseException;
 class Produit extends Model{
     protected $table = 'produit';
 
+    //insertion produit
     public static function insert($nom,$volume,$prix) {
         if( empty($nom) ) throw new \Exception("Le nom du produit ne peut etre vide");
 
@@ -25,6 +26,7 @@ class Produit extends Model{
             throw new DatabaseException("Insertion produit echouee " , $e);
         }
     }
+    //delete produit
     public static function remove($id){
         // if( empty($id) ){
         //     throw new InvalidDataException( "" );
@@ -35,7 +37,9 @@ class Produit extends Model{
             throw new DatabaseException( "Suppression du Produit échouée" , $e);
         }
     }
-    public static function modifier( $idproduit, $nom, $volume, $prix){
+    //update produit
+    public static function modifier($idproduit,$nom,$volume,$prix)
+    {
         if( empty($idproduit) ) throw new \Exception("L'id du produit est indefini'");
         if( empty($nom) ) throw new \Exception("Le nom du produit ne peut etre vide");
         if( empty($volume) ) throw new \Exception("Le volume ne peut etre vide");
@@ -47,10 +51,12 @@ class Produit extends Model{
         }
     }
 
+    //liste de tous les produits
     public static function getAll(){
         $journaux = DB::select('SELECT * FROM produit');
         return $journaux;
     }
+    //prendre produit par id 
     public static function getById($id) {
         $result = DB::select("SELECT * FROM produit WHERE idproduit = ?", [$id]);
         if (!empty($result)) {
@@ -59,6 +65,7 @@ class Produit extends Model{
             return null;
         }
     }
+    //liste produits avec limit pagination 
     public static function getAllLimited( $limit , $begin ){
         $produit = DB::select('SELECT * FROM produit LIMIT ? OFFSET ?' , [$limit , $begin]);
         return $produit;
@@ -99,6 +106,9 @@ class Produit extends Model{
         }
     }
 
-
-
+    public static function getproduitpresent($idcharge)
+    {
+        $produit = DB::select('SELECT * FROM produit_present where idcharge =  ?' , [$idcharge]);
+        return $produit;
+    }
 }
