@@ -71,14 +71,16 @@ class Produit extends Model{
         return $produit;
     }
 
-    public static function getProduitWithPourcentageCentre() {
+    public static function getProduitWithPourcentageCentre( $idcharge ) {
         $produit = array();
-        $results = Produit::getAll();
+        $results = Charge::getproduitbycharge( $idcharge );
+        // mahazo tableaux de résults
+        // Isaky ny résults dia tokony manana centre
         for ($i = 0; $i < count($results); $i++) {
             $centres = Centre::getAll();
-            for ($j = 0; $j < count($centres); $j++) {
-                $centres[$i]->pourcentage = 100;
-            }
+            // for ($j = 0; $j < count($centres); $j++) {
+            //     $centres[$i]->pourcentage = 100;
+            // }
             $results[$i]->centres = $centres;
         }
         return $results;

@@ -119,20 +119,23 @@ class ProduitController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
-    public function getproduitbycharge($idcharge)
-    {
-        $result=Charge::getproduitbycharge($idcharge);
+    public function getproduitbycharge( ){
+        $charge = session('charge');
+        $result=Charge::getproduitbycharge($charge->compte);
         $data['charges'] = $result;
+        // Azoko ny charge
+        // Azoko ny produit par charge
+        // De alaiko amin'izay ny centre par produit par charge
         return view('pages.charge.produit')->with($data);
     }
 
     public function liste_pourcentage_produit(){
         $data['title'] = 'Pourcentage';
-        $data['produits'] = Produit::getProduitWithPourcentageCentre();
-        // Azo ny liste ana produits miaraka amin'ny centre
-        // Alaina ny charge
-        // Izay no mety
-        // Na koa alaina izay misy idCHarge
+        if( !session()->has('charge') ){
+            redirect('home');
+        }
+        $charge = session('charge');
+        $data['produits'] = Produit::getProduitWithPourcentageCentre( $charge->compte ); // Par centre
         return view('pages.produit.liste_pourcentage')->with($data);
     }
 
@@ -143,9 +146,7 @@ class ProduitController extends Controller
         $produits = session()->get('Products');
         $len1 = count($products);
         $len2 = count($produits);
-        // for( $i = 0 ; $i < count($products) ; $i++ ){
-        //     print( $products[$i]."</br>" );
-        // }
+
         session( [ 'ps' => $products , 'prs' => $pourcentages ] );
         DB::beginTransaction(); 
         try{
@@ -161,9 +162,7 @@ class ProduitController extends Controller
             DB::commit();
             session()->forget('ps');
             session()->forget('prs');
-            // Mbola ilaina le charge
-            // Mankany amin'ny 
-            return redirect();
+            return redirect("percentage");
         }catch(DatabaseException $e){
             DB::rollback();
         }catch(BalanceException $e){

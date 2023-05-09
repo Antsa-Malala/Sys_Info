@@ -50,4 +50,8 @@ class Centre extends Model{
             return null;
         }
     }
+
+    public function getAllCentreByProduitByCharge( $idProduit , $idCharge ){
+        
+    }
 }

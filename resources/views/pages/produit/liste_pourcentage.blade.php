@@ -7,7 +7,7 @@
         <div class="row">
             @for($i = 0 ; $i < count($produits) ; $i++)
             <div class="mx-4 my-4 shadow rounded-2 p-4 col-md-3">
-                <p class="text-center">{{ $produits[$i]->nomproduit }}: 100 %</p>
+                <p class="text-center">{{ $produits[$i]->nomproduit }}: {{ $produits[$i]->pourcentage }} %</p>
                 <ul class="list-group list-group">
                     @for($j = 0 ; $j < count($produits[$i]->centres) ; $j++)
                     <li class="list-group-item">{{ $produits[$i]->centres[$j]->nomcentre }}: 100 %</li>
