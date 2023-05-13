@@ -187,4 +187,5 @@ Route::get('/centre-list/{pages?}', 'CentreController@index');
 Route::get('/centre-delete/{idcentre}', 'CentreController@remove');
 Route::get('/centre-modifier/{idcentre}', 'CentreController@modifier');
 Route::post('/centre-update', 'CentreController@update');
-Route::get('/update-percentage', 'CentreController@modifier_pourcentage');
+Route::get('/update-percentage/{idProduit}', 'CentreController@modifier_pourcentage');
+Route::post('/insert-update', 'CentreController@insertAndUpdate');

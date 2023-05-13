@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Models\Centre;
+use App\Models\Charge;
 class CentreController extends Controller
 {
     public function __construct(){
@@ -81,9 +83,56 @@ class CentreController extends Controller
         }
     }
 
-    public function modifier_pourcentage() {
+    public function modifier_pourcentage( $idProduit ) {
+        if( !session()->has('charge') ){
+            return redirect('home');
+        }
         $data['title'] = 'Modifier le pourcentage';
         $data['centres'] = Centre::getAll();
+        $charge = session('charge');
+        // Alaina ilay efa ananan'ilay centre 
+        $centers = Charge::getcentrebyproduit( $charge->compte , $idProduit );
+        session([ "centers" => $centers , "produit" => $idProduit ]);
         return view('pages.centre.pourcentage_centre')->with($data);
     }
+
+
+    public function insertAndUpdate( Request $request ){
+        $products = $request->input('center');
+        $pourcentages = $request->input('pourcentage');
+        $prod = session('produit');
+        $charge = session('charge')->compte;
+        $produits = session()->get('Products');
+        $len1 = count($products);
+        $len2 = count($produits);
+
+        session( [ 'ps' => $products , 'prs' => $pourcentages ] );
+        DB::beginTransaction(); 
+        try{
+            $equilibred = Charge::isBalanced( $pourcentages );
+            for( $i = 0 ; $i < $len1 ; $i++ ){
+                // Bouclena daholo fotsiny ilay izy
+                if( $i >= $len2 ){
+                    Centre::InsertPourcentage( $charge , $products[$i] , $pourcentages[$i] , $prod );
+                }else{
+                    Centre::updatePourcentage( $charge , $products[$i] , $pourcentages[$i] , $prod );
+                }
+            }
+            DB::commit();
+            session()->forget('ps');
+            session()->forget('prs');
+            return redirect("percentage");
+        }catch(DatabaseException $e){
+            DB::rollback();
+            return back()->withErrors($e->getMessage())->withInput();
+        }catch(BalanceException $e){
+            DB::rollback();
+            // throw $e;
+            return back()->withErrors($e->getMessage())->withInput();
+        }catch(\Exception $e){
+            DB::rollback();
+            return back()->withErrors($e->getMessage())->withInput();
+        }
+    }
+
 }

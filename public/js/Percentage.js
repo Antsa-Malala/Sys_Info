@@ -17,6 +17,7 @@ function cloneProduct(){
 	i.selectedIndex = 0;
 	data1 = i.cloneNode(true);
 	data1.value = select;
+	data1.removeAttribute("id");
 	data2.value = pourcentage;
 	data1.setAttribute( 'name' , _NAME );
 	data2.setAttribute( 'name' , _POURCENTAGE );
@@ -29,6 +30,40 @@ function cloneProduct(){
 	tr.appendChild(td1);
 	tr.appendChild(td2);
 	c.appendChild( tr );
+}
+
+function cloneCenter(){
+	let _NAME = "center[]";
+	let _POURCENTAGE = "pourcentage[]";
+	let c = document.querySelector('#original');
+	let tr = document.createElement('tr');
+	let td1 = document.createElement('td');
+	let td2 = document.createElement('td');
+	// let data1 = document.createElement('input');
+	let data2 = document.createElement('input');
+	let i = document.querySelector('#center');
+	let j = document.querySelector('#pourcent');
+	let select = i.value;
+	let pourcentage = j.value;
+	if( pourcentage == '' ){
+		return;
+	}
+	// i.selectedIndex = 0;
+	let data1 = i.cloneNode(true);
+	data1.removeAttribute("id");
+	data1.value = select;
+	data2.value = pourcentage;
+	data1.setAttribute( 'name' , _NAME );
+	data2.setAttribute( 'name' , _POURCENTAGE );
+	data1.setAttribute('readonly' , 'true' );
+	// data2.setAttribute('readonly' , 'true');
+	data1.classList.add("form-select");
+	data2.classList.add("form-control");
+	td1.appendChild(data1);
+	td2.appendChild(data2);
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+	c.appendChild( tr );	
 }
 
 function submitForm(  ){

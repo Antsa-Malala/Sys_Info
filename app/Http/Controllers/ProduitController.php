@@ -135,7 +135,7 @@ class ProduitController extends Controller
             redirect('home');
         }
         $charge = session('charge');
-        $data['produits'] = Produit::getProduitWithPourcentageCentre( $charge->compte ); // Par centre
+        $data['produits'] = Produit::getproduitcentrebycharge( $charge->compte ); // Par centre
         return view('pages.produit.liste_pourcentage')->with($data);
     }
 
@@ -165,12 +165,14 @@ class ProduitController extends Controller
             return redirect("percentage");
         }catch(DatabaseException $e){
             DB::rollback();
+            return back()->withErrors($e->getMessage())->withInput();
         }catch(BalanceException $e){
             DB::rollback();
             // throw $e;
             return back()->withErrors($e->getMessage())->withInput();
         }catch(\Exception $e){
             DB::rollback();
+            return back()->withErrors($e->getMessage())->withInput();
         }
     }
 

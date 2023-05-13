@@ -110,12 +110,12 @@ class Produit extends Model{
 
     public static function getproduitcentrebycharge($idcharge)
     {
-        $pourcentageproduit=array();
-        $produitbycharge=Charge::getproduitbycharge($idcharge);
+        $pourcentageproduit = array();
+        $produitbycharge = Charge::getproduitbycharge($idcharge);
         for ($i = 0; $i < count($produitbycharge); $i++) {
-            $product=$produitbycharge[$i];
-            $centre=Charge::getcentrebyproduit($idcharge,$produitbycharge[$i]->idproduit);
-            $product->centre=$centre;
+            $product = $produitbycharge[$i];
+            $centre = Charge::getcentrebyproduit( $idcharge, $produitbycharge[$i]->idproduit);
+            $product->centre = $centre;
             array_push($pourcentageproduit,$product);
         }
         return $pourcentageproduit;
