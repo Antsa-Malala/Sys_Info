@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\DatabaseException;
+use App\Exceptions\BalanceException;
 use App\Models\Plan;
 class Charge extends Model{
 
@@ -26,6 +27,25 @@ class Charge extends Model{
         return $produit;
     }
 
+    public static function isBalanced( $pourcent ){
+        $pourcentage = 0;
+        $a = count($pourcent);
+        for( $i = 0 ; $i < count($pourcent) ; $i++ ){
+            if( is_numeric($pourcent[$i]) ){
+                $a = (float) $pourcent[$i];
+                if( $a < 0 ){
+                    throw new \Exception(" Entrer un pourcentage positif ".$pourcent[$i]);
+                }
+                $pourcentage += $a;
+            }else{
+                throw new \Exception(" Entrer un pourcentage valide ");
+            }
+        }
+        if( $pourcentage == 100 || $pourcentage == 0 ){
+            return true;
+        }
+        throw new BalanceException( $pourcentage );
+    }   
     //Method ajout de pourcentage de produit
     public static function insertpourcentageproduit($idproduit,$idcharge,$pourcentage)
     {
