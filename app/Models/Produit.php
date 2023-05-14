@@ -124,4 +124,9 @@ class Produit extends Model{
         $produit = DB::select('SELECT * FROM produit_present where idcharge =  ?' , [$idcharge]);
         return $produit;
     }
+    public static function getcentrebyproduit($idproduit)
+    {
+        $produit = DB::select('SELECT DISTINCT(idcentre) FROM pourcentage_centre where idproduit =  ?' , [$idproduit]);
+        return $produit;
+    }
 }

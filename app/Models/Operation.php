@@ -132,5 +132,16 @@ class Operation extends Model{
         return castToNumber($n);
     }
 
+    public function try_save($date_operation="")
+    {
+        $this->save();
+        if($this->estcharge)
+        {
+            if($this->choix==1)
+            {
+                Cout::insert_cout_produit($this->compte,$this->debit,$this->variable,$this->fixe,$date_operation);
+            }
+        }
+    }
 
 }

@@ -188,3 +188,6 @@ Route::get('/centre-delete/{idcentre}', 'CentreController@remove');
 Route::get('/centre-modifier/{idcentre}', 'CentreController@modifier');
 Route::post('/centre-update', 'CentreController@update');
 Route::get('/update-percentage', 'CentreController@modifier_pourcentage');
+
+//COut
+Route::get('/insert-cout/{idcharge}/{montant}/{variable}/{fixe}/{date_operation}', 'CoutController@insertion_cout_produit');
