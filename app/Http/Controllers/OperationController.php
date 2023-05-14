@@ -11,6 +11,7 @@ use App\Models\Tiers;
 use App\Exceptions\InvalidNumberException;
 use App\Exceptions\PlanException;
 use App\Exceptions\InvalidDataException;
+use App\Exceptions\BalanceException;
 use App\Exceptions\InvalidEcritureException;
 use Illuminate\Support\Facades\DB;
 
@@ -42,14 +43,30 @@ class OperationController extends Controller{
         $debits = $request->input('debit');
         $credits = $request->input('credit');
         $lib = $currentEcriture->libelle;
+        $variables = $request->input('variable');
+        $fixes = $request->input('fixe');
+        $natures = $request->input('nature');
         $ref = $currentEcriture->createReference();
         $operations = array();
+
+        $vfIndex = 0;
+
         for( $i = 0 ; $i < count($references) ; $i++ ){
             try{
                 $operation = new Operation( $currentEcriture->idecriture , 
                                             $references[$i] , 
                                             $comptes[$i] ,$tiers[$i], $libelle[$i],
                                             $debits[$i] , $credits[$i]);
+                // Maintenant azoko ilay variable sy fixe
+                // Inona izao no ataoko
+                // Je demande zany hoe charge ve sa tsia
+                if( $operation->isCharge() ){
+                    $operation->setVariable($variables[$vfIndex]);
+                    $operation->setFixe($fixes[$vfIndex]);
+                    $operation->setType($natures[$vfIndex]);
+                    $vfIndex++;
+                }
+                $operation->isBalanced();
                 $operation->validate( trim($ref) , trim($lib) );
                 $operation->isValidDate($date[$i] , $currentEcriture->dateecriture);
                 $operations[] = $operation; 
@@ -57,6 +74,8 @@ class OperationController extends Controller{
                 return response()->json( array('error'=>$data->getMessage()) , 500 );
             }catch( PlanException $plan ){
                 return response()->json( array('error'=>$plan->getMessage()) , 500 );
+            }catch( BalanceException $balance ){
+                return response()->json( array('error'=>$balance->getMessage()) , 500 );
             }
         }
         try{
@@ -74,7 +93,7 @@ class OperationController extends Controller{
             }
         }catch( InvalidEcritureException $e ){
             // return back()->withErrors($e->getMessage())->withInput();
-            return response()->json( array('error'=>$e->getMessage()) , 500 );
+            return response()->json( array('error'=> $e->getMessage() ) , 500 );
             // throw $e;
         }
         return response()->json(array('link'=>route('plans')) , 200);
@@ -122,8 +141,8 @@ class OperationController extends Controller{
             DB::commit();
         }catch(InvalidDataException | PlanException $e){
             DB::rollback();
-            throw $e;
-            // return back()->withError($e->getMessage());
+            // throw $e;
+            return back()->withError($e->getMessage());
         }catch(\Exception $e){
             throw $e;
         }

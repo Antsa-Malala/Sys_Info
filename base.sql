@@ -12,17 +12,17 @@ nomCentre VARCHAR not null
 
 
 create table cout(
-id SERIAL primary key,
-idProduit INT,
-fixe double precision not null default 0,
-variable double precision not null default 0,
-idCentre int,
-idCharge varchar(5),
-date_operation date,
-montant double precision not null default 0,
-foreign key(idProduit) references produit(idProduit),
-foreign key(idCentre) references Centre(idCentre),
-foreign key(idCharge) references plan(compte)
+    id SERIAL primary key,
+    idProduit INT,
+    fixe double precision not null default 0,
+    variable double precision not null default 0,
+    idCentre int,
+    idCharge varchar(5),
+    date_operation date,
+    montant double precision not null default 0,
+    foreign key(idProduit) references produit(idProduit),
+    foreign key(idCentre) references Centre(idCentre),
+    foreign key(idCharge) references plan(compte)
 );
 
 create table pourcentage_produit(
