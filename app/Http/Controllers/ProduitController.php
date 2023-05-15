@@ -4,20 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Charge;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Produit;
+use App\Models\Plan;
+use App\Exceptions\BalanceException;
+use App\Exceptions\DatabaseException;
+
 class ProduitController extends Controller
 {
     public function __construct(){
         $this->limit = 7;    
     }
 
-    public function addPercent(){
-        $data['title'] = 'Ajouter Pourcentage';
-        $data['produits'] = Produit::getAll();
-        // Tokony alaina koa ny produit izay manana efa manana prix sy data
-        // Izay ny ho ligne manaraka eto
-        // Produits misy centre
-        return View( 'pages.produit.ajout_pourcentage' )->with($data);
+    public function addPercent( $idCharge = 0 ){
+        try{
+            $data['title'] = 'Ajouter Pourcentage';
+            $data['produits'] = Produit::getAll();
+            $data['charge'] = Plan::getBynumero($idCharge);
+            $data['Products'] = Charge::getproduitbycharge($idCharge);  
+            session( [ 'Products' => $data['Products'] , 'charge' => $data['charge'] ]  );
+            // session( [  ] );
+            return View( 'pages.produit.ajout_pourcentage' )->with($data);
+        }catch( \Exception $e ){
+            throw $e;
+        }
     }
 
 
@@ -108,16 +119,23 @@ class ProduitController extends Controller
             return back()->withErrors($e->getMessage());
         }
     }
-    public function getproduitbycharge($idcharge)
-    {
-        $result=Charge::getproduitbycharge($idcharge);
+    public function getproduitbycharge( ){
+        $charge = session('charge');
+        $result=Charge::getproduitbycharge($charge->compte);
         $data['charges'] = $result;
+        // Azoko ny charge
+        // Azoko ny produit par charge
+        // De alaiko amin'izay ny centre par produit par charge
         return view('pages.charge.produit')->with($data);
     }
 
-    public function liste_pourcentage_produit() {
+    public function liste_pourcentage_produit(){
         $data['title'] = 'Pourcentage';
-        $data['produits'] = Produit::getProduitWithPourcentageCentre();
+        if( !session()->has('charge') ){
+            redirect('home');
+        }
+        $charge = session('charge');
+        $data['produits'] = Produit::getproduitcentrebycharge( $charge->compte ); // Par centre
         return view('pages.produit.liste_pourcentage')->with($data);
     }
 
@@ -128,8 +146,11 @@ class ProduitController extends Controller
         $produits = session()->get('Products');
         $len1 = count($products);
         $len2 = count($produits);
-        DB::beginTransaction();
+
+        session( [ 'ps' => $products , 'prs' => $pourcentages ] );
+        DB::beginTransaction(); 
         try{
+            $equilibred = Charge::isBalanced( $pourcentages );
             for( $i = 0 ; $i < $len1 ; $i++ ){
                 // Bouclena daholo fotsiny ilay izy
                 if( $i >= $len2 ){
@@ -139,12 +160,20 @@ class ProduitController extends Controller
                 }
             }
             DB::commit();
+            session()->forget('ps');
+            session()->forget('prs');
+            return redirect("percentage");
         }catch(DatabaseException $e){
             DB::rollback();
+            return back()->withErrors($e->getMessage())->withInput();
+        }catch(BalanceException $e){
+            DB::rollback();
+            // throw $e;
+            return back()->withErrors($e->getMessage())->withInput();
         }catch(\Exception $e){
             DB::rollback();
+            return back()->withErrors($e->getMessage())->withInput();
         }
-
     }
 
     public static function insertpourcentageproduit($idproduit,$idcharge,$pourcentage)

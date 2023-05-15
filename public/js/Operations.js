@@ -69,6 +69,11 @@ function validate( element ){
   	}
 	if( e[0] == '6' ){
 		n.classList.remove("d-none");
+		let b = n.querySelector(".row__btn");
+		let url = b.getAttribute('href');
+		let lastIndex = url.lastIndexOf("/");
+		url = url.substring( 0 , lastIndex + 1 );
+		b.setAttribute( 'href' , url + e );
 	}else{
 		n.classList.add('d-none');
 	}

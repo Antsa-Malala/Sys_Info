@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InvalidNumberException;
 use App\Exceptions\InvalidDataException;
 use App\Exceptions\PlanException;
+use App\Exceptions\BalanceException;
 use App\Models\Plan;
 
 class Operation extends Model{
@@ -16,6 +17,10 @@ class Operation extends Model{
     protected $fillable = [
         'idecriture' , 'numpiece' , 'compte' , 'tiers' , 'libelle' , 'debit' , 'credit'
     ];
+    public $variable;
+    public $fixe;
+    public $type;
+    protected $guarded = 1;
     public $incrementing = true;
     public $timestamps = false;
 
@@ -118,6 +123,43 @@ class Operation extends Model{
         }
     }
 
+    public function setVariable($variable){
+        if( !is_numeric($variable) || $variable == '' ){
+            throw new InvalidDataException("Inserer une valeur valable pour la charge : VARIABLE");
+        }
+        $this->variable = $variable;
+    }
+
+
+    public function setFixe($fixe){
+        if( !is_numeric($fixe) || $fixe == '' ){
+            throw new InvalidDataException("Inserer une valeur valable pour la charge : FIXE");
+        }
+        $this->fixe = $fixe;
+    }
+
+    public function getVariable(){
+        return $this->variable;    
+    }
+
+    public function getFixe(){
+        return $this->fixe;
+    }
+
+    public function setType( $type ){
+        // Définir un type
+        // Si $type == 0 alors Incorporel
+        // Si $type == 1 alors Non Incorporel
+        // Si $type == 2 alors Supplétive
+        if( $type == '' || !is_numeric($type)){
+            throw new InvalidDataException("Veuillez choisir un option que ce soit Incorporable ou Non");
+        }
+        $this->type = $type;
+    }
+    public function getType(){
+        return $this->type;
+    }
+
     private function checkNumber($n){
         $regex = "/[a-zA-Z]/";
         $preg = preg_match($regex , $n);
@@ -142,6 +184,18 @@ class Operation extends Model{
                 Cout::insert_cout_produit($this->compte,$this->debit,$this->variable,$this->fixe,$date_operation);
             }
         }
+    }
+    public function isCharge(){
+        if(strpos($this->compte, '6') !== 0)
+            return false;
+        return true;
+    }
+
+    public function isBalanced(){
+        if( $this->getVariable() + $this->getFixe() != 0 && $this->getVariable() + $this->getFixe() != 100 ){
+            throw new BalanceException($this->getVariable() + $this->getFixe());
+        }
+        return true;
     }
 
 }

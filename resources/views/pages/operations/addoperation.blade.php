@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-	{{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	{{-- Inona no atao ato --}}
 	{{-- Manao formulaire ampidirana écriture --}}
@@ -55,13 +55,16 @@
 									</div>
 									<div class="row mt-2">
 										<div class="col-md-6">
-											<input type="radio" placeholder="Variable" name="nature" class="form-check-input">
+											<input type="radio" placeholder="Variable" value="0" name="nature[]" class="form-check-input">
 											Incorporel
 										</div>
 										<div class="col-md-6">
-											<input type="radio" placeholder="Fixe" name="nature" class="form-check-input">
+											<input type="radio" placeholder="Fixe" value="1" name="nature[]" class="form-check-input">
 											Non Incorporel
 										</div>
+									</div>
+									<div class="my-3">
+										<a target="_blank" href="add-percentage/" class="btn btn-primary row__btn"> Voir les produits </a>
 									</div>
 									
 								</div>
