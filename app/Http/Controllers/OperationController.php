@@ -50,18 +50,11 @@ class OperationController extends Controller{
         $operations = array();
 
         $vfIndex = 0;
-<<<<<<< Updated upstream
-
-        for( $i = 0 ; $i < count($references) ; $i++ ){
-            try{
-=======
-        
-        $errors = array();
+                $errors = array();
         $bool = false;
 
         try {
             for($i = 0 ; $i < count($references) ; $i++) {
->>>>>>> Stashed changes
                 $operation = new Operation( $currentEcriture->idecriture , 
                                             $references[$i] , 
                                             $comptes[$i] ,$tiers[$i], $libelle[$i],
@@ -82,51 +75,21 @@ class OperationController extends Controller{
                     $operation->error = $exception->getMessage();
                     array_push( $errors , $operation );
                 }
-<<<<<<< Updated upstream
-                $operation->isBalanced();
-                $operation->validate( trim($ref) , trim($lib) );
-                $operation->isValidDate($date[$i] , $currentEcriture->dateecriture);
-                $operations[] = $operation; 
-            }catch( InvalidDataException $data ){
-                return response()->json( array('error'=>$data->getMessage()) , 500 );
-            }catch( PlanException $plan ){
-                return response()->json( array('error'=>$plan->getMessage()) , 500 );
-            }catch( BalanceException $balance ){
-                return response()->json( array('error'=>$balance->getMessage()) , 500 );
             }
+
+        if( $bool ){
+            return response()->json( array('errors' => json_encode($errors) ) , 500 );
         }
-        try{
-=======
-            }
 
-            if( $bool ){
-                return response()->json( array('errors' => json_encode($errors) ) , 500 );
+        $isEquilibre = $currentEcriture->isValidEcriture($operations);
+        DB::beginTransaction();
+            for ($i = 0 ; $i < count($operations) ; $i++ ) {
+                $operations[$i]->save();
             }
-
->>>>>>> Stashed changes
-            $isEquilibre = $currentEcriture->isValidEcriture($operations);
-            DB::beginTransaction();
-            try{
-                for ($i = 0 ; $i < count($operations) ; $i++ ) {
-                    $operations[$i]->save();
-                }
-                DB::commit();
-            }catch(\Exception $e){
-                DB::rollback();
-                return response()->json( array('error'=>$e->getMessage()) , 500 );
-                // return back()->withErrors($e->getMessage());
-            }
-<<<<<<< Updated upstream
-        }catch( InvalidEcritureException $e ){
-            // return back()->withErrors($e->getMessage())->withInput();
-            return response()->json( array('error'=> $e->getMessage() ) , 500 );
-            // throw $e;
-=======
             DB::commit();
         }catch(\Exception $e) {
             DB::rollback();
             return response()->json( array('error'=>$e->getMessage()) , 500 );
->>>>>>> Stashed changes
         }
         return response()->json(array('link'=>route('plans')) , 200);
     }
