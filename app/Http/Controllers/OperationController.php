@@ -48,11 +48,11 @@ class OperationController extends Controller{
         $natures = $request->input('nature');
         $ref = $currentEcriture->createReference();
         $operations = array();
-
+        
         $vfIndex = 0;
-
-        for( $i = 0 ; $i < count($references) ; $i++ ){
-            try{
+        
+        try {
+            for($i = 0 ; $i < count($references) ; $i++) {
                 $operation = new Operation( $currentEcriture->idecriture , 
                                             $references[$i] , 
                                             $comptes[$i] ,$tiers[$i], $libelle[$i],
@@ -70,31 +70,16 @@ class OperationController extends Controller{
                 $operation->validate( trim($ref) , trim($lib) );
                 $operation->isValidDate($date[$i] , $currentEcriture->dateecriture);
                 $operations[] = $operation; 
-            }catch( InvalidDataException $data ){
-                return response()->json( array('error'=>$data->getMessage()) , 500 );
-            }catch( PlanException $plan ){
-                return response()->json( array('error'=>$plan->getMessage()) , 500 );
-            }catch( BalanceException $balance ){
-                return response()->json( array('error'=>$balance->getMessage()) , 500 );
             }
-        }
-        try{
             $isEquilibre = $currentEcriture->isValidEcriture($operations);
             DB::beginTransaction();
-            try{
-                for ($i = 0 ; $i < count($operations) ; $i++ ) {
-                    $operations[$i]->save();
-                }
-                DB::commit();
-            }catch(\Exception $e){
-                DB::rollback();
-                return response()->json( array('error'=>$e->getMessage()) , 500 );
-                // return back()->withErrors($e->getMessage());
+            for ($i = 0 ; $i < count($operations) ; $i++ ) {
+                $operations[$i]->save();
             }
-        }catch( InvalidEcritureException $e ){
-            // return back()->withErrors($e->getMessage())->withInput();
-            return response()->json( array('error'=> $e->getMessage() ) , 500 );
-            // throw $e;
+            DB::commit();
+        } catch(\Exception $e) {
+            DB::rollback();
+            return response()->json( array('error'=>$e->getMessage()) , 500 );
         }
         return response()->json(array('link'=>route('plans')) , 200);
     }
