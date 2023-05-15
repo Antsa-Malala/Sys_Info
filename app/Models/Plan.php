@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Exceptions\InvalidNumberException;
 use App\Exceptions\DatabaseException;
 use App\Exceptions\PlanException;
+use App\Exceptions\ProductAndCenterException;
 
 class Plan extends Model{
     protected $table = 'plan';
@@ -26,15 +27,9 @@ class Plan extends Model{
         $a = 0;
         try{
             $result = DB::select("SELECT * FROM plan WHERE compte = ? ", [$numeroCompte]);
-            // $a = $result;
-            // ob_start();
-            // var_dump($result);
             return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
-            // $out = ob_get_clean();
-            // throw new \Exception(sprintf("SELECT * FROM plan WHERE compte = '%s'" , '%' , $numeroCompte , '%'));
             throw new \Exception('Aucun Résultat');
-            // throw new \Exception($out);
         }
     }
     public static function getById($id) {
@@ -47,18 +42,11 @@ class Plan extends Model{
     }
 
     public static function getBylibelle($libelle) {
-        // $sql = sprintf("SELECT * FROM plan WHERE libelle like '%s%s%s'" , '%' , $libelle , '%');
         try {
             $result = DB::select("SELECT * FROM plan WHERE libelle like ?", ['%'.$libelle.'%']);
-            // ob_start();
-            // var_dump($result);
-            // $result = DB::select($sql);
             return $result[0];
         }catch( \Illuminate\Database\QueryException | \Exception $e ){
-            // $out = ob_get_clean();
-            // throw new \Exception($out);
             throw new \Exception("Aucun Résultat");
-            // throw new \Exception($e);
         }
     }
 
@@ -148,5 +136,30 @@ class Plan extends Model{
         }
     }
     
+    public static function contains( $plan ){
+        $produits = Charge::getproduitbycharge( $this->compte );
+        $vides = [];
+        foreach( $produits as $produit ){
+            if( $produit->pourcentage == 0 ){
+                $vides[] = $produit;
+            }else{
+                $v = [];
+                $centres = Charge::getcentrebyproduit( $plan , $produit->idproduit );
+                foreach( $centres as $centre ){
+                    if( $centre->pourcentage == 0 ){
+                        $v[] = $centre;
+                    }
+                }
+                if( count($centres) == count( $v ) ){
+                    throw new ProductAndCenterException("Le produit ".$produit->nomproduit." n'as pas de centre");
+                }
+            }
+        }
+
+        if( count( $produits ) == count($vides) ){
+            throw new ProductAndCenterException("La charge ".$plan." n'as pas de produit");
+        }
+        return true;
+    }
 }
 ?>

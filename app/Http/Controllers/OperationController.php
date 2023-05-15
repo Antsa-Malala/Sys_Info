@@ -8,11 +8,12 @@ use App\Models\Operation;
 use App\Models\Journaux;
 use App\Models\Plan;
 use App\Models\Tiers;
+use App\Exceptions\BalanceException;
+use App\Exceptions\InvalidDataException;
+use App\Exceptions\InvalidEcritureException;
 use App\Exceptions\InvalidNumberException;
 use App\Exceptions\PlanException;
-use App\Exceptions\InvalidDataException;
-use App\Exceptions\BalanceException;
-use App\Exceptions\InvalidEcritureException;
+use App\Exceptions\ProductAndCenterException;
 use Illuminate\Support\Facades\DB;
 
 class OperationController extends Controller{
@@ -27,7 +28,6 @@ class OperationController extends Controller{
         $prefix = Journaux::getAll();
         $data['journaux'] = $prefix;
         $data['comptes'] = Plan::getAll();
-        // Alaina daholo ny compte Tiers rehetra
         $data['tiers'] = Tiers::getAll();
 
         return view('pages.operations.addoperation')->with($data);
@@ -48,43 +48,51 @@ class OperationController extends Controller{
         $natures = $request->input('nature');
         $ref = $currentEcriture->createReference();
         $operations = array();
-        
+
         $vfIndex = 0;
-        
+                $errors = array();
+        $bool = false;
+
         try {
             for($i = 0 ; $i < count($references) ; $i++) {
                 $operation = new Operation( $currentEcriture->idecriture , 
                                             $references[$i] , 
                                             $comptes[$i] ,$tiers[$i], $libelle[$i],
                                             $debits[$i] , $credits[$i]);
-                // Maintenant azoko ilay variable sy fixe
-                // Inona izao no ataoko
-                // Je demande zany hoe charge ve sa tsia
-                if( $operation->isCharge() ){
-                    $operation->setVariable($variables[$vfIndex]);
-                    $operation->setFixe($fixes[$vfIndex]);
-                    $operation->setType($natures[$vfIndex]);
-                    $vfIndex++;
+                try{
+                    if( $operation->isCharge() ){
+                        $operation->setVariable($variables[$vfIndex]);
+                        $operation->setFixe($fixes[$vfIndex]);
+                        $operation->setType($natures[$vfIndex]);
+                        $vfIndex++;
+                    }
+                    $operation->isBalanced();
+                    $operation->validate( trim($ref) , trim($lib) );
+                    $operation->isValidDate($date[$i] , $currentEcriture->dateecriture);
+                    $operations[] = $operation; 
+                }catch( ProductAndCenterException $exception ){
+                    $bool = true;
+                    $operation->error = $exception->getMessage();
+                    array_push( $errors , $operation );
                 }
-                $operation->isBalanced();
-                $operation->validate( trim($ref) , trim($lib) );
-                $operation->isValidDate($date[$i] , $currentEcriture->dateecriture);
-                $operations[] = $operation; 
             }
-            $isEquilibre = $currentEcriture->isValidEcriture($operations);
-            DB::beginTransaction();
+
+        if( $bool ){
+            return response()->json( array('errors' => json_encode($errors) ) , 500 );
+        }
+
+        $isEquilibre = $currentEcriture->isValidEcriture($operations);
+        DB::beginTransaction();
             for ($i = 0 ; $i < count($operations) ; $i++ ) {
                 $operations[$i]->save();
             }
             DB::commit();
-        } catch(\Exception $e) {
+        }catch(\Exception $e) {
             DB::rollback();
             return response()->json( array('error'=>$e->getMessage()) , 500 );
         }
         return response()->json(array('link'=>route('plans')) , 200);
     }
-
-
     public function import(){
         $data['title'] = "Importer un fichier csv";
         return view('pages.operations.importcsv')->with($data);

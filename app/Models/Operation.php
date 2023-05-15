@@ -8,6 +8,7 @@ use App\Exceptions\InvalidNumberException;
 use App\Exceptions\InvalidDataException;
 use App\Exceptions\PlanException;
 use App\Exceptions\BalanceException;
+use App\Exceptions\ProductAndCenterException;
 use App\Models\Plan;
 
 class Operation extends Model{
@@ -20,6 +21,7 @@ class Operation extends Model{
     public $variable;
     public $fixe;
     public $type;
+    public $error;
     protected $guarded = 1;
     public $incrementing = true;
     public $timestamps = false;
@@ -177,7 +179,7 @@ class Operation extends Model{
     public function try_save($date_operation="")
     {
         $this->save();
-        if($this->estcharge)
+        if($this->isCharge())
         {
             if($this->choix==1)
             {
@@ -188,6 +190,11 @@ class Operation extends Model{
     public function isCharge(){
         if(strpos($this->compte, '6') !== 0)
             return false;
+        try{
+            Plan::contains( $this->compte );
+        }catch( ProductAndCenterException $e ){
+            throw $e;
+        }
         return true;
     }
 
