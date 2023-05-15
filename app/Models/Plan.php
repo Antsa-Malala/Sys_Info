@@ -138,7 +138,7 @@ class Plan extends Model{
     
     public static function contains( $plan ){
         $produits = Charge::getproduitbycharge( $this->compte );
-        $vides = []
+        $vides = [];
         foreach( $produits as $produit ){
             if( $produit->pourcentage == 0 ){
                 $vides[] = $produit;
