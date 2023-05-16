@@ -72,7 +72,7 @@ class OperationController extends Controller{
                     $operations[] = $operation; 
                 }catch( ProductAndCenterException $exception ){
                     $bool = true;
-                    $operation->error = $exception->getMessage();
+                    $operation['error'] = $exception->getMessage();
                     array_push( $errors , $operation );
                 }
             }
@@ -141,7 +141,6 @@ class OperationController extends Controller{
         }
         fclose($file);
         return redirect('journal');
-        // var_dump($csv);
     }
 
 }
