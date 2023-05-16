@@ -7,7 +7,9 @@ prix double precision not null default 0
 
 create table centre(
 idCentre SERIAL primary key,
-nomCentre VARCHAR not null
+nomCentre VARCHAR not null,
+id_type_centre int,
+FOREIGN KEY(id_type_centre) references type_centre(id)
 );
 
 
@@ -68,3 +70,9 @@ select idcharge,produit.*
     join produit
     on produit.idproduit=pourcentage_centre.idproduit 
     group by produit.idproduit,produit.nomproduit,produit.volume,produit.prix,idcharge;
+
+create table type_centre
+(
+id serial primary key,
+nom varchar(50)
+);
