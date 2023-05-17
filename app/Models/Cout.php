@@ -84,7 +84,7 @@ public static function getproduitcentre()
 }
 public static function coutbyproduitbycentre($idproduit)
 {
-    $nature = DB::select('SELECT cout.idcentre,centre.nomcentre,sum(montant) as montant from cout join centre on centre.idcentre=cout.idcentre where cout.idproduit=6 group by cout.idproduit,cout.idcentre,centre.nomcentre',[$idproduit]);
+    $nature = DB::select('SELECT cout.idcentre,centre.nomcentre,sum(montant) as montant from cout join centre on centre.idcentre=cout.idcentre where cout.idproduit=? group by cout.idproduit,cout.idcentre,centre.nomcentre',[$idproduit]);
     return $nature;
 }
 public static function chiffre_affaire()

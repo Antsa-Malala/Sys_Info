@@ -11,10 +11,12 @@ class ResultatController extends Controller {
         $produits = Cout::coutbyproduit();
         $centre = Cout::coutbycentre();
         $natures = Cout::coutbynature();
+        $produitscentre=Cout::getproduitcentre();
         // $pc = Cout::coutbycentrebyproduit();
         $data['produits'] = $produits;
         $data['centres'] = $centre;
         $data['natures'] = $natures;
+        $data['produits_centres'] = $produitscentre;
         // $data['produits_centres'] = $pc;
         return view('pages.resultat.resultat')->with($data);
     }

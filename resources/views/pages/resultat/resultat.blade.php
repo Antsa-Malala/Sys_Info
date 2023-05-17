@@ -44,16 +44,16 @@
 
         <div class="row">
             <h3 class="text-center mt-5">Cout de revient par produit et par centre</h3>
-            {{-- @foreach( $produits_centres as $pc )
+            @foreach( $produits_centres as $pc )
                 <div class="mx-4 my-4 shadow rounded-2 p-4 col-md-3">
-                    <p class="text-center">{{$pc->nomProduit}}</p>
+                    <p class="text-center">{{$pc->nomproduit}}</p>
                     <ul class="list-group list-group">
-                        <li class="list-group-item">Administration: 2000 Ariary</li> 
-                        <li class="list-group-item">Usine: 5000 Ariary</li>
-                        <li class="list-group-item">Plantation: 2000 Ariary</li>     
+                    @foreach ($pc->centre as $centre)
+                        <li class="list-group-item">{{$centre->nomcentre}} : {{ $centre->montant}}Ariary</li>    
+                    @endforeach
                     </ul>
                 </div>
-            @endforeach --}}
+            @endforeach 
         </div>
 
         <div class="row">
