@@ -61,17 +61,27 @@
             <div class="mx-4 my-4 shadow rounded-2 p-4 col-md-3">
                 <p class="text-center">Variable</p>
                 <ul class="list-group list-group">
-                    <li class="list-group-item">Administration: 2000 Ariary</li> 
-                    <li class="list-group-item">Usine: 5000 Ariary</li>
-                    <li class="list-group-item">Plantation: 2000 Ariary</li>     
+                    @foreach( $natures['variable'] as $variable )
+                        <li class="list-group-item">
+                          Charge {{ $variable->idcharge }} : {{$variable->montant}} Ariary
+                        </li> 
+                    @endforeach
+                    <li class="list-group-item my-3 text-white bg-dark ">
+                        Total = {{ $natures['sommevariable'] }}
+                    </li>
                 </ul>
             </div>
             <div class="mx-4 my-4 shadow rounded-2 p-4 col-md-3">
                 <p class="text-center">Fixe</p>
                 <ul class="list-group list-group">
-                    <li class="list-group-item">Administration: 2000 Ariary</li> 
-                    <li class="list-group-item">Usine: 5000 Ariary</li>
-                    <li class="list-group-item">Plantation: 2000 Ariary</li>     
+                    @foreach( $natures['fixe'] as $variable )
+                        <li class="list-group-item">
+                          Charge {{ $variable->idcharge }} : {{$variable->montant}} Ariary
+                        </li> 
+                    @endforeach
+                    <li class="list-group-item my-3 text-white bg-dark ">
+                        Total = {{ $natures['sommefixe'] }}
+                    </li>
                 </ul>
             </div>
         </div>

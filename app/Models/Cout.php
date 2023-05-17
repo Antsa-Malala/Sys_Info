@@ -33,7 +33,7 @@ public static function getcoutfixe()
     $nature = DB::select('SELECT COALESCE(sum(montant)*fixe/100,0) as montant,idcharge FROM cout where fixe!=0 group by idcharge,fixe');
     return $nature;
 }
-public function sommecoutfixe()
+public static function sommecoutfixe()
 {
     $nature = DB::select('SELECT COALESCE(sum(montant)*fixe/100,0) as montant FROM cout where fixe!=0 group by fixe');
     $somme=0;
@@ -48,7 +48,7 @@ public static function getcoutvariable()
     $nature = DB::select('SELECT COALESCE(sum(montant)*variable/100,0) as montant,idcharge FROM cout where variable!=0 group by idcharge,variable');
     return $nature;
 }
-public function sommecoutvariable()
+public static function sommecoutvariable()
 {
     $nature = DB::select('SELECT COALESCE(sum(montant)*variable/100,0) as montant FROM cout where variable!=0 group by variable');
     $somme=0;
@@ -84,7 +84,7 @@ public static function getproduitcentre()
 }
 public static function coutbyproduitbycentre($idproduit)
 {
-    $nature = DB::select('SELECT cout.idcentre,centre.nomcentre,sum(montant) as montant from cout join centre on centre.idcentre=cout.idcentre where cout.idproduit=? group by cout.idproduit,cout.idcentre,centre.nomcentre',[$idproduit]);
+    $nature = DB::select('SELECT cout.idcentre,centre.nomcentre,sum(montant) as montant from cout join centre on centre.idcentre=cout.idcentre where cout.idproduit=6 group by cout.idproduit,cout.idcentre,centre.nomcentre',[$idproduit]);
     return $nature;
 }
 public static function chiffre_affaire()

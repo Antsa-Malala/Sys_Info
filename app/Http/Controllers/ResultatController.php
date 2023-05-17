@@ -10,9 +10,11 @@ class ResultatController extends Controller {
         // Okey ato no angalana ny data rehetra apoitra aloha
         $produits = Cout::coutbyproduit();
         $centre = Cout::coutbycentre();
+        $natures = Cout::coutbynature();
         // $pc = Cout::coutbycentrebyproduit();
         $data['produits'] = $produits;
         $data['centres'] = $centre;
+        $data['natures'] = $natures;
         // $data['produits_centres'] = $pc;
         return view('pages.resultat.resultat')->with($data);
     }
