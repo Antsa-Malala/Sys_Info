@@ -191,3 +191,5 @@ Route::post('/centre-update', 'CentreController@update');
 Route::get('/insert-cout/{idcharge}/{montant}/{variable}/{fixe}/{date_operation}', 'CoutController@insertion_cout_produit');
 Route::get('/update-percentage/{idProduit}', 'CentreController@modifier_pourcentage');
 Route::post('/insert-update', 'CentreController@insertAndUpdate');
+
+Route::get('/resultat', 'ResultatController@index');
