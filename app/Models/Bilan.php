@@ -155,14 +155,36 @@ class Bilan extends Model
             return null;
         }
     }
-    public static function getSoldePassifs()
+    public static function getSoldePassifs($valeur)
     {
+        $result=null;
+        if($valeur<0)
+        {
+            $result = DB::select("
+            SELECT
+            CASE WHEN sum(solde) > 0 THEN sum(solde) ELSE NULL END AS solde_debit, 
+            CASE WHEN sum(solde)+".$valeur." < 0 THEN sum(solde) * -1 ELSE NULL END AS solde_credit 
+            from solde_passifs");
+        }
+        else if($valeur>=0){
+            $result = DB::select("
+            SELECT
+            CASE WHEN sum(solde) +".$valeur." > 0 THEN sum(solde) ELSE NULL END AS solde_debit, 
+            CASE WHEN sum(solde)< 0 THEN sum(solde) * -1 ELSE NULL END AS solde_credit 
+            from solde_passifs");
+        }
+        if (!empty($result)) {
+            return $result[0];
+        } else {
+            return null;
+        }
+    }
 
+    public static function getresultats()
+    {
         $result = DB::select("
-        SELECT
-        CASE WHEN sum(solde)> 0 THEN sum(solde) ELSE NULL END AS solde_debit, 
-        CASE WHEN sum(solde) < 0 THEN sum(solde) * -1 ELSE NULL END AS solde_credit 
-        from solde_passifs");
+        SELECT *
+        from resultats");
         if (!empty($result)) {
             return $result[0];
         } else {

@@ -17,14 +17,14 @@
             </div>
 
 
-            <div class="mx-4 rounded-2 p-4 col-md-3">
+            {{--<div class="mx-4 rounded-2 p-4 col-md-3">
                 <h3>Seuil de rentabilite</h3>
                 <ul class="list-group list-group">
                     <li class="list-group-item">Administration: 2000 Ariary</li> 
                     <li class="list-group-item">Usine: 5000 Ariary</li>
                     <li class="list-group-item">Plantation: 2000 Ariary</li>
                 </ul>
-            </div>
+            </div>--}}
 
 
             <div class="mx-4 rounded-2 p-4 col-md-3">
