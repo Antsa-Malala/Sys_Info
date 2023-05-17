@@ -109,6 +109,16 @@
                     <td>{{ $sum_pcs->solde_credit}}</td>
                 </tr>
             @endif
+            <th colspan="3">RESULTATS</th>
+            <tr >
+                <td>
+                    Resultat
+                </td>
+                <td >
+                    {{ $resultats-> resultats}}
+                </td>
+            </tr>
+
 
             <th colspan="3">PASSIFS NON COURANTS</th>
 
