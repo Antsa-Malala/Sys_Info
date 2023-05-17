@@ -181,8 +181,7 @@ class Operation extends Model{
         $this->save();
         if($this->isCharge())
         {
-            if($this->choix==1)
-            {
+            if( $this->type == 0 ){
                 Cout::insert_cout_produit($this->compte,$this->debit,$this->variable,$this->fixe,$date_operation);
             }
         }
