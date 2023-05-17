@@ -60,22 +60,22 @@ create or replace view produit_centre as
     produit.prix,
     produit.volume,
     pourcentage_centre.idcentre,
-    centre.nomCentre,
-    centre.id_type_centre,
+    c.nomCentre,
+    c.id_type_centre,
     pourcentage_centre.idcharge,
     pourcentage_produit.pourcentage as pourcentage_produit,
     pourcentage_centre.pourcentage as pourcentage_centre
     from pourcentage_centre 
     join pourcentage_produit 
     on pourcentage_centre.idproduit=pourcentage_produit.idproduit and pourcentage_centre.idcharge=pourcentage_produit.idcharge 
-    join centre on centre.idcentre=pourcentage_centre.idcentre
-    join type_centre on type_centre.id=centre.id_type_centre
-    join produit on produit.idproduit=pourcentage_centre.idproduit;
+    join centre as c on c.idcentre = pourcentage_centre.idcentre
+    join type_centre on type_centre.id = c.id_type_centre
+    join produit on produit.idproduit = pourcentage_centre.idproduit;
 
 create or replace view produit_present as 
 select idcharge,produit.*
     from pourcentage_centre
     join produit
-    on produit.idproduit=pourcentage_centre.idproduit 
+    on produit.idproduit = pourcentage_centre.idproduit 
     group by produit.idproduit,produit.nomproduit,produit.volume,produit.prix,idcharge;
 

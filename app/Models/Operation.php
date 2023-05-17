@@ -20,7 +20,7 @@ class Operation extends Model{
     ];
     public $variable;
     public $fixe;
-    public $type;
+    public $type = 1;
     public $error;
     protected $guarded = 1;
     public $incrementing = true;
@@ -115,7 +115,6 @@ class Operation extends Model{
     public function setTiers( $tiers = '' ){
         try{
             if( empty($tiers) ){
-                // var_dump($tiers);
                 $this->tiers = null;
             }else if(!empty(Tiers::exist($tiers))){
                 $this->tiers = $tiers;
@@ -182,7 +181,7 @@ class Operation extends Model{
         if($this->isCharge())
         {
             if( $this->type == 0 ){
-                Cout::insert_cout_produit($this->compte,$this->debit,$this->variable,$this->fixe,$date_operation);
+                Cout::insert_cout_produit($this->compte,$this->debit,$this->variable,$this->fixe,$this->$date_operation);
             }
         }
     }
