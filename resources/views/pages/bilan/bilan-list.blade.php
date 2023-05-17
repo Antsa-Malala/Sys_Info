@@ -115,7 +115,7 @@
                     Resultat
                 </td>
                 <td >
-                    {{ $resultats-> resultats}}
+                    {{ $resultats->resultats}}
                 </td>
             </tr>
 

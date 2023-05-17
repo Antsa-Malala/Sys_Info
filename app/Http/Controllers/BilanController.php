@@ -20,7 +20,7 @@ class BilanController extends Controller
         $sum_actifs_non_courants=Bilan::getSumANC();
         $solde_actifs=Bilan::getSoldeActifs();
         $resultats=Bilan::getresultats();
-        $solde_passifs=Bilan::getSoldePassifs($resultats);
+        $solde_passifs=Bilan::getSoldePassifs($resultats->resultats);
 
 
         return view('pages.bilan.bilan-list', [
