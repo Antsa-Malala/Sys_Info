@@ -252,11 +252,12 @@ select plan.compte,plan.libelle,sum(solde) as solde
 		group by plan.libelle,plan.compte;
 
 --compte de resultats
+
 CREATE OR REPLACE VIEW resultats as
 SELECT(
-  SELECT COALESCE(SUM(solde), 0) FROM CHARGES
+  SELECT COALESCE(SUM(solde*-1), 0) FROM CHARGES
 ) + (
-  SELECT COALESCE(SUM(solde), 0) FROM PRODUITS
+  SELECT COALESCE(SUM(solde*-1), 0) FROM PRODUITS
 ) AS resultats;
 
 

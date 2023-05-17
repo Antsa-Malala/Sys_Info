@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 
 class BilanController extends Controller
 {
-    public function getBilan()
-    {
+    public function getBilan(){
         $capitaux_propres = Bilan::getCP();
         $sum_capitaux_propres=Bilan::getSumCP();
         $passifs_courants=Bilan::getPC();
