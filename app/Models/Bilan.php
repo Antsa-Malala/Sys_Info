@@ -163,13 +163,13 @@ class Bilan extends Model
             $result = DB::select("
             SELECT
             CASE WHEN sum(solde) > 0 THEN sum(solde) ELSE NULL END AS solde_debit, 
-            CASE WHEN sum(solde)+".$valeur." < 0 THEN sum(solde) * -1 ELSE NULL END AS solde_credit 
+            CASE WHEN sum(solde)+".$valeur." < 0 THEN sum(solde) * -1 +".$valeur." ELSE NULL END AS solde_credit 
             from solde_passifs");
         }
         else if($valeur>=0){
             $result = DB::select("
             SELECT
-            CASE WHEN sum(solde) +".$valeur." > 0 THEN sum(solde) ELSE NULL END AS solde_debit, 
+            CASE WHEN sum(solde) +".$valeur." > 0 THEN sum(solde) +".$valeur." ELSE NULL END AS solde_debit, 
             CASE WHEN sum(solde)< 0 THEN sum(solde) * -1 ELSE NULL END AS solde_credit 
             from solde_passifs");
         }
