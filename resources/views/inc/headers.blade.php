@@ -20,7 +20,7 @@
             <li><a class="dropdown-item" href="{{ url('journal') }}">Afficher Journal</a></li>
             <li><a class="dropdown-item" href="{{ url('journaux-list') }}">Codes Journaux</a></li>
             <li><a class="dropdown-item" href="{{ url('balance') }}">Balance</a></li>
-            <li><a class="dropdown-item" href="{{ url('bilan') }}"> Voir le bilan </a></li>
+            {{-- <li><a class="dropdown-item" href="{{ url('bilan') }}"> Voir le bilan </a></li> --}}
             <li><a class="dropdown-item" href="{{ url('books') }}"> Grand Livre </a></li>
           </ul>
         </li>
