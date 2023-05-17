@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+	<script>
+		var o = 0;
+		var rows = "nature["+o+"]" 
+	</script>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-
-	{{-- Inona no atao ato --}}
-	{{-- Manao formulaire ampidirana écriture --}}
 	<div class="container">
 		<div class="container shadow p-3 my-3 card card-body">
 				<div class="title text-center ">
@@ -38,7 +39,7 @@
 							<td> 
 								{{-- Asiako input avy eto de alaiko ny select eo akaikiny --}}
 								<select name="compte[]" onchange="validate(this)" class="form-select">
-									<option value=""> Choissez Un compte </option>
+									<option value=""> Choisissez Un compte </option>
 									@for( $i = 0 ; $i < count($comptes) ; $i++ )
 										<option value="{{ $comptes[$i]->compte }}"> 
 										{{ $comptes[$i]->compte." - ".$comptes[$i]->libelle }} </option>
@@ -55,13 +56,18 @@
 									</div>
 									<div class="row mt-2">
 										<div class="col-md-6">
-											<input type="radio" placeholder="Variable" value="0" name="nature[]" class="form-check-input">
-											Incorporable
+											{{-- <input type="hidden" placeholder="Variable" value="1" name="nature[]" class="form-check-input"> --}}
+											{{-- <input type="checkbox" placeholder="Variable" value="0" required name="nature[]" class="form-check-input"> --}}
+											<select name="nature[]" id="">
+												<option value="0"> Incorporable </option>
+												<option value="1"> Non Incorporable </option>
+											</select>
+											{{-- Incorporable --}}
 										</div>
-										<div class="col-md-6">
-											<input type="radio" placeholder="Fixe" value="1" name="nature[]" class="form-check-input">
+										{{-- <div class="col-md-6">
+											<input type="radio" placeholder="Fixe" value="1" name="nature[0]" class="form-check-input">
 											Non Incorporable
-										</div>
+										</div> --}}
 									</div>
 									<div class="my-3">
 										<a target="_blank" href="add-percentage/" class="btn btn-primary row__btn"> Voir les produits </a>

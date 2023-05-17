@@ -120,6 +120,8 @@ class Produit extends Model{
         }
         return $pourcentageproduit;
     }
+
+    
     
     public static function getproduitpresent($idcharge)
     {

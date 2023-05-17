@@ -142,7 +142,6 @@ class Charge extends Model{
         if( empty($idproduit) ) throw new \Exception("L'id du produit est non defini");
         if( empty($idcharge) ) throw new \Exception("L'id de la charge est non defini");
         $idcharge = Charge::fillZero($idcharge);
-        //misy view vao noforonina ao amin'ny base.sql mampifandray pourcentage produit sy centre
         $produit = DB::select('SELECT * FROM produit_centre where idcharge=? and idproduit=?',[$idcharge,$idproduit]);
         return $produit;
     }

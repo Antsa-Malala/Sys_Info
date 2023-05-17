@@ -53,6 +53,8 @@ class OperationController extends Controller{
                 $errors = array();
         $bool = false;
 
+        // var_dump($natures);
+
         try {
             for($i = 0 ; $i < count($references) ; $i++) {
                 $operation = new Operation( $currentEcriture->idecriture , 
@@ -84,7 +86,7 @@ class OperationController extends Controller{
         $isEquilibre = $currentEcriture->isValidEcriture($operations);
         DB::beginTransaction();
             for ($i = 0 ; $i < count($operations) ; $i++ ) {
-                $operations[$i]->save();
+                $operations[$i]->try_save( $currentEcriture->dateecriture );
             }
             DB::commit();
         }catch(\Exception $e) {

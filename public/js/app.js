@@ -34,18 +34,20 @@ function hideInput( element ) {
 
 function clone(){
 	let c = document.querySelector('#original');
-	// azo izay ny original
-	// Inona ny manaraka
-	// console.log('AOUEEE');
 	let clone = c.cloneNode(true);
 	clone.removeAttribute('id');
 	let inputs = clone.querySelectorAll('input');
 	let selects = clone.querySelectorAll('select');
+	let radio = clone.querySelectorAll('input[type="checkbox"]');
 	inputs.forEach(input=>{
 		console.log('ito=====>' + input.getAttribute('type'));
 		if( !input.hasAttribute('readonly') ) input.value = '';
 		if( input.getAttribute('type') === 'number') input.value = '0';
 	});
+	radio.forEach(function(radioButton) {
+    	radioButton.checked = false;
+	});
+
 	selects.forEach(select=> select.selectedIndex = 0 );
 	document.querySelector('#operations').appendChild(clone);
 }

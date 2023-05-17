@@ -119,12 +119,14 @@ public static function insertion_cout($idproduit,$fixe,$variable,$idcentre,$idch
         $idcharge=Charge::fillZero($idcharge);
             $result = DB::insert("INSERT INTO cout(idproduit,fixe,variable,idcentre,idcharge,date_operation,montant)values(?,?,?,?,?,?,?)", [$idproduit,$fixe,$variable,$idcentre,$idcharge,$date_operation,$montant]);
     }catch(\Illuminate\Database\QueryException $e){
-        throw new DatabaseException("Insertion pourcentage centre par produit echouee",$e);
+        throw $e;
+        // throw new DatabaseException("Insertion pourcentage centre par produit echouee", $e );
     }
 }
 public static function insert_cout_produit($idcharge,$montant,$variable,$fixe,$date_operation)
     {
-        $produitbycharge=Charge::getproduitbycharge($idcharge);
+        $produitbycharge = Produit::getproduitcentrebycharge($idcharge);
+        // $produitbycharge = Charge::getproduitbycharge($idcharge);
         $f=($fixe*$montant)/100;
         $v=($variable*$montant)/100;
         if( $variable + $fixe !=100 ) throw new \Exception("Le pourcentage variable fixe devrait etre egal a 100");
@@ -132,11 +134,13 @@ public static function insert_cout_produit($idcharge,$montant,$variable,$fixe,$d
         else{
             for ($i = 0; $i < count($produitbycharge); $i++) {
                 $vola = $montant * $produitbycharge[$i]->pourcentage / 100 ;
-                $centre = Charge::getproduitcentre($idcharge,$produitbycharge[$i]->idproduit);
+                $centre = $produitbycharge[$i]->centre;
+                // $centre = Produit::getproduitcentrebycharge($idcharge,$produitbycharge[$i]->idproduit);
+                // var_dump($idcharge);
                 if( empty($centre) ) throw new \Exception("Vous devez definir les pourcentages de centre pour les produits de cette charge");
                 else{
                     for($j=0;$j<count($centre);$j++){
-                        $vola_centre=$vola*($centre[$j]->pourcentage_centre) / 100;
+                        $vola_centre = $vola * ($centre[$j]->pourcentage) / 100;
                         Cout::insertion_cout($produitbycharge[$i]->idproduit,$f,$v,$centre[$j]->idcentre,$idcharge,$date_operation,$vola_centre);
                     }
                 }
