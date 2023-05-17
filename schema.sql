@@ -105,13 +105,12 @@ create table reference(
 );
 
 
-create or replace view devises
-	as
-
-	select * 
-	from exchange_rate as e
-	join devise as d on e.idone = d.iddevise
-	join devise as r on e.idtwo = r.iddevise;
+--create or replace view devises
+	--as
+	--select * 
+	--from exchange_rate as e
+	--join devise as d on e.idone = d.iddevise
+	--join devise as r on e.idtwo = r.iddevise ;
 
 
 create or replace view balance
@@ -140,22 +139,22 @@ INSERT INTO ecriture (dateEcriture, libelle, idExercice, idcode) VALUES
 
 
 INSERT INTO operation (idEcriture, NumPiece, compte, tiers, libelle, debit, credit) VALUES
-    (1, 'AC00001', '60100', 'MENDRIKA', 'Achat rofia', 100000, 0),
-    (1, 'AC00001', '44560', 'MENDRIKA', 'TVA DEDUCTIBLE', 20000, 0),
-    (1, 'AC00001', '40310', 'MENDRIKA', 'Fournisseurs', 0, 120000),
-	(1, 'AC00001', '53100', 'MENDRIKA', 'Retrait caisse', 120000,0),
-    (1, 'AC00001', '40310', 'MENDRIKA', 'Fournisseurs',120000,0),
-	(2, 'VE00015', '70110', 'NORO', 'Vente panier', 0,30000),
-    (2, 'VE00015', '44570', 'NORO', 'TVA A VERSE',0, 6000),
-    (2, 'VE00015', '41110', 'NORO', 'Client',36000,0),
-	(2, 'VE00015', '51201', 'NORO', 'Retrait banque BOA',0,36000),
-    (2, 'VE00015', '41110', 'NORO', 'Client',36000,0),
-    (4, 'AN00009', '10100', 'RABE', 'Report à nouveau', 0,500000),
-	(4, 'AN00009', '53100', 'RABE', 'Capital', 500000,0),
-    (5, 'BN00012', '21300', 'JIRAMA', 'Achat de materiels', 10000, 0),
-    (5, 'BN00012', '51202', 'JIRAMA', 'Retrait bancaire', 0,10000),
-    (6, 'OD00015', '51201', 'RANDRIA', 'Retrait achat de mais', 0,20000),
-    (6, 'OD00015', '35500', 'RANDRIA', 'Ajout stocks',20000, 0);
+    (41, 'AC00001', '60100', 'MENDRIKA', 'Achat rofia', 100000, 0),
+    (41, 'AC00001', '44560', 'MENDRIKA', 'TVA DEDUCTIBLE', 20000, 0),
+    (41, 'AC00001', '40310', 'MENDRIKA', 'Fournisseurs', 0, 120000),
+	(41, 'AC00001', '53100', 'MENDRIKA', 'Retrait caisse', 120000,0),
+    (41, 'AC00001', '40310', 'MENDRIKA', 'Fournisseurs',120000,0),
+	(42, 'VE00015', '70110', 'NORO', 'Vente panier', 0,30000),
+    (42, 'VE00015', '44570', 'NORO', 'TVA A VERSE',0, 6000),
+    (42, 'VE00015', '41110', 'NORO', 'Client',36000,0),
+	(42, 'VE00015', '51201', 'NORO', 'Retrait banque BOA',0,36000),
+    (42, 'VE00015', '41110', 'NORO', 'Client',36000,0),
+    (44, 'AN00009', '10100', 'RABE', 'Report à nouveau', 0,500000),
+	(44, 'AN00009', '53100', 'RABE', 'Capital', 500000,0),
+    (45, 'BN00012', '21300', 'JIRAMA', 'Achat de materiels', 10000, 0),
+    (45, 'BN00012', '51202', 'JIRAMA', 'Retrait bancaire', 0,10000),
+    (46, 'OD00015', '51201', 'RANDRIA', 'Retrait achat de mais', 0,20000),
+    (46, 'OD00015', '35500', 'RANDRIA', 'Ajout stocks',20000, 0);
 
 
 --CAPITAUX PROPRES

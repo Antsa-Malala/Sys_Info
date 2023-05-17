@@ -9,10 +9,10 @@ class Centre extends Model{
     protected $table = 'centre';
 
     //insertion centre
-    public static function insert($nom) {
+    public static function insert($nom,$idtype) {
         if( empty($nom) ) throw new \Exception("Le nom du centre ne peut etre vide");
         try{
-            $result = DB::insert("INSERT INTO centre(nomcentre) VALUES(?)", [$nom]);
+            $result = DB::insert("INSERT INTO centre(nomcentre,id_type_centre) VALUES(?,?)", [$nom,$idtype]);
         }catch(\Illuminate\Database\QueryException $e){
             throw new DatabaseException("Insertion centre echouee",$e);
         }

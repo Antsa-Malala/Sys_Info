@@ -20,7 +20,8 @@ class CentreController extends Controller
     {
 
         $nom = trim($request->input('nom_centre'));
-        Centre::insert($nom);
+        $idtype=$request->input('type_centre');
+        Centre::insert($nom,$idtype);
         return redirect('centre-list');
     }
     public function importCSV(Request $request){
@@ -37,7 +38,7 @@ class CentreController extends Controller
         try{
             while( $line = fgetcsv($file) ){
                 //var_dump($line);
-                Centre::insert( trim($line[0]) );
+                Centre::insert( trim($line[0]) ,1);
             }
             DB::commit();
         }catch(Exception $e){

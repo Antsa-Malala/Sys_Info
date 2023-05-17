@@ -5,9 +5,17 @@ volume int not null default 0,
 prix double precision not null default 0
 );
 
+create table type_centre
+(
+id serial primary key,
+nom varchar(50) unique
+);
+
 create table centre(
 idCentre SERIAL primary key,
-nomCentre VARCHAR not null
+nomCentre VARCHAR not null,
+id_type_centre int,
+FOREIGN KEY(id_type_centre) references type_centre(id)
 );
 
 
@@ -45,7 +53,7 @@ create table pourcentage_centre(
     foreign key(idCentre) references Centre(idCentre)
 );
 
-create view produit_centre as 
+create or replace view produit_centre as 
     select 
     pourcentage_centre.idproduit,
     produit.nomProduit,
@@ -53,6 +61,7 @@ create view produit_centre as
     produit.volume,
     pourcentage_centre.idcentre,
     centre.nomCentre,
+    centre.id_type_centre,
     pourcentage_centre.idcharge,
     pourcentage_produit.pourcentage as pourcentage_produit,
     pourcentage_centre.pourcentage as pourcentage_centre
@@ -60,11 +69,13 @@ create view produit_centre as
     join pourcentage_produit 
     on pourcentage_centre.idproduit=pourcentage_produit.idproduit and pourcentage_centre.idcharge=pourcentage_produit.idcharge 
     join centre on centre.idcentre=pourcentage_centre.idcentre
+    join type_centre on type_centre.id=centre.id_type_centre
     join produit on produit.idproduit=pourcentage_centre.idproduit;
 
-create view produit_present as 
+create or replace view produit_present as 
 select idcharge,produit.*
     from pourcentage_centre
     join produit
     on produit.idproduit=pourcentage_centre.idproduit 
     group by produit.idproduit,produit.nomproduit,produit.volume,produit.prix,idcharge;
+

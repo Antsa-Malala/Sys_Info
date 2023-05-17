@@ -125,18 +125,19 @@ public static function insertion_cout($idproduit,$fixe,$variable,$idcentre,$idch
 public static function insert_cout_produit($idcharge,$montant,$variable,$fixe,$date_operation)
     {
         $produitbycharge=Charge::getproduitbycharge($idcharge);
-        if( $variable+$fixe!=100 ) throw new \Exception("Le pourcentage variable fixe devrait etre egal a 100");
+        $f=($fixe*$montant)/100;
+        $v=($variable*$montant)/100;
+        if( $variable + $fixe !=100 ) throw new \Exception("Le pourcentage variable fixe devrait etre egal a 100");
         if( empty($produitbycharge) ) throw new \Exception("Vous devez definir les pourcentage de produit pour cette charge");
         else{
             for ($i = 0; $i < count($produitbycharge); $i++) {
-                $vola=$montant*$produitbycharge[$i]->pourcentage/100;
-                $centre=Charge::getproduitcentre($idcharge,$produitbycharge[$i]->idproduit);
+                $vola = $montant * $produitbycharge[$i]->pourcentage / 100 ;
+                $centre = Charge::getproduitcentre($idcharge,$produitbycharge[$i]->idproduit);
                 if( empty($centre) ) throw new \Exception("Vous devez definir les pourcentages de centre pour les produits de cette charge");
                 else{
-                    for($j=0;$j<count($centre);$j++)
-                    {
-                    $vola_centre=$vola*($centre[$j]->pourcentage_centre)/100;
-                    Cout::insertion_cout($produitbycharge[$i]->idproduit,$fixe,$variable,$centre[$j]->idcentre,$idcharge,$date_operation,$vola_centre);
+                    for($j=0;$j<count($centre);$j++){
+                        $vola_centre=$vola*($centre[$j]->pourcentage_centre) / 100;
+                        Cout::insertion_cout($produitbycharge[$i]->idproduit,$f,$v,$centre[$j]->idcentre,$idcharge,$date_operation,$vola_centre);
                     }
                 }
             }

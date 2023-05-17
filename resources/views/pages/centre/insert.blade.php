@@ -9,6 +9,16 @@
                 <label for="nom_centre" class="form-label">Nom</label>
                 <input type="text" name="nom_centre" class="form-control my-2" id="nom_centre" required>
             </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <input type="radio" value="1" name="type_centre" class="form-check-input">
+                    Centre operationnel
+                </div>
+                <div class="col-md-6">
+                    <input type="radio" value="2" name="type_centre" class="form-check-input">
+                    Centre de structure
+                </div>
+            </div>
             <div class="mb-3">
                 <input type="submit" value="Inserer" class="btn btn-primary">
             </div>

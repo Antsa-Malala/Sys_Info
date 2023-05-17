@@ -56,11 +56,11 @@
 									<div class="row mt-2">
 										<div class="col-md-6">
 											<input type="radio" placeholder="Variable" value="0" name="nature[]" class="form-check-input">
-											Incorporel
+											Incorporable
 										</div>
 										<div class="col-md-6">
 											<input type="radio" placeholder="Fixe" value="1" name="nature[]" class="form-check-input">
-											Non Incorporel
+											Non Incorporable
 										</div>
 									</div>
 									<div class="my-3">
